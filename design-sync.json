@@ -1,0 +1,42 @@
+{
+  "source": "src/theme.ts",
+  "tool": "Pencil · Huddle document · onboarding, home, creation, and Huddle+ frames",
+  "naming": "Code token keys are recorded as colors.*, space.*, and radius.*; Pencil variables use the matching huddle.* roles.",
+  "synced": "2026-11-19",
+  "tokens": {
+    "colors.ink": "#202021",
+    "colors.muted": "#5D5D5A",
+    "colors.canvas": "#F1F1F3",
+    "colors.surface": "#FFFFFF",
+    "colors.primary": "#5947C4",
+    "colors.accent": "#978EFF",
+    "colors.lavender": "#F0EEFF",
+    "colors.line": "#E1E1E7",
+    "colors.success": "#176D3D",
+    "colors.successBg": "#E5F3E9",
+    "colors.warning": "#805000",
+    "colors.warningBg": "#FFF0DA",
+    "colors.danger": "#A52A37",
+    "colors.dangerBg": "#FCEBED",
+    "space.x1": 4,
+    "space.x2": 8,
+    "space.x3": 12,
+    "space.x4": 16,
+    "space.x5": 24,
+    "space.x6": 32,
+    "radius.small": 8,
+    "radius.medium": 16,
+    "radius.card": 24,
+    "radius.pill": 999
+  },
+  "components": {
+    "SportsSelectionScreen": "drawn · mf2Fc",
+    "SportSkillsScreen": "drawn · eQN7w and sport variants",
+    "HomeScreen": "drawn · j1LW2",
+    "CreateMatchStepOne": "drawn · ZFYQQ",
+    "PremiumScreen": "drawn · b4Ysk",
+    "PremiumSuccessScreen": "drawn · Xf4ud",
+    "WeeklyQuotaCard": "drawn · j1LW2",
+    "CreationQuotaBanner": "drawn · ZFYQQ"
+  }
+}
