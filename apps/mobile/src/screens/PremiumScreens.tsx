@@ -161,7 +161,7 @@ export function QuotaLimitScreen({
   const entry = action === 'entry';
   const limit = entry ? 3 : 2;
   const remaining = remainingWeeklyUsage(matches, joinedIds, date, plan);
-  const used = limit - (entry ? remaining.entries : remaining.creations);
+  const available = entry ? remaining.entries : remaining.creations;
   return (
     <ScreenScroll atmosphere="premium" contentStyle={{ gap: 20, paddingTop: 8, paddingBottom: 24 }}>
       <BackHeader onBack={onBack} />
@@ -174,7 +174,9 @@ export function QuotaLimitScreen({
         subtitle={
           plan === 'plus'
             ? 'O Huddle+ remove esse limite.'
-            : `Você já ${entry ? 'entrou em 3 partidas' : 'criou 2 partidas'} na semana do jogo.`
+            : entry
+              ? 'Não há mais entradas grátis disponíveis nesta semana.'
+              : 'Não há mais partidas grátis disponíveis para criar nesta semana.'
         }
       />
       <AppCard style={{ padding: 20, borderRadius: 22, gap: 12 }}>
@@ -189,18 +191,29 @@ export function QuotaLimitScreen({
               fontWeight: '700',
             }}
           >
-            {plan === 'plus' ? 'Sem limite' : `${used} / ${limit}`}
+            {plan === 'plus' ? 'Sem limite' : `${available} / ${limit}`}
           </Text>
-          <Text style={copyStyle.title}>{entry ? 'entradas usadas' : 'partidas criadas'}</Text>
+          <Text style={copyStyle.title}>
+            {entry ? 'entradas disponíveis' : 'partidas para criar'}
+          </Text>
         </View>
-        <View style={{ flexDirection: 'row', gap: 4 }}>
-          {Array.from({ length: limit }, (_, i) => `limit-segment-${i + 1}`).map((segmentId) => (
-            <View
-              key={segmentId}
-              style={{ flex: 1, height: 6, borderRadius: 3, backgroundColor: '#978EFF' }}
-            />
-          ))}
-        </View>
+        {plan === 'plus' ? null : (
+          <View style={{ flexDirection: 'row', gap: 4 }}>
+            {Array.from({ length: limit }, (_, i) => `limit-segment-${i + 1}`).map(
+              (segmentId, index) => (
+                <View
+                  key={segmentId}
+                  style={{
+                    flex: 1,
+                    height: 6,
+                    borderRadius: 3,
+                    backgroundColor: index < available ? '#978EFF' : '#D1CEDB',
+                  }}
+                />
+              ),
+            )}
+          </View>
+        )}
         <Text style={copyStyle.body}>
           {entry
             ? 'Conta pela semana do jogo. Se você cancelar antes da partida, a entrada volta a ficar disponível.'
@@ -263,12 +276,12 @@ export function HighlightScreen({
         <AppPill text="Huddle+ ativo" tone="accent" />
         <PageTitle
           title="Seus destaques voltam na próxima semana."
-          subtitle="Você já usou os 3 destaques desta semana. Suas partidas continuam na lista de abertas."
+          subtitle="Não há mais destaques disponíveis nesta semana. Suas partidas continuam na lista de abertas."
         />
         <AppCard style={{ backgroundColor: '#EDE9FA', gap: 12 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={copyStyle.title}>Destaques disponíveis</Text>
-            <Text style={copyStyle.title}>0 / 3</Text>
+            <Text style={copyStyle.title}>Saldo semanal</Text>
+            <Text style={copyStyle.title}>0 de 3 disponíveis</Text>
           </View>
           <View style={{ flexDirection: 'row', gap: 4 }}>
             {[1, 2, 3].map((i) => (
@@ -426,7 +439,11 @@ export function HighlightActiveScreen({
         <AppPill text={`Partida em destaque · ${sportName(match.sport)}`} tone="accent" />
       </AppCard>
       <AppCard>
-        <Text style={copyStyle.title}>{remaining} destaques ainda disponíveis esta semana</Text>
+        <Text style={copyStyle.title}>
+          {remaining}{' '}
+          {remaining === 1 ? 'destaque ainda disponível' : 'destaques ainda disponíveis'} esta
+          semana
+        </Text>
       </AppCard>
       <ActionButton title="Ver partida" icon="arrow" onPress={onMatch} />
     </ScreenScroll>
@@ -440,6 +457,7 @@ export function OrganizerManageScreen({
   onToggleAutoFill,
   onInviteNext,
   onUpgrade,
+  onFinish,
 }: {
   match: Match;
   plan: PlanId;
@@ -447,6 +465,7 @@ export function OrganizerManageScreen({
   onToggleAutoFill: () => void;
   onInviteNext: () => void;
   onUpgrade: () => void;
+  onFinish: () => void;
 }) {
   const premium = plan === 'plus';
   const cutoff = new Date(match.startsAt).getTime() - 24 * 60 * 60 * 1000;
@@ -599,6 +618,11 @@ export function OrganizerManageScreen({
         A confirmação de presença fica disponível nas 24 horas antes da partida. Depois desse prazo,
         você decide manualmente.
       </Text>
+      {Date.now() >= new Date(match.startsAt).getTime() &&
+      match.status !== 'finished' &&
+      match.status !== 'cancelled' ? (
+        <ActionButton title="Finalizar partida" icon="check" tone="soft" onPress={onFinish} />
+      ) : null}
     </ScreenScroll>
   );
 }

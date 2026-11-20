@@ -2,37 +2,31 @@
   "name": "huddle",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "start": "expo start",
-    "start:tunnel": "expo start --tunnel --clear",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "web:8082": "expo start --web --port 8082",
-    "format": "biome format --write .",
-    "lint": "biome lint .",
+    "start": "npm run start --workspace @huddle/mobile",
+    "dev": "node scripts/dev.mjs",
+    "start:tunnel": "npm run start:tunnel --workspace @huddle/mobile",
+    "mobile:start": "npm run start --workspace @huddle/mobile",
+    "mobile:tunnel": "npm run start:tunnel --workspace @huddle/mobile",
+    "mobile:web": "npm run web --workspace @huddle/mobile",
+    "android": "npm run android --workspace @huddle/mobile",
+    "ios": "npm run ios --workspace @huddle/mobile",
+    "web": "npm run web --workspace @huddle/mobile",
+    "web:8082": "npm run web:8082 --workspace @huddle/mobile",
+    "api:dev": "npm run dev --workspace @huddle/api",
+    "api:start": "npm run start --workspace @huddle/api",
     "check": "biome check .",
     "check:fix": "biome check --write .",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@expo/metro-runtime": "~58.0.17",
-    "@hugeicons/core-free-icons": "^4.4.0",
-    "@hugeicons/react-native": "^1.0.16",
-    "expo": "~58.0.26",
-    "expo-font": "~58.0.11",
-    "expo-status-bar": "~58.0.5",
-    "react": "19.3.0",
-    "react-dom": "^19.3.0",
-    "react-native": "0.88.1",
-    "react-native-svg": "15.16.0",
-    "react-native-web": "^0.21.4"
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "typecheck": "npm run typecheck --workspace @huddle/mobile && npm run typecheck --workspace @huddle/api"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.4",
-    "@types/react": "~19.3.0",
-    "babel-preset-expo": "~58.0.24",
+    "@types/node": "^26.6.6",
     "typescript": "~6.0.3"
   }
 }

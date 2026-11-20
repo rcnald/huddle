@@ -1,4 +1,5 @@
 import type React from 'react';
+import { useState } from 'react';
 import {
   Pressable,
   ScrollView,
@@ -6,8 +7,10 @@ import {
   StyleSheet,
   Text,
   View,
+  type TextStyle,
   type ViewStyle,
 } from 'react-native';
+import Animated, { cubicBezier, useReducedMotion } from 'react-native-reanimated';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 import { sportName, sports } from '../data/sports';
 import { colors } from '../theme';
@@ -18,6 +21,33 @@ import { Avatar, AvatarStack } from './Avatar';
 import { ActionButton } from './Controls';
 import { HuddleMark } from './HuddleMark';
 import { AppIcon } from './Icon';
+
+const tabPressTransition = {
+  transitionProperty: 'transform',
+  transitionDuration: '120ms',
+  transitionTimingFunction: cubicBezier(0.23, 1, 0.32, 1),
+} as unknown as ViewStyle;
+const tabIconTransition = {
+  transitionProperty: 'opacity',
+  transitionDuration: '140ms',
+  transitionTimingFunction: 'ease',
+} as unknown as ViewStyle;
+const tabLabelTransition = {
+  transitionProperty: 'color',
+  transitionDuration: '140ms',
+  transitionTimingFunction: 'ease',
+} as unknown as TextStyle;
+const sportFilterTransition = {
+  transitionProperty: ['transform', 'backgroundColor', 'borderColor'],
+  transitionDuration: ['120ms', '150ms', '150ms'],
+  transitionTimingFunction: [cubicBezier(0.23, 1, 0.32, 1), 'ease', 'ease'],
+} as unknown as ViewStyle;
+const sportFilterTextTransition = {
+  transitionProperty: 'color',
+  transitionDuration: '150ms',
+  transitionTimingFunction: 'ease',
+} as unknown as TextStyle;
+type SportFilterChoice = { id: 'all' | SportId; label: string; icon: 'group' | SportId };
 
 export function HuddleWordmark({ size = 20 }: { size?: number }) {
   return (
@@ -112,7 +142,7 @@ export function SportFilterRow({
   available?: SportId[];
   includeAll?: boolean;
 }) {
-  const choices: { id: 'all' | SportId; label: string; icon: 'group' | SportId }[] = [
+  const choices: SportFilterChoice[] = [
     ...(includeAll ? [{ id: 'all' as const, label: 'Todos', icon: 'group' as const }] : []),
     ...sports
       .filter((sport) => !available || available.includes(sport.id))
@@ -125,29 +155,56 @@ export function SportFilterRow({
       contentContainerStyle={styles.sportFilters}
     >
       {choices.map((choice) => (
-        <Pressable
+        <SportFilterChip
           key={choice.id}
-          accessibilityRole="tab"
-          accessibilityState={{ selected: selected === choice.id }}
-          onPress={() => onSelect(choice.id)}
-          style={[styles.sportFilter, selected === choice.id && styles.sportFilterSelected]}
-        >
-          <AppIcon
-            name={choice.icon}
-            size={14}
-            color={selected === choice.id ? '#FFFFFF' : colors.muted}
-          />
-          <Text
-            style={[
-              styles.sportFilterText,
-              selected === choice.id && styles.sportFilterTextSelected,
-            ]}
-          >
-            {choice.label}
-          </Text>
-        </Pressable>
+          choice={choice}
+          selected={selected === choice.id}
+          onSelect={() => onSelect(choice.id)}
+        />
       ))}
     </ScrollView>
+  );
+}
+
+function SportFilterChip({
+  choice,
+  selected,
+  onSelect,
+}: {
+  choice: SportFilterChoice;
+  selected: boolean;
+  onSelect: () => void;
+}) {
+  const reducedMotion = useReducedMotion();
+  const [pressing, setPressing] = useState(false);
+  return (
+    <Pressable
+      accessibilityRole="tab"
+      accessibilityState={{ selected }}
+      onPress={onSelect}
+      onPressIn={() => setPressing(true)}
+      onPressOut={() => setPressing(false)}
+    >
+      <Animated.View
+        style={[
+          styles.sportFilter,
+          sportFilterTransition,
+          selected && styles.sportFilterSelected,
+          pressing && !reducedMotion && styles.sportFilterPressed,
+        ]}
+      >
+        <AppIcon name={choice.icon} size={14} color={selected ? '#FFFFFF' : colors.muted} />
+        <Animated.Text
+          style={[
+            styles.sportFilterText,
+            sportFilterTextTransition,
+            selected && styles.sportFilterTextSelected,
+          ]}
+        >
+          {choice.label}
+        </Animated.Text>
+      </Animated.View>
+    </Pressable>
   );
 }
 
@@ -163,28 +220,32 @@ export function WeeklyQuotaCard({
   compact?: boolean;
 }) {
   const premium = plan === 'plus';
-  const tile = (label: string, used: number, limit: number) => (
-    <View key={label} style={styles.quotaTile}>
-      <Text style={styles.quotaLabel}>{label}</Text>
-      <Text numberOfLines={1} style={styles.quotaValue}>
-        {premium
-          ? 'Sem limite'
-          : `${Math.max(0, limit - used)} disponível · ${used} de ${limit} usadas`}
-      </Text>
-      {!premium ? (
-        <View style={styles.quotaSegments}>
-          {Array.from({ length: limit }, (_, index) => `${label}-segment-${index + 1}`).map(
-            (segmentId, index) => (
-              <View
-                key={segmentId}
-                style={[styles.quotaSegment, index < used && styles.quotaSegmentUsed]}
-              />
-            ),
-          )}
-        </View>
-      ) : null}
-    </View>
-  );
+  const availableHighlights = Math.max(0, 3 - usage.highlights);
+  const tile = (label: string, used: number, limit: number) => {
+    const available = Math.max(0, limit - used);
+    return (
+      <View key={label} style={styles.quotaTile}>
+        <Text style={styles.quotaLabel}>{label}</Text>
+        <Text numberOfLines={1} style={styles.quotaValue}>
+          {premium
+            ? 'Sem limite'
+            : `${available} ${available === 1 ? 'disponível' : 'disponíveis'}`}
+        </Text>
+        {!premium ? (
+          <View style={styles.quotaSegments}>
+            {Array.from({ length: limit }, (_, index) => `${label}-segment-${index + 1}`).map(
+              (segmentId, index) => (
+                <View
+                  key={segmentId}
+                  style={[styles.quotaSegment, index < available && styles.quotaSegmentAvailable]}
+                />
+              ),
+            )}
+          </View>
+        ) : null}
+      </View>
+    );
+  };
   return (
     <View style={[styles.weeklyQuota, compact && styles.weeklyQuotaCompact]}>
       <Svg
@@ -222,7 +283,9 @@ export function WeeklyQuotaCard({
       </View>
       <View style={styles.quotaFooter}>
         <Text numberOfLines={1} style={styles.quotaFootnote}>
-          {premium ? `Destaques · ${usage.highlights} de 3 usados` : 'Conta pela semana do jogo'}
+          {premium
+            ? `Destaques · ${availableHighlights} ${availableHighlights === 1 ? 'disponível' : 'disponíveis'}`
+            : 'Conta pela semana do jogo'}
         </Text>
         <Pressable accessibilityRole="button" onPress={onUpgrade} style={styles.quotaUpgrade}>
           <AppIcon name={premium ? 'arrow' : 'star'} size={14} color={colors.primary} />
@@ -237,8 +300,10 @@ export function CreationQuotaBanner({ plan, used }: { plan: PlanId; used: number
   const remaining = Math.max(0, 2 - used);
   const copy =
     remaining > 0
-      ? `Você pode criar mais ${remaining} de 2 partidas grátis.`
-      : 'Você já criou 2 de 2 partidas grátis nesta semana.';
+      ? remaining === 1
+        ? 'Você tem 1 partida grátis disponível para criar nesta semana.'
+        : `Você tem ${remaining} partidas grátis disponíveis para criar nesta semana.`
+      : 'Nenhuma partida grátis disponível para criar nesta semana.';
   return (
     <View style={styles.creationQuota}>
       <AppIcon name={plan === 'plus' ? 'star' : 'add'} size={18} color={colors.primary} />
@@ -478,6 +543,8 @@ export function FloatingNavigation({
   onCreate: () => void;
   upcomingCount: number;
 }) {
+  const reducedMotion = useReducedMotion();
+  const [createPressed, setCreatePressed] = useState(false);
   const tabs: {
     label: string;
     icon: 'home' | 'search' | 'calendar' | 'user';
@@ -506,12 +573,22 @@ export function FloatingNavigation({
         accessibilityRole="button"
         accessibilityLabel="Criar partida"
         onPress={onCreate}
-        style={styles.createTab}
+        onPressIn={() => setCreatePressed(true)}
+        onPressOut={() => setCreatePressed(false)}
+        style={styles.createTabHitArea}
       >
-        <View style={styles.createCircle}>
-          <AppIcon name="plus" size={21} color="#FFFFFF" />
-        </View>
-        <Text style={styles.tabLabel}>Criar</Text>
+        <Animated.View
+          style={[
+            styles.createTab,
+            tabPressTransition,
+            createPressed && !reducedMotion && styles.tabPressed,
+          ]}
+        >
+          <View style={styles.createCircle}>
+            <AppIcon name="plus" size={21} color="#FFFFFF" />
+          </View>
+          <Text style={styles.tabLabel}>Criar</Text>
+        </Animated.View>
       </Pressable>
       <Tab
         label="Partidas"
@@ -544,22 +621,34 @@ function Tab({
   badge: number;
   onPress: () => void;
 }) {
+  const reducedMotion = useReducedMotion();
+  const [pressing, setPressing] = useState(false);
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={onPress}
-      style={styles.tab}
+      onPressIn={() => setPressing(true)}
+      onPressOut={() => setPressing(false)}
+      style={styles.tabHitArea}
     >
-      <View style={styles.tabIcon}>
-        <AppIcon name={icon} size={19} color={active ? colors.primary : colors.muted} />
-        {badge > 0 ? (
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{badge}</Text>
-          </View>
-        ) : null}
-      </View>
-      <Text style={[styles.tabLabel, active && styles.tabLabelActive]}>{label}</Text>
+      <Animated.View
+        style={[styles.tab, tabPressTransition, pressing && !reducedMotion && styles.tabPressed]}
+      >
+        <Animated.View style={[styles.tabIcon, tabIconTransition, { opacity: active ? 1 : 0.78 }]}>
+          <AppIcon name={icon} size={19} color={active ? colors.primary : colors.muted} />
+          {badge > 0 ? (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{badge}</Text>
+            </View>
+          ) : null}
+        </Animated.View>
+        <Animated.Text
+          style={[styles.tabLabel, tabLabelTransition, active && styles.tabLabelActive]}
+        >
+          {label}
+        </Animated.Text>
+      </Animated.View>
     </Pressable>
   );
 }
@@ -949,7 +1038,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     elevation: 6,
   },
+  tabHitArea: { flex: 1, minHeight: 54 },
   tab: { flex: 1, minHeight: 54, alignItems: 'center', justifyContent: 'center', gap: 2 },
+  tabPressed: { transform: [{ scale: 0.98 }] },
   tabIcon: { width: 30, height: 26, alignItems: 'center', justifyContent: 'center' },
   tabLabel: { color: colors.muted, fontFamily: 'Manrope', fontSize: 9, fontWeight: '500' },
   tabLabelActive: { color: colors.primary, fontWeight: '700' },
@@ -966,6 +1057,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   badgeText: { color: colors.primaryDark, fontFamily: 'Manrope', fontSize: 8, fontWeight: '700' },
+  createTabHitArea: { flex: 1, minHeight: 54 },
   createTab: { flex: 1, minHeight: 54, alignItems: 'center', justifyContent: 'center', gap: 2 },
   createCircle: {
     width: 28,
@@ -988,6 +1080,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  sportFilterPressed: { transform: [{ scale: 0.98 }] },
   sportFilterSelected: { backgroundColor: colors.primary, borderColor: colors.primary },
   sportFilterText: { color: colors.muted, fontFamily: 'Manrope', fontSize: 12, fontWeight: '600' },
   sportFilterTextSelected: { color: '#FFFFFF' },
@@ -1018,7 +1111,7 @@ const styles = StyleSheet.create({
   quotaValue: { color: colors.primary, fontFamily: 'Manrope', fontSize: 10, fontWeight: '700' },
   quotaSegments: { flexDirection: 'row', gap: 3 },
   quotaSegment: { flex: 1, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.9)' },
-  quotaSegmentUsed: { backgroundColor: '#9587E8' },
+  quotaSegmentAvailable: { backgroundColor: '#9587E8' },
   quotaFooter: {
     flexDirection: 'row',
     alignItems: 'center',

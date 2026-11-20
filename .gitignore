@@ -2,6 +2,8 @@ node_modules/
 .expo/
 dist/
 web-build/
+apps/api/data/*.sqlite
+apps/api/data/*.sqlite-*
 *.log
 .env
 .env.*

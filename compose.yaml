@@ -1,0 +1,31 @@
+name: huddle
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4000
+      DATABASE_PATH: /var/lib/huddle/huddle.sqlite
+      ALLOW_SIMULATED_PLUS: "true"
+    volumes:
+      - huddle_sqlite_data:/var/lib/huddle
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:4000/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  huddle_sqlite_data:

@@ -4,14 +4,10 @@
     "strict": true,
     "noEmit": true,
     "jsx": "react-native",
+    "types": ["node", "react"],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

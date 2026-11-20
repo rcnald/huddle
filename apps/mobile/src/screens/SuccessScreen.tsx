@@ -1,4 +1,6 @@
-import { Image, Text, View } from 'react-native';
+import { useId } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 import { AppCard, AppPill, BackHeader, ScreenScroll } from '../components/Blocks';
 import { ActionButton } from '../components/Controls';
 import { colors } from '../theme';
@@ -51,6 +53,7 @@ const content: Record<
 };
 export function SuccessScreen({ kind, onContinue }: { kind: Kind; onContinue: () => void }) {
   const item = content[kind];
+  const gradientId = `success-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   return (
     <ScreenScroll contentStyle={{ flexGrow: 1, paddingTop: 8, paddingBottom: 24, gap: 20 }}>
       <BackHeader onBack={onContinue} />
@@ -58,11 +61,22 @@ export function SuccessScreen({ kind, onContinue }: { kind: Kind; onContinue: ()
         style={{
           backgroundColor: '#F2EFFF',
           borderRadius: 28,
+          overflow: 'hidden',
           padding: 20,
           alignItems: 'center',
           gap: 12,
         }}
       >
+        <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%">
+          <Defs>
+            <LinearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <Stop offset="0%" stopColor="#E9E5FF" />
+              <Stop offset="60%" stopColor="#F6F4FF" />
+              <Stop offset="100%" stopColor="#EAF6ED" />
+            </LinearGradient>
+          </Defs>
+          <Rect width="100%" height="100%" fill={`url(#${gradientId})`} />
+        </Svg>
         <Image
           source={require('../../assets/illustrations/huddleplus-success.png')}
           resizeMode="contain"

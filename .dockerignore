@@ -1,0 +1,9 @@
+.git
+.expo
+**/.expo
+node_modules
+**/node_modules
+dist
+web-build
+apps/api/data
+**/.env*

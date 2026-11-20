@@ -118,8 +118,8 @@ export function SignUpScreen({
         title="Criar conta"
         icon="userAdd"
         onPress={() => {
-          if (!name.trim() || !email.includes('@') || password.length < 6) {
-            setError('Informe seu nome, um e-mail válido e uma senha com pelo menos 6 caracteres.');
+          if (!name.trim() || !email.includes('@') || password.length < 8) {
+            setError('Informe seu nome, um e-mail válido e uma senha com pelo menos 8 caracteres.');
             return;
           }
           onCreate(name.trim(), email.trim(), password);
@@ -240,7 +240,7 @@ export function RecoverScreen({
       <BackHeader onBack={onBack} />
       <PageTitle
         title="Vamos recuperar sua senha"
-        subtitle="Informe o e-mail da sua conta para receber instruções."
+        subtitle="Informe o e-mail da sua conta para simular a recuperação."
       />
       <TextField
         label="E-mail"
@@ -275,12 +275,12 @@ export function RecoverySentScreen({ email, onBack }: { email: string; onBack: (
     <ScreenScroll atmosphere contentStyle={{ paddingBottom: 20 }}>
       <BackHeader onBack={onBack} />
       <PageTitle
-        title="Confira seu e-mail"
-        subtitle={`Se houver uma conta com ${email}, enviaremos instruções para recuperar sua senha.`}
+        title="Solicitação simulada"
+        subtitle={`A recuperação para ${email} foi simulada. Nenhum e-mail foi enviado.`}
       />
       <InlineNotice
-        title="Não recebeu?"
-        message="Confira a caixa de spam ou tente novamente em alguns minutos."
+        title="Recuperação de senha"
+        message="O envio de e-mail será disponibilizado futuramente."
       />
       <ActionButton title="Voltar para entrar" icon="arrow" onPress={onBack} />
       <View style={{ alignItems: 'center', marginTop: 10 }}>
@@ -454,6 +454,8 @@ export function SportSkillsScreen({
   onFinish,
   onSkip,
   onBack,
+  hasMoreSports,
+  mode,
 }: {
   sport: SportId;
   skills: Skills;
@@ -461,6 +463,8 @@ export function SportSkillsScreen({
   onFinish: () => void;
   onSkip: () => void;
   onBack: () => void;
+  hasMoreSports: boolean;
+  mode: 'onboarding' | 'profile';
 }) {
   const definition = sportById[sport];
   return (
@@ -505,7 +509,9 @@ export function SportSkillsScreen({
         ))}
       </AppCard>
       <ActionButton
-        title="Ver partidas"
+        title={
+          hasMoreSports ? 'Continuar' : mode === 'profile' ? 'Voltar ao perfil' : 'Ver partidas'
+        }
         icon="arrow"
         onPress={onFinish}
         style={{ marginTop: 18 }}

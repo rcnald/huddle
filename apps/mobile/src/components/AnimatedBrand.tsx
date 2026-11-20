@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, Animated, Easing, View } from 'react-native';
+import { AccessibilityInfo, Animated, Easing, Platform, View } from 'react-native';
 import { colors } from '../theme';
 import { HuddleMark } from './HuddleMark';
 
@@ -38,14 +38,14 @@ export function AnimatedBrand({ premium: explicitPremium }: { premium?: boolean 
           toValue: 1,
           duration: 1600,
           easing: Easing.inOut(Easing.cubic),
-          useNativeDriver: true,
+          useNativeDriver: Platform.OS !== 'web',
         }),
         Animated.delay(1800),
         Animated.timing(progress, {
           toValue: 0,
           duration: 1600,
           easing: Easing.inOut(Easing.cubic),
-          useNativeDriver: true,
+          useNativeDriver: Platform.OS !== 'web',
         }),
       ]),
     );

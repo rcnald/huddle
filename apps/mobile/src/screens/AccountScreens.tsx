@@ -470,6 +470,7 @@ export function ProfileScreen({
   onManageSports,
   onUpgrade,
   onSkillChange,
+  onLogout,
 }: {
   profile: Profile;
   matchCount: number;
@@ -479,6 +480,7 @@ export function ProfileScreen({
   onManageSports: () => void;
   onUpgrade: () => void;
   onSkillChange: (sport: SportId, key: SkillKey, value: number) => void;
+  onLogout: () => void;
 }) {
   const [activeSport, setActiveSport] = useState<SportId>(profile.sports[0] || 'football');
   const selected = profile.sports.includes(activeSport)
@@ -560,6 +562,7 @@ export function ProfileScreen({
           <Text style={styles.hint}>joga em</Text>
         </AppCard>
       </View>
+      <ActionButton title="Sair da conta" icon="logout" onPress={onLogout} />
     </ScreenScroll>
   );
 }

@@ -1,16 +1,72 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  PanResponder,
   Platform,
   Pressable,
   Text,
   TextInput,
+  type TextStyle,
   type TextInputProps,
   View,
   type ViewStyle,
 } from 'react-native';
+import {
+  GestureDetector,
+  useExclusiveGestures,
+  usePanGesture,
+  useTapGesture,
+} from 'react-native-gesture-handler';
+import { scheduleOnRN } from 'react-native-worklets';
+import Animated, {
+  cubicBezier,
+  Easing,
+  useAnimatedReaction,
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
 import { colors, radius } from '../theme';
 import { AppIcon, type IconName } from './Icon';
+
+const controlTransition = {
+  transitionProperty: ['transform', 'backgroundColor', 'borderColor'],
+  transitionDuration: ['140ms', '150ms', '150ms'],
+  transitionTimingFunction: [cubicBezier(0.23, 1, 0.32, 1), 'ease', 'ease'],
+} as unknown as ViewStyle;
+const controlColorTransition = {
+  transitionProperty: ['backgroundColor', 'borderColor'],
+  transitionDuration: '150ms',
+  transitionTimingFunction: 'ease',
+} as unknown as ViewStyle;
+const controlTextTransition = {
+  transitionProperty: 'color',
+  transitionDuration: '150ms',
+  transitionTimingFunction: 'ease',
+} as unknown as TextStyle;
+const canHover =
+  Platform.OS === 'web' &&
+  typeof window !== 'undefined' &&
+  window.matchMedia?.('(hover: hover) and (pointer: fine)').matches === true;
+
+function clampSliderPosition(position: number, width: number) {
+  'worklet';
+  return Math.max(0, Math.min(width, position));
+}
+
+function sliderValueAtPosition(position: number, width: number, min: number, max: number) {
+  'worklet';
+  if (width <= 0 || max <= min) return min;
+  const ratio = clampSliderPosition(position, width) / width;
+  return Math.max(min, Math.min(max, Math.round(min + ratio * (max - min))));
+}
+
+function sliderPositionForValue(value: number, width: number, min: number, max: number) {
+  'worklet';
+  if (width <= 0 || max <= min) return 0;
+  const boundedValue = Math.max(min, Math.min(max, value));
+  return ((boundedValue - min) / (max - min)) * width;
+}
 
 export function ActionButton({
   title,
@@ -29,7 +85,8 @@ export function ActionButton({
 }) {
   const [hovered, setHovered] = useState(false);
   const [pressing, setPressing] = useState(false);
-  const iconActive = hovered || pressing;
+  const reducedMotion = useReducedMotion();
+  const hoverActive = canHover && hovered && !disabled && !reducedMotion;
   return (
     <Pressable
       accessibilityRole="button"
@@ -39,29 +96,28 @@ export function ActionButton({
       onPressOut={() => setPressing(false)}
       onHoverIn={() => setHovered(true)}
       onHoverOut={() => setHovered(false)}
-      style={({ pressed }) => [
-        styles.button,
-        styles[tone],
-        hovered && !disabled && styles.buttonHovered,
-        pressed && !disabled && styles.buttonPressed,
-        pressed && !disabled && tone === 'primary' && styles.primaryPressed,
-        pressed && !disabled && tone === 'soft' && styles.softPressed,
-        pressed && !disabled && tone === 'glass' && styles.glassPressed,
-        disabled && styles.buttonDisabled,
-        style,
-      ]}
+      style={[styles.buttonHitArea, style]}
     >
-      <View
+      <Animated.View
         style={[
-          styles.buttonIcon,
-          iconActive && icon === 'search' && styles.searchIconHovered,
-          iconActive && icon === 'arrow' && styles.arrowIconHovered,
-          iconActive && icon === 'plus' && styles.plusIconHovered,
+          styles.button,
+          controlTransition,
+          styles[tone],
+          hoverActive && styles.buttonHovered,
+          pressing && !disabled && !reducedMotion && styles.buttonPressed,
+          pressing && !disabled && tone === 'primary' && styles.primaryPressed,
+          pressing && !disabled && tone === 'soft' && styles.softPressed,
+          pressing && !disabled && tone === 'glass' && styles.glassPressed,
+          disabled && styles.buttonDisabled,
         ]}
       >
-        <AppIcon name={icon} size={18} color={tone === 'primary' ? '#FFFFFF' : colors.primary} />
-      </View>
-      <Text style={[styles.buttonText, tone !== 'primary' && styles.buttonTextSoft]}>{title}</Text>
+        <View>
+          <AppIcon name={icon} size={18} color={tone === 'primary' ? '#FFFFFF' : colors.primary} />
+        </View>
+        <Text style={[styles.buttonText, tone !== 'primary' && styles.buttonTextSoft]}>
+          {title}
+        </Text>
+      </Animated.View>
     </Pressable>
   );
 }
@@ -172,57 +228,139 @@ export function LevelSlider({
   max?: number;
   compact?: boolean;
 }) {
-  const [width, setWidth] = useState(0);
-  const update = useCallback(
-    (x: number) => {
-      if (width > 0)
-        onChange(Math.max(min, Math.min(max, Math.round((x / width) * (max - min) + min))));
-    },
-    [width, min, max, onChange],
-  );
-  const responder = useMemo(
-    () =>
-      PanResponder.create({
-        onStartShouldSetPanResponder: () => true,
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderGrant: (e) => update(e.nativeEvent.locationX),
-        onPanResponderMove: (e) => update(e.nativeEvent.locationX),
-      }),
-    [update],
-  );
-  const progress = width ? ((value - min) / (max - min)) * width : 0;
+  const trackWidth = useSharedValue(0);
+  const position = useSharedValue(0);
+  const dragOffset = useSharedValue(0);
+  const isDragging = useSharedValue(false);
+  const lastReported = useSharedValue(value);
+  const reducedMotion = useReducedMotion();
   const thumbSize = compact ? 12 : 20;
+  const fillStyle = useAnimatedStyle(() => ({ width: position.get() }));
+  const thumbStyle = useAnimatedStyle(() => {
+    const width = trackWidth.get();
+    const maxLeft = Math.max(0, width - thumbSize);
+    const left = Math.max(0, Math.min(maxLeft, position.get() - thumbSize / 2));
+    return { transform: [{ translateX: left }] };
+  }, [thumbSize]);
+
+  useEffect(() => {
+    const width = trackWidth.get();
+    if (width <= 0 || isDragging.get() || lastReported.get() === value) return;
+    lastReported.set(value);
+    position.set(sliderPositionForValue(value, width, min, max));
+  }, [isDragging, lastReported, max, min, position, trackWidth, value]);
+
+  useAnimatedReaction(
+    () => {
+      if (!isDragging.get()) return null;
+      return sliderValueAtPosition(position.get(), trackWidth.get(), min, max);
+    },
+    (nextValue) => {
+      if (nextValue === null || nextValue === lastReported.get()) return;
+      lastReported.set(nextValue);
+      scheduleOnRN(onChange, nextValue);
+    },
+    [max, min, onChange],
+  );
+
+  const tap = useTapGesture({
+    maxDeltaX: 10,
+    maxDeltaY: 10,
+    onActivate: (event) => {
+      const width = trackWidth.get();
+      if (width <= 0) return;
+      const nextValue = sliderValueAtPosition(event.x, width, min, max);
+      const target = sliderPositionForValue(nextValue, width, min, max);
+      if (nextValue !== lastReported.get()) {
+        lastReported.set(nextValue);
+        scheduleOnRN(onChange, nextValue);
+      }
+      position.set(
+        reducedMotion
+          ? target
+          : withTiming(target, {
+              duration: 120,
+              easing: Easing.bezier(0.23, 1, 0.32, 1),
+            }),
+      );
+    },
+  });
+
+  const pan = usePanGesture({
+    activeOffsetX: [-10, 10],
+    failOffsetY: [-10, 10],
+    onBegin: (event) => {
+      const width = trackWidth.get();
+      const currentPosition = position.get();
+      const currentLeft = Math.max(0, Math.min(width - thumbSize, currentPosition - thumbSize / 2));
+      const thumbCenter = currentLeft + thumbSize / 2;
+      dragOffset.set(Math.abs(event.x - thumbCenter) <= thumbSize ? thumbCenter - event.x : 0);
+    },
+    onActivate: (event) => {
+      isDragging.set(true);
+      position.set(clampSliderPosition(event.x + dragOffset.get(), trackWidth.get()));
+    },
+    onUpdate: (event) => {
+      position.set(clampSliderPosition(event.x + dragOffset.get(), trackWidth.get()));
+    },
+    onDeactivate: (event) => {
+      const width = trackWidth.get();
+      if (width > 0) {
+        const finalValue = sliderValueAtPosition(position.get(), width, min, max);
+        if (finalValue !== lastReported.get()) {
+          lastReported.set(finalValue);
+          scheduleOnRN(onChange, finalValue);
+        }
+        const target = sliderPositionForValue(finalValue, width, min, max);
+        position.set(
+          reducedMotion
+            ? target
+            : withSpring(target, {
+                duration: 400,
+                dampingRatio: 1,
+                velocity: event.velocityX,
+                overshootClamping: true,
+              }),
+        );
+      }
+      isDragging.set(false);
+    },
+  });
+  const sliderGesture = useExclusiveGestures(tap, pan);
+
   return (
     <View style={[styles.sliderBlock, compact && styles.sliderBlockCompact]}>
       <View style={[styles.sliderHeader, compact && styles.compactSliderHeader]}>
         <Text style={[styles.fieldLabel, compact && styles.compactSliderLabel]}>{label}</Text>
         <Text style={styles.sliderValue}>{value} / 5</Text>
       </View>
-      <View
-        onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
-        {...responder.panHandlers}
-        accessibilityRole="adjustable"
-        accessibilityLabel={label}
-        accessibilityValue={{ min, max, now: value }}
-        style={[styles.sliderTouch, compact && styles.compactSliderTouch]}
-      >
-        <View style={[styles.sliderTrack, compact && styles.compactSliderTrack]} />
+      <GestureDetector gesture={sliderGesture} touchAction="pan-y">
         <View
-          style={[styles.sliderFill, compact && styles.compactSliderFill, { width: progress }]}
-        />
-        <View
-          style={[
-            styles.sliderThumb,
-            compact && styles.compactSliderThumb,
-            {
-              width: thumbSize,
-              height: thumbSize,
-              borderRadius: thumbSize / 2,
-              left: Math.max(0, Math.min(width - thumbSize, progress - thumbSize / 2)),
-            },
-          ]}
-        />
-      </View>
+          onLayout={(event) => {
+            const width = event.nativeEvent.layout.width;
+            trackWidth.set(width);
+            position.set(sliderPositionForValue(value, width, min, max));
+            lastReported.set(value);
+          }}
+          accessibilityRole="adjustable"
+          accessibilityLabel={label}
+          accessibilityValue={{ min, max, now: value }}
+          style={[styles.sliderTouch, compact && styles.compactSliderTouch]}
+        >
+          <View style={[styles.sliderTrack, compact && styles.compactSliderTrack]} />
+          <Animated.View
+            style={[styles.sliderFill, compact && styles.compactSliderFill, fillStyle]}
+          />
+          <Animated.View
+            style={[
+              styles.sliderThumb,
+              compact && styles.compactSliderThumb,
+              { width: thumbSize, height: thumbSize, borderRadius: thumbSize / 2, left: 0 },
+              thumbStyle,
+            ]}
+          />
+        </View>
+      </GestureDetector>
     </View>
   );
 }
@@ -240,59 +378,67 @@ export function SelectCard({
   onPress: () => void;
   icon: IconName;
 }) {
+  const reducedMotion = useReducedMotion();
+  const [pressing, setPressing] = useState(false);
   return (
     <Pressable
       accessibilityRole="radio"
       accessibilityState={{ checked: selected }}
       onPress={onPress}
-      style={[styles.selectCard, selected && styles.selectCardSelected]}
+      onPressIn={() => setPressing(true)}
+      onPressOut={() => setPressing(false)}
+      style={styles.selectCardHitArea}
     >
-      <View style={[styles.selectIcon, selected && styles.selectIconSelected]}>
-        <AppIcon name={icon} size={18} color={selected ? colors.primary : colors.muted} />
-      </View>
-      <View style={{ flex: 1, gap: 4 }}>
-        <Text style={[styles.selectTitle, selected && styles.selectTitleSelected]}>{title}</Text>
-        <Text style={styles.hint}>{description}</Text>
-      </View>
-      <View style={[styles.radio, selected && styles.radioSelected]}>
-        {selected ? <View style={styles.radioCenter} /> : null}
-      </View>
+      <Animated.View
+        style={[
+          styles.selectCard,
+          controlTransition,
+          selected && styles.selectCardSelected,
+          pressing && !reducedMotion && styles.selectCardPressed,
+        ]}
+      >
+        <Animated.View
+          style={[styles.selectIcon, controlColorTransition, selected && styles.selectIconSelected]}
+        >
+          <AppIcon name={icon} size={18} color={selected ? colors.primary : colors.muted} />
+        </Animated.View>
+        <View style={{ flex: 1, gap: 4 }}>
+          <Animated.Text
+            style={[
+              styles.selectTitle,
+              controlTextTransition,
+              selected && styles.selectTitleSelected,
+            ]}
+          >
+            {title}
+          </Animated.Text>
+          <Text style={styles.hint}>{description}</Text>
+        </View>
+        <Animated.View
+          style={[styles.radio, controlColorTransition, selected && styles.radioSelected]}
+        >
+          {selected ? <View style={styles.radioCenter} /> : null}
+        </Animated.View>
+      </Animated.View>
     </Pressable>
   );
 }
 
 const styles = {
+  buttonHitArea: { alignSelf: 'stretch' as const },
   button: {
     minHeight: 50,
+    width: '100%' as const,
     borderRadius: radius.pill,
     paddingHorizontal: 18,
     flexDirection: 'row' as const,
     justifyContent: 'center' as const,
     alignItems: 'center' as const,
     gap: 8,
-    ...Platform.select({
-      web: {
-        transitionProperty: 'transform, background-color, box-shadow',
-        transitionDuration: '150ms',
-        transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)',
-      } as unknown as ViewStyle,
-    }),
   },
   primary: { backgroundColor: colors.primary },
   soft: { backgroundColor: colors.lavender },
   glass: { backgroundColor: 'rgba(255,255,255,0.7)', borderWidth: 1, borderColor: '#FFFFFF' },
-  buttonIcon: {
-    ...Platform.select({
-      web: {
-        transitionProperty: 'transform',
-        transitionDuration: '220ms',
-        transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)',
-      } as unknown as ViewStyle,
-    }),
-  },
-  searchIconHovered: { transform: [{ rotate: '-12deg' }, { scale: 1.08 }] },
-  arrowIconHovered: { transform: [{ translateX: 3 }] },
-  plusIconHovered: { transform: [{ rotate: '45deg' }] },
   buttonText: { fontFamily: 'Manrope', fontWeight: '700' as const, fontSize: 14, color: '#FFFFFF' },
   buttonTextSoft: { color: colors.primaryDark },
   buttonDisabled: { opacity: 0.48 },
@@ -304,7 +450,7 @@ const styles = {
     shadowOffset: { width: 0, height: 3 },
     elevation: 2,
   },
-  buttonPressed: { transform: [{ translateY: -1 }, { scale: 1.01 }] },
+  buttonPressed: { transform: [{ scale: 0.97 }] },
   primaryPressed: { backgroundColor: colors.primaryDark },
   softPressed: { backgroundColor: '#E7E3FC' },
   glassPressed: { backgroundColor: 'rgba(255,255,255,0.94)' },
@@ -411,11 +557,13 @@ const styles = {
     alignItems: 'center' as const,
     gap: 12,
   },
+  selectCardHitArea: { alignSelf: 'stretch' as const },
   selectCardSelected: {
     borderColor: '#7566D9',
     backgroundColor: colors.lavender,
     borderWidth: 1.5,
   },
+  selectCardPressed: { transform: [{ scale: 0.985 }] },
   selectIcon: {
     width: 36,
     height: 36,

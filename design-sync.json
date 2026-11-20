@@ -1,5 +1,5 @@
 {
-  "source": "src/theme.ts",
+  "source": "apps/mobile/src/theme.ts",
   "tool": "Pencil · Huddle document · onboarding, home, creation, and Huddle+ frames",
   "naming": "Code token keys are recorded as colors.*, space.*, and radius.*; Pencil variables use the matching huddle.* roles.",
   "synced": "2026-11-19",
