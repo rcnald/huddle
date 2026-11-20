@@ -460,6 +460,7 @@ export function OrganizerManageScreen({
     offerActive &&
     match.waitlistOffer &&
     match.waitlist.find((player) => player.id === match.waitlistOffer?.playerId);
+  const offerExpiresAt = match.waitlistOffer?.expiresAt;
   const offerExpired = Boolean(match.waitlistOffer && !offerActive);
   return (
     <ScreenScroll>
@@ -528,10 +529,10 @@ export function OrganizerManageScreen({
           }
         />
       </AppCard>
-      {offered ? (
+      {offered && offerExpiresAt ? (
         <InlineNotice
           title={`Convite enviado para ${offered.name}`}
-          message={`Prazo de resposta: ${formatDate(match.waitlistOffer?.expiresAt)} às ${formatTime(match.waitlistOffer?.expiresAt)}.`}
+          message={`Prazo de resposta: ${formatDate(offerExpiresAt)} às ${formatTime(offerExpiresAt)}.`}
           tone="success"
         />
       ) : null}

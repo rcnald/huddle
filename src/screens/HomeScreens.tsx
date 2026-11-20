@@ -479,8 +479,9 @@ export function MatchDetailScreen({
   const spots = spotsLeft(players.length, match.maxPlayers);
   const organizer = players.find((player) => player.name === match.host);
   const offerForMe = match.waitlistOffer?.playerId === 'you';
+  const offerExpiresAt = match.waitlistOffer?.expiresAt;
   const offerExpired = Boolean(
-    offerForMe && Date.now() > new Date(match.waitlistOffer?.expiresAt).getTime(),
+    offerForMe && offerExpiresAt && Date.now() > new Date(offerExpiresAt).getTime(),
   );
   const openMaps = async () => {
     const query = encodeURIComponent(`${match.venue}, ${match.neighborhood}`);
@@ -644,10 +645,10 @@ export function MatchDetailScreen({
               message="A organizadora pode oferecer a próxima vaga para você."
             />
           ) : null}
-          {offerForMe ? (
+          {offerForMe && offerExpiresAt ? (
             <InlineNotice
               title="Uma vaga está disponível para você"
-              message={`Responda até ${formatDate(match.waitlistOffer?.expiresAt)} às ${formatTime(match.waitlistOffer?.expiresAt)}.`}
+              message={`Responda até ${formatDate(offerExpiresAt)} às ${formatTime(offerExpiresAt)}.`}
               tone="success"
             />
           ) : null}

@@ -163,7 +163,6 @@ export function WeeklyQuotaCard({
   compact?: boolean;
 }) {
   const premium = plan === 'plus';
-  const segmentIds = Array.from({ length: 3 }, (_, index) => `${label}-segment-${index + 1}`);
   const tile = (label: string, used: number, limit: number) => (
     <View key={label} style={styles.quotaTile}>
       <Text style={styles.quotaLabel}>{label}</Text>
@@ -174,12 +173,14 @@ export function WeeklyQuotaCard({
       </Text>
       {!premium ? (
         <View style={styles.quotaSegments}>
-          {segmentIds.slice(0, limit).map((segmentId, index) => (
-            <View
-              key={segmentId}
-              style={[styles.quotaSegment, index < used && styles.quotaSegmentUsed]}
-            />
-          ))}
+          {Array.from({ length: limit }, (_, index) => `${label}-segment-${index + 1}`).map(
+            (segmentId, index) => (
+              <View
+                key={segmentId}
+                style={[styles.quotaSegment, index < used && styles.quotaSegmentUsed]}
+              />
+            ),
+          )}
         </View>
       ) : null}
     </View>
