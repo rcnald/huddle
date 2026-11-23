@@ -1,4 +1,5 @@
-import type { Match, PlanId } from './types';
+import { Alert, Platform } from 'react-native';
+import type { Match, Reputation, TournamentTier } from './types';
 
 export const initials = (name: string) =>
   name
@@ -32,40 +33,6 @@ export function weekKey(value: string | Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
-export function weeklyUsage(matches: Match[], joinedIds: string[], date: string | Date) {
-  const week = weekKey(date);
-  const inWeek = (match: Match) => weekKey(match.startsAt) === week;
-  return {
-    entries: matches.filter(
-      (match) => joinedIds.includes(match.id) && match.status !== 'cancelled' && inWeek(match),
-    ).length,
-    creations: matches.filter((match) => match.createdByMe && inWeek(match)).length,
-    highlights: matches.filter((match) => match.highlightedByMe && match.highlightWeekKey === week)
-      .length,
-  };
-}
-
-export function weeklyLimits(plan: PlanId) {
-  return plan === 'plus'
-    ? { entries: Infinity, creations: Infinity, highlights: 3 }
-    : { entries: 3, creations: 2, highlights: 0 };
-}
-
-export function remainingWeeklyUsage(
-  matches: Match[],
-  joinedIds: string[],
-  date: string | Date,
-  plan: PlanId,
-) {
-  const used = weeklyUsage(matches, joinedIds, date);
-  const limits = weeklyLimits(plan);
-  return {
-    entries: Math.max(0, limits.entries - used.entries),
-    creations: Math.max(0, limits.creations - used.creations),
-    highlights: Math.max(0, limits.highlights - used.highlights),
-  };
-}
-
 export function highlightedNow(match: Match, now = Date.now()) {
   return Boolean(match.highlightedUntil && new Date(match.highlightedUntil).getTime() > now);
 }
@@ -80,4 +47,64 @@ export function nextMondayLabel(now = new Date()) {
   date.setDate(date.getDate() + daysUntilMonday);
   date.setHours(0, 0, 0, 0);
   return date.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'short' });
+}
+
+export const formatLevel = (value: number) => value.toFixed(1).replace('.', ',');
+
+/** Partida que já começou, mas ainda não foi encerrada (fecha sozinha 24h após o início). */
+export function inProgress(match: Match, now = Date.now()) {
+  const start = new Date(match.startsAt).getTime();
+  return (
+    (match.status === 'open' || match.status === 'full') && start <= now && now < start + 86400000
+  );
+}
+
+export const tierLabels: Record<TournamentTier, string> = {
+  bronze: 'Bronze',
+  prata: 'Prata',
+  ouro: 'Ouro',
+  diamante: 'Diamante',
+};
+
+export const tierColors: Record<TournamentTier, string> = {
+  bronze: '#B4703A',
+  prata: '#7C8592',
+  ouro: '#B88A00',
+  diamante: '#3E7BD6',
+};
+
+export function reputationText(reputation?: Reputation) {
+  if (!reputation?.stars) return '—';
+  return `★ ${formatLevel(reputation.stars)}`;
+}
+
+export function tendencyText(reputation?: Reputation) {
+  switch (reputation?.tendency) {
+    case 'accurate':
+      return 'Declara o nível com precisão';
+    case 'overestimates':
+      return 'Costuma declarar nível acima do que mostra';
+    case 'underestimates':
+      return 'Costuma declarar nível abaixo do que mostra';
+    default:
+      return 'Ainda sem avaliações suficientes';
+  }
+}
+
+/** Confirmação que funciona no celular (Alert) e na versão web (window.confirm). */
+export function confirmAction(title: string, message: string, confirmLabel: string) {
+  if (Platform.OS === 'web') {
+    return Promise.resolve(
+      typeof window !== 'undefined' &&
+        window.confirm(`${title}
+
+${message}`),
+    );
+  }
+  return new Promise<boolean>((resolve) => {
+    Alert.alert(title, message, [
+      { text: 'Voltar', style: 'cancel', onPress: () => resolve(false) },
+      { text: confirmLabel, style: 'destructive', onPress: () => resolve(true) },
+    ]);
+  });
 }

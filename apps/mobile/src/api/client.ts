@@ -1,6 +1,15 @@
 import * as SecureStore from 'expo-secure-store';
 import { NativeModules, Platform } from 'react-native';
-import type { Match, MatchDraft, Profile, SkillKey, SportId } from '../types';
+import type {
+  Match,
+  MatchDraft,
+  PerformanceMetrics,
+  Profile,
+  PublicProfile,
+  RankingEntry,
+  SkillKey,
+  SportId,
+} from '../types';
 
 type ApiErrorBody = { error?: { code?: string; message?: string; details?: unknown } };
 type ApiResponse<T> = T & ApiErrorBody;
@@ -119,9 +128,33 @@ export const api = {
   },
   async usage(date = new Date().toISOString()) {
     const params = new URLSearchParams({ date });
-    return request<{
-      usage: { weekKey: string; entries: number; creations: number; highlights: number };
-    }>(`/me/usage?${params.toString()}`);
+    return request<{ usage: { weekKey: string; highlights: number } }>(
+      `/me/usage?${params.toString()}`,
+    );
+  },
+  async publicProfile(id: string) {
+    return (await request<{ user: PublicProfile }>(`/users/${encodeURIComponent(id)}`)).user;
+  },
+  async metrics() {
+    return (await request<{ metrics: PerformanceMetrics }>('/me/metrics')).metrics;
+  },
+  async ranking(sport: SportId) {
+    return (await request<{ ranking: RankingEntry[] }>(`/rankings/${sport}`)).ranking;
+  },
+  async deleteAccount(password: string) {
+    return request<{ ok: boolean }>('/me', {
+      method: 'DELETE',
+      body: JSON.stringify({ password }),
+    });
+  },
+  async checkout(method: 'pix' | 'card') {
+    return request<{ user: Profile; receipt: { id: string; simulated: boolean } }>(
+      '/billing/checkout',
+      json({ method }),
+    );
+  },
+  async cancelPlan() {
+    return (await request<{ user: Profile }>('/billing/cancel', json({}))).user;
   },
   async register(input: { name: string; email: string; password: string }) {
     return request<{ token: string; user: Profile; joinedIds: string[] }>(
@@ -158,9 +191,10 @@ export const api = {
     );
   },
   async leaveMatch(id: string) {
-    return request<{ match: Match; membership: null }>(`/matches/${encodeURIComponent(id)}/join`, {
-      method: 'DELETE',
-    });
+    return request<{ match: Match; membership: null; cancelled?: boolean }>(
+      `/matches/${encodeURIComponent(id)}/join`,
+      { method: 'DELETE' },
+    );
   },
   async acceptWaitlistOffer(id: string) {
     return (
@@ -210,14 +244,15 @@ export const api = {
   async submitReviews(
     id: string,
     input: {
-      votes: Record<string, number>;
+      votes: Record<string, number | null>;
       comments: Record<string, string>;
       ratings: Record<string, Partial<Record<SkillKey, number>>>;
     },
   ) {
     return request<{ ok: boolean }>(`/matches/${encodeURIComponent(id)}/reviews`, json(input));
   },
-  async activatePlus() {
-    return (await request<{ user: Profile }>('/dev/activate-plus', json({}))).user;
+  async cancelMatch(id: string) {
+    return (await request<{ match: Match }>(`/matches/${encodeURIComponent(id)}/cancel`, json({})))
+      .match;
   },
 };

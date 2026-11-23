@@ -1,20 +1,20 @@
+import type { ParamListBase, RouteProp } from '@react-navigation/native';
 import {
   CommonActions,
   createNavigationContainerRef,
   NavigationContainer,
   StackActions,
 } from '@react-navigation/native';
-import type { ParamListBase, RouteProp } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   createContext,
+  type ReactNode,
   useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
-  type ReactNode,
 } from 'react';
 import { Alert, Easing, Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
@@ -23,7 +23,7 @@ import { ApiClientError, api, getSessionToken, setSessionToken } from '../api/cl
 import { BrandPlanContext } from '../components/AnimatedBrand';
 import { FloatingNavigation } from '../components/Blocks';
 import { CompactToast } from '../components/CompactToast';
-import { defaultSkillsForSport, sportSkillLevel } from '../data/sports';
+import { defaultSkillsForSport, effectiveSportLevel } from '../data/sports';
 import {
   CreateMatchStepOne,
   CreateMatchStepTwo,
@@ -42,25 +42,24 @@ import {
   SportsSelectionScreen,
   WelcomeScreen,
 } from '../screens/AuthScreens';
+import { FiltersScreen, HomeScreen, MatchDetailScreen, SearchScreen } from '../screens/HomeScreens';
 import {
-  FiltersScreen,
-  HomeScreen,
-  MatchDetailScreen,
-  OrganizerScreen,
-  SearchScreen,
-} from '../screens/HomeScreens';
+  CheckoutScreen,
+  DeleteAccountScreen,
+  MetricsScreen,
+  PlayerProfileScreen,
+} from '../screens/InsightsScreens';
 import {
   HighlightActiveScreen,
   HighlightScreen,
   OrganizerManageScreen,
   PremiumScreen,
   PremiumSuccessScreen,
-  QuotaLimitScreen,
 } from '../screens/PremiumScreens';
 import { SuccessScreen } from '../screens/SuccessScreen';
 import { colors } from '../theme';
-import type { Match, MatchDraft, MatchFilters, Page, Profile, SkillKey, SportId } from '../types';
-import { remainingWeeklyUsage, weekKey, weeklyUsage } from '../utils';
+import type { Match, MatchDraft, MatchFilters, Page, Profile, SportId } from '../types';
+import { confirmAction } from '../utils';
 
 const navigationRef = createNavigationContainerRef<ParamListBase>();
 const NativeStack = createNativeStackNavigator<ParamListBase>();
@@ -79,18 +78,20 @@ const pageNames: Page['name'][] = [
   'search',
   'filters',
   'match',
-  'organizer',
+  'player',
   'organizer-manage',
   'premium',
+  'checkout',
   'premium-success',
+  'metrics',
   'highlight',
   'highlight-active',
-  'quota-limit',
   'create-details',
   'create-rules',
   'my-matches',
   'profile',
   'edit-profile',
+  'delete-account',
   'evaluate',
   'success',
 ];
@@ -124,7 +125,9 @@ function showsBottomNavigation(page: Page) {
     'sports',
     'sport-skills',
     'premium',
+    'checkout',
     'premium-success',
+    'delete-account',
     'success',
   ].includes(page.name);
 }
@@ -134,12 +137,13 @@ function activeTabFor(page: Page): 'home' | 'search' | 'matches' | 'profile' {
   if (
     page.name === 'my-matches' ||
     page.name === 'match' ||
-    page.name === 'organizer' ||
+    page.name === 'player' ||
     page.name === 'organizer-manage' ||
     page.name === 'evaluate'
   )
     return 'matches';
-  if (page.name === 'profile' || page.name === 'edit-profile') return 'profile';
+  if (['profile', 'edit-profile', 'metrics', 'delete-account'].includes(page.name))
+    return 'profile';
   return 'home';
 }
 
@@ -189,6 +193,7 @@ const initialDraft = (sport: SportId = 'football'): MatchDraft => ({
   neighborhood: '',
   maxPlayers: 12,
   sport,
+  mode: 'casual',
   format: sport === 'football' ? 'Society' : 'Quadra',
   access: 'free',
   minLevel: 0,
@@ -216,12 +221,7 @@ export function RootNavigator() {
   const [joinedIds, setJoinedIds] = useState<string[]>([]);
   const [profile, setProfile] = useState<Profile>(initialProfile);
   const [signedIn, setSignedIn] = useState(false);
-  const [apiUsage, setApiUsage] = useState<{
-    weekKey: string;
-    entries: number;
-    creations: number;
-    highlights: number;
-  } | null>(null);
+  const [apiUsage, setApiUsage] = useState<{ weekKey: string; highlights: number } | null>(null);
   const [draft, setDraft] = useState<MatchDraft>(() =>
     initialDraft(initialProfile.sports[0] || 'football'),
   );
@@ -305,9 +305,9 @@ export function RootNavigator() {
     notify('Entre ou crie sua conta para continuar');
     return false;
   };
-  const refreshUsage = async (date?: string) => {
+  const refreshUsage = async () => {
     try {
-      setApiUsage((await api.usage(date)).usage);
+      setApiUsage((await api.usage()).usage);
     } catch {
       // Keep the last known quota state until the server responds.
     }
@@ -315,10 +315,12 @@ export function RootNavigator() {
   const replaceMatch = (next: Match) =>
     setMatches((items) => [next, ...items.filter((item) => item.id !== next.id)]);
   const myMatches = matches.filter((match) => joinedIds.includes(match.id));
+  // Inclui partidas em andamento: saem daqui quando são encerradas (até 24h após o início).
   const upcoming = myMatches
     .filter(
       (match) =>
-        ['open', 'full'].includes(match.status) && new Date(match.startsAt).getTime() >= Date.now(),
+        ['open', 'full'].includes(match.status) &&
+        new Date(match.startsAt).getTime() + 24 * 60 * 60 * 1000 > Date.now(),
     )
     .sort((a, b) => +new Date(a.startsAt) - +new Date(b.startsAt));
   const history = myMatches
@@ -329,15 +331,40 @@ export function RootNavigator() {
       (match) => ['open', 'full'].includes(match.status) && +new Date(match.startsAt) >= Date.now(),
     )
     .sort((a, b) => +new Date(a.startsAt) - +new Date(b.startsAt));
-  const usageForDate = (date: string | Date) =>
-    apiUsage?.weekKey === weekKey(date) ? apiUsage : weeklyUsage(matches, joinedIds, date);
-  const dashboardUsage = signedIn
-    ? usageForDate(new Date())
-    : { entries: 0, creations: 0, highlights: 0 };
+  const highlightsUsed = signedIn ? (apiUsage?.highlights ?? 0) : 0;
   const eligible = (match: Match) =>
     match.access === 'free' ||
-    (sportSkillLevel(profile, match.sport) >= match.minLevel &&
-      sportSkillLevel(profile, match.sport) <= match.maxLevel);
+    (effectiveSportLevel(profile, match.sport) >= match.minLevel &&
+      effectiveSportLevel(profile, match.sport) <= match.maxLevel);
+  /** Salva esportes/habilidades e atualiza o nível recalibrado devolvido pela API. */
+  const saveSports = (next: Pick<Profile, 'sports' | 'skillsBySport'>) => {
+    if (!signedIn) return;
+    void api
+      .updateSports({ sports: next.sports, skillsBySport: next.skillsBySport })
+      .then((user) =>
+        setProfile((current) => ({ ...current, levels: user.levels, reputation: user.reputation })),
+      )
+      .catch((error) =>
+        notify(error instanceof Error ? error.message : 'Não foi possível salvar as habilidades.'),
+      );
+  };
+  const resetSession = async () => {
+    await setSessionToken(null);
+    setSignedIn(false);
+    setProfile(initialProfile);
+    setJoinedIds([]);
+    setApiUsage(null);
+    setEvaluatedIds([]);
+    setSelectedSports([]);
+    setMatches([]);
+    setDraft(initialDraft());
+    goRoot({ name: 'welcome' });
+    try {
+      setMatches(await api.listMatches());
+    } catch {
+      notify('Não foi possível carregar as partidas da API.');
+    }
+  };
   const changeSports = (sport: SportId) =>
     setSelectedSports((current) =>
       current.includes(sport) ? current.filter((id) => id !== sport) : [...current, sport],
@@ -363,28 +390,16 @@ export function RootNavigator() {
     if (skillPage.remaining.length) {
       const [next, ...remaining] = skillPage.remaining;
       replace({ name: 'sport-skills', mode: skillPage.mode, sport: next, remaining });
-    } else if (skillPage.mode === 'onboarding') {
-      if (signedIn)
-        void api
-          .updateSports({ sports: profile.sports, skillsBySport: profile.skillsBySport })
-          .catch((error) =>
-            notify(error instanceof Error ? error.message : 'Não foi possível salvar esportes.'),
-          );
-      goRoot({ name: 'home' });
     } else {
-      if (signedIn)
-        void api
-          .updateSports({ sports: profile.sports, skillsBySport: profile.skillsBySport })
-          .catch((error) =>
-            notify(error instanceof Error ? error.message : 'Não foi possível salvar esportes.'),
-          );
-      goRoot({ name: 'profile' });
+      saveSports(profile);
+      goRoot({ name: skillPage.mode === 'onboarding' ? 'home' : 'profile' });
     }
   };
 
   const onJoin = async (match: Match) => {
     if (!requireSignIn()) return;
     try {
+      if (match.createdByMe) return cancelMatch(match);
       if (joinedIds.includes(match.id)) {
         const result = await api.leaveMatch(match.id);
         replaceMatch(result.match);
@@ -414,13 +429,7 @@ export function RootNavigator() {
       return;
     } catch (error) {
       if (error instanceof ApiClientError) {
-        if (error.code.includes('QUOTA'))
-          push({
-            name: 'quota-limit',
-            action: 'entry',
-            weekKey: weekKey(match.startsAt),
-            matchId: match.id,
-          });
+        if (error.code === 'PLUS_REQUIRED') push({ name: 'premium' });
         else Alert.alert('Não foi possível entrar', error.message);
         return;
       }
@@ -484,8 +493,7 @@ export function RootNavigator() {
       return;
     } catch (error) {
       if (error instanceof ApiClientError) {
-        if (error.code.includes('QUOTA'))
-          push({ name: 'quota-limit', action: 'create', weekKey: weekKey(startsAt) });
+        if (error.code === 'PLUS_REQUIRED') push({ name: 'premium' });
         else Alert.alert('Não foi possível publicar', error.message);
         return;
       }
@@ -575,10 +583,46 @@ export function RootNavigator() {
     }
   };
 
-  const updateDraft = (update: Partial<MatchDraft>) => {
-    const next = { ...draft, ...update };
-    setDraft(next);
-    if (signedIn) void refreshUsage(createIso(next.date, next.time));
+  const updateDraft = (update: Partial<MatchDraft>) =>
+    setDraft((current) => ({ ...current, ...update }));
+
+  /** Quem organiza pode sair: a partida é cancelada para todos (com confirmação). */
+  const cancelMatch = async (match: Match) => {
+    if (!requireSignIn()) return;
+    const ok = await confirmAction(
+      'Cancelar a partida?',
+      'Como você organiza este jogo, sair cancela a partida para todos os participantes.',
+      'Cancelar partida',
+    );
+    if (!ok) return;
+    try {
+      replaceMatch(await api.cancelMatch(match.id));
+      goRoot({ name: 'my-matches', section: 'history' });
+      notify('Partida cancelada');
+    } catch (error) {
+      Alert.alert(
+        'Não foi possível cancelar',
+        error instanceof Error ? error.message : 'Tente novamente.',
+      );
+    }
+  };
+
+  const openPlayer = (playerId: string, sport?: SportId) =>
+    push({ name: 'player', playerId, ...(sport ? { sport } : {}) });
+
+  const cancelPlan = async () => {
+    const ok = await confirmAction(
+      'Cancelar o Huddle+?',
+      'Você volta ao plano grátis: métricas, torneios e destaques deixam de ficar disponíveis.',
+      'Cancelar assinatura',
+    );
+    if (!ok) return;
+    try {
+      setProfile(await api.cancelPlan());
+      notify('Assinatura cancelada. Você está no plano grátis.');
+    } catch (error) {
+      Alert.alert('Não foi possível cancelar', error instanceof Error ? error.message : '');
+    }
   };
 
   const renderPage = (page: Page) => {
@@ -731,10 +775,11 @@ export function RootNavigator() {
             matches={openMatches}
             joinedIds={joinedIds}
             eligible={eligible}
-            quotaUsage={dashboardUsage}
+            highlightsUsed={highlightsUsed}
             onUpgrade={() => {
               if (requireSignIn()) push({ name: 'premium' });
             }}
+            onMetrics={() => push({ name: 'metrics' })}
             onSearch={() => goRoot({ name: 'search' })}
             onCreate={openCreate}
             onProfile={() => {
@@ -777,9 +822,6 @@ export function RootNavigator() {
           <MatchDetailScreen
             match={selectedMatch}
             plan={profile.plan}
-            remainingEntries={
-              remainingWeeklyUsage(matches, joinedIds, selectedMatch.startsAt, profile.plan).entries
-            }
             joined={joinedIds.includes(selectedMatch.id)}
             requested={selectedMatch.pendingRequests.some((player) => player.id === 'you')}
             waitlisted={selectedMatch.waitlist.some((player) => player.id === 'you')}
@@ -793,15 +835,26 @@ export function RootNavigator() {
             onJoin={() => onJoin(selectedMatch)}
             onConfirmPresence={() => confirmPresence(selectedMatch)}
             onAcceptOffer={() => acceptWaitlistOffer(selectedMatch)}
-            onOrganizer={() => push({ name: 'organizer', matchId: selectedMatch.id })}
+            onOpenPlayer={(playerId) => openPlayer(playerId, selectedMatch.sport)}
             onManage={() => push({ name: 'organizer-manage', matchId: selectedMatch.id })}
             onHighlight={() => push({ name: 'highlight', matchId: selectedMatch.id })}
+            onCancelMatch={() => void cancelMatch(selectedMatch)}
+            onUpgrade={() => {
+              if (requireSignIn()) push({ name: 'premium' });
+            }}
             onApproveRequest={(playerId) => respondToRequest(selectedMatch.id, playerId, true)}
             onRejectRequest={(playerId) => respondToRequest(selectedMatch.id, playerId, false)}
           />
         ) : null;
-      case 'organizer':
-        return selectedMatch ? <OrganizerScreen match={selectedMatch} onBack={back} /> : null;
+      case 'player':
+        return (
+          <PlayerProfileScreen
+            key={page.playerId}
+            playerId={page.playerId}
+            initialSport={page.sport}
+            onBack={back}
+          />
+        );
       case 'organizer-manage':
         return selectedMatch ? (
           <OrganizerManageScreen
@@ -810,8 +863,8 @@ export function RootNavigator() {
             onBack={back}
             onToggleAutoFill={() => toggleAutoFill(selectedMatch)}
             onInviteNext={() => sendWaitlistInvite(selectedMatch)}
-            onUpgrade={() => push({ name: 'premium' })}
             onFinish={() => void finishMatch(selectedMatch)}
+            onCancel={() => void cancelMatch(selectedMatch)}
           />
         ) : null;
       case 'premium':
@@ -821,34 +874,52 @@ export function RootNavigator() {
             onBack={back}
             onUpgrade={() => {
               if (profile.plan === 'plus') back();
-              else
-                void api
-                  .activatePlus()
-                  .then((user) => {
-                    setProfile(user);
-                    replace({ name: 'premium-success' });
-                  })
-                  .catch((error) =>
-                    Alert.alert(
-                      'Não foi possível ativar Huddle+',
-                      error instanceof Error ? error.message : 'Tente novamente.',
-                    ),
-                  );
+              else if (requireSignIn()) push({ name: 'checkout' });
+            }}
+          />
+        );
+      case 'checkout':
+        return (
+          <CheckoutScreen
+            onBack={back}
+            onPaid={async (method) => {
+              try {
+                const result = await api.checkout(method);
+                setProfile(result.user);
+                await refreshUsage();
+                goRoot({ name: 'premium-success' });
+              } catch (error) {
+                Alert.alert(
+                  'Não foi possível concluir',
+                  error instanceof Error ? error.message : 'Tente novamente.',
+                );
+              }
+            }}
+          />
+        );
+      case 'metrics':
+        return (
+          <MetricsScreen
+            plan={profile.plan}
+            onBack={back}
+            onUpgrade={() => push({ name: 'premium' })}
+            onOpenPlayer={openPlayer}
+          />
+        );
+      case 'delete-account':
+        return (
+          <DeleteAccountScreen
+            onBack={back}
+            onDeleted={() => {
+              notify('Sua conta foi excluída.');
+              void resetSession();
             }}
           />
         );
       case 'premium-success':
         return (
           <PremiumSuccessScreen
-            onContinue={() => {
-              const firstOwn = matches.find(
-                (match) =>
-                  match.createdByMe &&
-                  match.status === 'open' &&
-                  +new Date(match.startsAt) > Date.now(),
-              );
-              goRoot({ name: 'highlight', matchId: firstOwn?.id || '' });
-            }}
+            onContinue={() => goRoot({ name: 'metrics' })}
             onProfile={() => goRoot({ name: 'profile' })}
           />
         );
@@ -858,7 +929,7 @@ export function RootNavigator() {
             matches={matches}
             plan={profile.plan}
             matchId={page.matchId}
-            usage={dashboardUsage}
+            usage={{ highlights: highlightsUsed }}
             onBack={back}
             onHighlight={applyHighlight}
             onUpgrade={() => push({ name: 'premium' })}
@@ -868,30 +939,16 @@ export function RootNavigator() {
         return selectedMatch ? (
           <HighlightActiveScreen
             match={selectedMatch}
-            remaining={Math.max(0, 3 - dashboardUsage.highlights)}
+            remaining={Math.max(0, 3 - highlightsUsed)}
             onBack={back}
             onMatch={() => goRoot({ name: 'match', matchId: selectedMatch.id })}
           />
         ) : null;
-      case 'quota-limit':
-        return (
-          <QuotaLimitScreen
-            action={page.action}
-            plan={profile.plan}
-            matches={matches}
-            joinedIds={joinedIds}
-            date={page.weekKey}
-            onBack={back}
-            onUpgrade={() => push({ name: 'premium' })}
-            onContinue={back}
-          />
-        );
       case 'create-details':
         return (
           <CreateMatchStepOne
             draft={draft}
             profile={profile}
-            quotaUsage={usageForDate(createIso(draft.date, draft.time))}
             onChange={updateDraft}
             onBack={back}
             onNext={() => push({ name: 'create-rules' })}
@@ -902,7 +959,6 @@ export function RootNavigator() {
           <CreateMatchStepTwo
             draft={draft}
             profile={profile}
-            quotaUsage={usageForDate(createIso(draft.date, draft.time))}
             onUpgrade={() => push({ name: 'premium' })}
             onChange={updateDraft}
             onBack={back}
@@ -944,25 +1000,14 @@ export function RootNavigator() {
               } catch {
                 notify('Sessão encerrada neste aparelho.');
               }
-              await setSessionToken(null);
-              setSignedIn(false);
-              setProfile(initialProfile);
-              setJoinedIds([]);
-              setApiUsage(null);
-              setEvaluatedIds([]);
-              setSelectedSports([]);
-              setMatches([]);
-              setDraft(initialDraft());
-              goRoot({ name: 'welcome' });
-              try {
-                setMatches(await api.listMatches());
-              } catch {
-                notify('Não foi possível carregar as partidas da API.');
-              }
+              await resetSession();
             }}
-            matchCount={myMatches.length}
-            reputation="—"
-            quotaUsage={dashboardUsage}
+            matchCount={myMatches.filter((match) => match.status === 'finished').length}
+            highlightsUsed={highlightsUsed}
+            onMetrics={() => push({ name: 'metrics' })}
+            onPublicProfile={() => openPlayer('you')}
+            onCancelPlan={() => void cancelPlan()}
+            onDeleteAccount={() => push({ name: 'delete-account' })}
             onEdit={() => {
               if (requireSignIn()) push({ name: 'edit-profile' });
             }}
@@ -986,16 +1031,7 @@ export function RootNavigator() {
                     },
                   },
                 };
-                if (signedIn)
-                  void api
-                    .updateSports({ sports: next.sports, skillsBySport: next.skillsBySport })
-                    .catch((error) =>
-                      notify(
-                        error instanceof Error
-                          ? error.message
-                          : 'Não foi possível salvar as habilidades.',
-                      ),
-                    );
+                saveSports(next);
                 return next;
               })
             }

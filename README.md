@@ -79,12 +79,39 @@ Mantenha o computador e o celular na mesma rede e deixe a API rodando. O Expo Tu
 
 ## Dados
 
-Bancos novos começam vazios. Contas e partidas criadas anteriormente permanecem no banco existente. A ativação do Huddle+ ainda é simulada; pagamentos reais precisam de integração com um provedor.
+Bancos novos começam vazios. Contas e partidas criadas anteriormente permanecem no banco existente.
+
+O schema evolui por migrations em `apps/api/src/migrations`: `001_init.sql` é a base e as seguintes (`002_...`) rodam uma única vez ao iniciar a API, registradas na tabela `schema_migrations`, sem apagar dados.
+
+### Dados de demonstração
+
+Para a apresentação, popule um banco **vazio** com contas, partidas, avaliações e torneios:
+
+```sh
+npm run api:seed
+```
+
+No Docker: `docker compose exec api npm run seed --workspace=@huddle/api`.
+
+Contas criadas (senha `huddle123`): `marina@exemplo.com` (plano grátis) e `ana@exemplo.com` (Huddle+), além de outros jogadores `@exemplo.com`.
+
+### Regras principais
+
+- **Nível recalibrado**: cada habilidade vale `(nota declarada × 3 + soma das notas recebidas) / (3 + nº de notas)`. Esse nível libera as partidas por faixa.
+- **Foto na entrada**: ao entrar numa partida, as habilidades declaradas naquele momento ficam salvas; a avaliação compara o desempenho com elas.
+- **Reputação**: vem só dos votos Abaixo/Certo/Acima (`1 + 4 × % de "Certo"`).
+- **Torneios (Huddle+)**: só assinantes criam e entram. O ranking não usa placar, só as notas de habilidade recebidas em torneios (média suavizada × 200, faixas Bronze/Prata/Ouro/Diamante).
+- **Encerramento automático**: partidas não finalizadas fecham 24 horas após o início.
+- **Organização sai = partida cancelada**.
+- **Plano grátis** cria e entra em partidas sem limite; o Huddle+ (R$ 9,90/mês) libera destaques, métricas de desempenho e torneios.
+- **Pagamento simulado**: `POST /api/billing/checkout` só troca o plano; não há provedor de pagamento nem coleta de dados de cartão. Em produção a rota fica desligada, a menos que `ALLOW_SIMULATED_PLUS=true`.
 
 ## Rotas principais
 
 - `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout`
-- `GET/PATCH /api/me`, `PUT /api/me/sports`, `GET /api/me/usage`, `GET /api/me/matches`
+- `GET/PATCH/DELETE /api/me`, `PUT /api/me/sports`, `GET /api/me/usage`, `GET /api/me/matches`
+- `GET /api/me/metrics` (Huddle+), `GET /api/rankings/:sport` (Huddle+), `GET /api/users/:id` (perfil público)
 - `GET /api/matches`, `GET /api/matches/:id`, `POST /api/matches`
-- `POST/DELETE /api/matches/:id/join`
+- `POST/DELETE /api/matches/:id/join`, `POST /api/matches/:id/cancel`
+- `POST /api/billing/checkout`, `POST /api/billing/cancel` (simulados)
 - Rotas de espera, aprovação, confirmação de presença, destaque e avaliações em `apps/api/src/app.ts`.

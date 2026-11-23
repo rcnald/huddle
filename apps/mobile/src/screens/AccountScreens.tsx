@@ -6,14 +6,13 @@ import {
   AppPill,
   BackHeader,
   BrandHeader,
-  CreationQuotaBanner,
   InlineNotice,
   MatchCard,
   PageTitle,
+  PlanCard,
   ScreenScroll,
   SectionHeading,
   SportFilterRow,
-  WeeklyQuotaCard,
 } from '../components/Blocks';
 import {
   ActionButton,
@@ -26,6 +25,7 @@ import {
 import { AppIcon, type IconName } from '../components/Icon';
 import {
   defaultSkillsForSport,
+  effectiveSportLevel,
   sportById,
   sportName,
   sportSkillLevel,
@@ -33,19 +33,17 @@ import {
 } from '../data/sports';
 import { colors } from '../theme';
 import type { Match, MatchDraft, Profile, SkillKey, SportId } from '../types';
-import { formatDate, formatTime, type weeklyUsage } from '../utils';
+import { formatDate, formatLevel, formatTime, inProgress, reputationText } from '../utils';
 
 export function CreateMatchStepOne({
   draft,
   profile,
-  quotaUsage,
   onChange,
   onNext,
   onBack,
 }: {
   draft: MatchDraft;
   profile: Profile;
-  quotaUsage: ReturnType<typeof weeklyUsage>;
   onChange: (update: Partial<MatchDraft>) => void;
   onNext: () => void;
   onBack: () => void;
@@ -89,7 +87,6 @@ export function CreateMatchStepOne({
       <BackHeader onBack={onBack} />
       <PageTitle title="Criar partida" subtitle="Monte um jogo e encontre seu time." />
       <StepProgress step={1} labels={['Detalhes do jogo', 'Regras de entrada']} />
-      <CreationQuotaBanner plan={profile.plan} used={quotaUsage.creations} />
       <View style={{ gap: 8 }}>
         <Text style={styles.sportFormatHeading}>Esporte e formato</Text>
         <View style={styles.sportFormatPicker}>
@@ -210,7 +207,6 @@ export function CreateMatchStepOne({
 export function CreateMatchStepTwo({
   draft,
   profile,
-  quotaUsage,
   onUpgrade,
   onChange,
   onPublish,
@@ -218,13 +214,13 @@ export function CreateMatchStepTwo({
 }: {
   draft: MatchDraft;
   profile: Profile;
-  quotaUsage: ReturnType<typeof weeklyUsage>;
   onUpgrade: () => void;
   onChange: (update: Partial<MatchDraft>) => void;
   onPublish: () => void;
   onBack: () => void;
 }) {
-  const [autoFill, setAutoFill] = useState(draft.autoFillWaitlist);
+  const autoFill = draft.autoFillWaitlist;
+  const premium = profile.plan === 'plus';
   return (
     <ScreenScroll>
       <BackHeader onBack={onBack} />
@@ -233,7 +229,27 @@ export function CreateMatchStepTwo({
         subtitle="Escolha quem pode entrar e como lidar com as vagas."
       />
       <StepProgress step={2} labels={['Detalhes do jogo', 'Regras de entrada']} />
-      <CreationQuotaBanner plan={profile.plan} used={quotaUsage.creations} />
+      <Text style={styles.formSectionTitle}>Tipo de partida</Text>
+      <SelectCard
+        icon="group"
+        title="Casual"
+        description="Jogo do dia a dia. As avaliações ajustam o nível de cada um."
+        selected={draft.mode === 'casual'}
+        onPress={() => onChange({ mode: 'casual' })}
+      />
+      <SelectCard
+        icon="star"
+        title={premium ? 'Torneio' : 'Torneio · Huddle+'}
+        description="Vale para o ranking. Só quem tem Huddle+ cria e participa."
+        selected={draft.mode === 'tournament'}
+        onPress={() => (premium ? onChange({ mode: 'tournament' }) : onUpgrade())}
+      />
+      {draft.mode === 'tournament' ? (
+        <InlineNotice
+          title="Como o ranking funciona"
+          message="No torneio não conta o placar: os pontos vêm das notas que cada participante recebe dos outros depois do jogo."
+        />
+      ) : null}
       <Text style={styles.formSectionTitle}>Quem pode entrar?</Text>
       <SelectCard
         icon="infinity"
@@ -300,21 +316,15 @@ export function CreateMatchStepTwo({
           </View>
           <Pressable
             accessibilityRole="switch"
-            accessibilityState={{ checked: profile.plan === 'plus' && autoFill }}
-            onPress={() => {
-              if (profile.plan === 'plus') {
-                const value = !autoFill;
-                setAutoFill(value);
-                onChange({ autoFillWaitlist: value });
-              } else onUpgrade();
-            }}
+            accessibilityState={{ checked: autoFill }}
+            onPress={() => onChange({ autoFillWaitlist: !autoFill })}
             style={{
               width: 48,
               height: 29,
               borderRadius: 15,
               padding: 3,
               justifyContent: 'center',
-              backgroundColor: profile.plan === 'plus' && autoFill ? colors.primary : '#D6D5DC',
+              backgroundColor: autoFill ? colors.primary : '#D6D5DC',
             }}
           >
             <View
@@ -322,28 +332,13 @@ export function CreateMatchStepTwo({
                 width: 23,
                 height: 23,
                 borderRadius: 12,
-                alignSelf: profile.plan === 'plus' && autoFill ? 'flex-end' : 'flex-start',
+                alignSelf: autoFill ? 'flex-end' : 'flex-start',
                 backgroundColor: '#FFFFFF',
               }}
             />
           </Pressable>
         </View>
-        {profile.plan !== 'plus' ? (
-          <ActionButton
-            title="Desbloquear com Huddle+"
-            icon="star"
-            tone="soft"
-            onPress={onUpgrade}
-          />
-        ) : null}
       </AppCard>
-      {profile.plan === 'free' && quotaUsage.creations >= 2 ? (
-        <InlineNotice
-          title="Sem criações restantes nesta semana"
-          message="Você ainda pode agendar para outra semana. A quota conta pela data da partida."
-          tone="warning"
-        />
-      ) : null}
       <ActionButton title="Publicar partida" icon="plus" onPress={onPublish} />
     </ScreenScroll>
   );
@@ -396,13 +391,12 @@ export function MyMatchesScreen({
         <View style={{ gap: 12 }}>
           {list.map((match) =>
             section === 'upcoming' ? (
-              <MatchCard
-                key={match.id}
-                match={match}
-                joined
-                eligible
-                onPress={() => onOpen(match)}
-              />
+              <View key={match.id} style={{ gap: 6 }}>
+                {inProgress(match) ? (
+                  <AppPill text="Em andamento · encerra 24h após o início" tone="success" />
+                ) : null}
+                <MatchCard match={match} joined eligible onPress={() => onOpen(match)} />
+              </View>
             ) : (
               <AppCard key={match.id}>
                 <View style={styles.rowBetween}>
@@ -415,7 +409,11 @@ export function MyMatchesScreen({
                     {formatTime(match.finishedAt || match.startsAt)}
                   </Text>
                 </View>
-                <Text style={styles.cardTitle}>{match.title}</Text>
+                <Pressable accessibilityRole="button" onPress={() => onOpen(match)}>
+                  <Text style={styles.cardTitle}>
+                    {match.mode === 'tournament' ? `Torneio · ${match.title}` : match.title}
+                  </Text>
+                </Pressable>
                 <Text style={styles.body}>
                   {match.format} · {match.venue} · {match.neighborhood}
                 </Text>
@@ -464,21 +462,27 @@ export function MyMatchesScreen({
 export function ProfileScreen({
   profile,
   matchCount,
-  reputation,
-  quotaUsage,
+  highlightsUsed,
   onEdit,
   onManageSports,
   onUpgrade,
+  onMetrics,
+  onPublicProfile,
+  onCancelPlan,
+  onDeleteAccount,
   onSkillChange,
   onLogout,
 }: {
   profile: Profile;
   matchCount: number;
-  reputation: string;
-  quotaUsage: ReturnType<typeof weeklyUsage>;
+  highlightsUsed: number;
   onEdit: () => void;
   onManageSports: () => void;
   onUpgrade: () => void;
+  onMetrics: () => void;
+  onPublicProfile: () => void;
+  onCancelPlan: () => void;
+  onDeleteAccount: () => void;
   onSkillChange: (sport: SportId, key: SkillKey, value: number) => void;
   onLogout: () => void;
 }) {
@@ -487,7 +491,9 @@ export function ProfileScreen({
     ? activeSport
     : profile.sports[0] || 'football';
   const skills = profile.skillsBySport[selected] ?? defaultSkillsForSport(selected);
-  const level = sportSkillLevel(profile, selected);
+  const level = effectiveSportLevel(profile, selected);
+  const declared = sportSkillLevel(profile, selected);
+  const ratingsReceived = profile.levels?.[selected]?.ratingsReceived ?? 0;
   return (
     <ScreenScroll>
       <BrandHeader profile={profile} onProfile={onEdit} />
@@ -505,17 +511,34 @@ export function ProfileScreen({
           />
         </View>
         <View style={styles.profileLevel}>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, gap: 2 }}>
             <Text style={styles.cardTitle}>Nível em {sportName(selected)}</Text>
-            <Text style={styles.hint}>Média das habilidades</Text>
+            <Text style={styles.hint}>
+              {ratingsReceived
+                ? `Recalibrado por ${ratingsReceived} ${ratingsReceived === 1 ? 'nota recebida' : 'notas recebidas'}`
+                : 'Ainda sem avaliações: vale sua autoavaliação'}
+            </Text>
+            <Text style={styles.hint}>Você declarou {formatLevel(declared)}</Text>
           </View>
           <View style={styles.profileRing}>
-            <Text style={styles.profileRingText}>{level.toFixed(1).replace('.', ',')}</Text>
+            <Text style={styles.profileRingText}>{formatLevel(level)}</Text>
           </View>
         </View>
         <ActionButton title="Editar perfil" icon="userEdit" tone="soft" onPress={onEdit} />
+        <ActionButton
+          title="Ver meu perfil público"
+          icon="user"
+          tone="glass"
+          onPress={onPublicProfile}
+        />
       </AppCard>
-      <WeeklyQuotaCard plan={profile.plan} usage={quotaUsage} onUpgrade={onUpgrade} compact />
+      <PlanCard
+        plan={profile.plan}
+        highlightsUsed={highlightsUsed}
+        onUpgrade={onUpgrade}
+        onMetrics={onMetrics}
+        compact
+      />
       <View style={styles.sectionHeading}>
         <SectionHeading title="Meus esportes" action="Gerenciar" onAction={onManageSports} />
       </View>
@@ -535,7 +558,10 @@ export function ProfileScreen({
         />
       )}
       <SectionHeading title={`Habilidades em ${sportName(selected)}`} />
-      <Text style={styles.hint}>Ajuste suas notas de 0 a 5.</Text>
+      <Text style={styles.hint}>
+        Ajuste suas notas de 0 a 5 quando quiser. Em cada partida fica salvo o que você declarou ao
+        entrar, e é isso que os outros jogadores avaliam.
+      </Text>
       <AppCard>
         {sportById[selected].skills.map((skill) => (
           <LevelSlider
@@ -552,8 +578,8 @@ export function ProfileScreen({
           <Text style={styles.hint}>jogos</Text>
         </AppCard>
         <AppCard style={styles.statCard}>
-          <Text style={styles.statNumber}>{reputation}</Text>
-          <Text style={styles.hint}>média</Text>
+          <Text style={styles.statNumber}>{reputationText(profile.reputation)}</Text>
+          <Text style={styles.hint}>reputação</Text>
         </AppCard>
         <AppCard style={styles.statCard}>
           <Text numberOfLines={1} style={styles.statNumber}>
@@ -562,7 +588,20 @@ export function ProfileScreen({
           <Text style={styles.hint}>joga em</Text>
         </AppCard>
       </View>
+      {profile.plan === 'plus' ? (
+        <ActionButton title="Métricas de desempenho" icon="star" tone="soft" onPress={onMetrics} />
+      ) : null}
       <ActionButton title="Sair da conta" icon="logout" onPress={onLogout} />
+      <View style={styles.dangerZone}>
+        {profile.plan === 'plus' ? (
+          <Pressable accessibilityRole="button" onPress={onCancelPlan} style={styles.dangerLink}>
+            <Text style={styles.dangerLinkText}>Cancelar assinatura Huddle+</Text>
+          </Pressable>
+        ) : null}
+        <Pressable accessibilityRole="button" onPress={onDeleteAccount} style={styles.dangerLink}>
+          <Text style={[styles.dangerLinkText, { color: colors.danger }]}>Excluir conta</Text>
+        </Pressable>
+      </View>
     </ScreenScroll>
   );
 }
@@ -624,16 +663,19 @@ export function EvaluateScreen({
 }: {
   match: Match;
   onSubmit: (
-    votes: Record<string, number>,
+    votes: Record<string, number | null>,
     comments: Record<string, string>,
     ratings: Record<string, Partial<Record<SkillKey, number>>>,
   ) => void;
   onBack: () => void;
 }) {
   const players = match.players.filter((player) => player.id !== 'you');
-  const [votes, setVotes] = useState<Record<string, number>>({});
+  const tournament = match.mode === 'tournament';
+  const [votes, setVotes] = useState<Record<string, number | null>>({});
   const [comments, setComments] = useState<Record<string, string>>({});
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [expanded, setExpanded] = useState<Record<string, boolean>>(() =>
+    tournament ? Object.fromEntries(players.map((player) => [player.id, true])) : {},
+  );
   const [ratings, setRatings] = useState<Record<string, Partial<Record<SkillKey, number>>>>({});
   return (
     <ScreenScroll>
@@ -641,8 +683,15 @@ export function EvaluateScreen({
       <PageTitle title="Avaliar partida" subtitle={`${sportName(match.sport)} · ${match.title}`} />
       <InlineNotice
         title="Avalie quem jogou com você"
-        message={`Compare o nível e, se quiser, avalie habilidades de ${sportName(match.sport).toLowerCase()} e deixe um comentário.`}
+        message="O nível mostrado é o que cada pessoa declarou ao entrar na partida. Diga se ela jogou abaixo, certo ou acima disso. Só conta o que você marcar."
       />
+      {tournament ? (
+        <InlineNotice
+          title="Partida de torneio"
+          message="As notas de habilidade definem a pontuação de cada pessoa no ranking."
+          tone="success"
+        />
+      ) : null}
       {!players.length ? (
         <InlineNotice
           title="Sem outras pessoas para avaliar"
@@ -655,21 +704,21 @@ export function EvaluateScreen({
             <Avatar name={player.name} color={player.color} size={40} />
             <View style={{ flex: 1 }}>
               <Text style={styles.cardTitle}>{player.name}</Text>
-              <Text style={styles.hint}>
-                Nível atual · {player.level.toFixed(1).replace('.', ',')}
-              </Text>
+              <Text style={styles.hint}>Declarou nível {formatLevel(player.level)} ao entrar</Text>
             </View>
           </View>
           <View style={{ flexDirection: 'row', gap: 8 }}>
             {([-1, 0, 1] as const).map((value) => {
-              const selected = (votes[player.id] ?? 0) === value;
+              const selected = votes[player.id] === value;
               const label = value === -1 ? 'Abaixo' : value === 0 ? 'Certo' : 'Acima';
               return (
                 <Pressable
                   key={value}
                   accessibilityRole="radio"
                   accessibilityState={{ checked: selected }}
-                  onPress={() => setVotes((current) => ({ ...current, [player.id]: value }))}
+                  onPress={() =>
+                    setVotes((current) => ({ ...current, [player.id]: selected ? null : value }))
+                  }
                   style={{
                     minHeight: 34,
                     paddingHorizontal: 13,
@@ -810,7 +859,7 @@ export function EvaluateScreen({
           icon="check"
           onPress={() =>
             onSubmit(
-              Object.fromEntries(players.map((player) => [player.id, votes[player.id] ?? 0])),
+              Object.fromEntries(players.map((player) => [player.id, votes[player.id] ?? null])),
               comments,
               ratings,
             )
@@ -931,6 +980,14 @@ const styles = {
     color: colors.ink,
   },
   sectionHeading: { marginTop: 2 },
+  dangerZone: { alignItems: 'center' as const, gap: 2, paddingTop: 4 },
+  dangerLink: { minHeight: 40, justifyContent: 'center' as const, paddingHorizontal: 12 },
+  dangerLinkText: {
+    fontFamily: 'Manrope',
+    fontSize: 13,
+    fontWeight: '700' as const,
+    color: colors.muted,
+  },
   formSectionTitle: {
     color: colors.ink,
     fontFamily: 'Manrope',

@@ -24,6 +24,7 @@ export type SkillKey =
 export type Skills = Partial<Record<SkillKey, number>>;
 export type SportSkills = Partial<Record<SportId, Skills>>;
 export type MatchStatus = 'open' | 'full' | 'finished' | 'cancelled';
+export type MatchMode = 'casual' | 'tournament';
 export type JoinPolicy = 'instant' | 'approval';
 export type MatchFilters = {
   sport: 'all' | SportId;
@@ -31,10 +32,12 @@ export type MatchFilters = {
   date: 'any' | 'today' | 'week';
 };
 
+/** level = nível declarado pela pessoa no momento em que entrou na partida. */
 export type Player = { id: string; name: string; color: string; level: number };
 
 export type Match = {
   id: string;
+  mode: MatchMode;
   title: string;
   sport: SportId;
   format: string;
@@ -46,6 +49,8 @@ export type Match = {
   maxLevel: number;
   maxPlayers: number;
   host: string;
+  /** "you" quando a pessoa logada organiza. */
+  hostId: string;
   description: string;
   players: Player[];
   pendingRequests: Player[];
@@ -63,13 +68,97 @@ export type Match = {
   cancelledAt?: string;
 };
 
+export type SportLevel = { declared: number; calibrated: number; ratingsReceived: number };
+
+export type Reputation = {
+  stars: number | null;
+  votes: number;
+  below: number;
+  right: number;
+  above: number;
+  tendency: 'accurate' | 'overestimates' | 'underestimates' | null;
+};
+
 export type Profile = {
+  id?: string;
   name: string;
   email: string;
   city: string;
+  color?: string;
   sports: SportId[];
   skillsBySport: SportSkills;
+  levels?: Partial<Record<SportId, SportLevel>>;
+  reputation?: Reputation;
   plan: PlanId;
+};
+
+export type TournamentTier = 'bronze' | 'prata' | 'ouro' | 'diamante';
+
+export type TournamentSummary = {
+  sport: SportId;
+  points: number;
+  tier: TournamentTier;
+  position: number;
+  ranked: number;
+  averageRating: number;
+  reviews: number;
+  tournamentsPlayed: number;
+};
+
+export type RankingEntry = {
+  userId: string;
+  name: string;
+  color: string;
+  points: number;
+  tier: TournamentTier;
+  averageRating: number;
+  reviews: number;
+  position: number;
+};
+
+export type PublicProfile = {
+  id: string;
+  name: string;
+  city: string;
+  color: string;
+  memberSince: string;
+  premium: boolean;
+  sports: ({ sport: SportId } & SportLevel)[];
+  reputation: Reputation;
+  matchesPlayed: number;
+  matchesHosted: number;
+  tournaments: TournamentSummary[];
+};
+
+export type PerformanceMetrics = {
+  totals: {
+    played: number;
+    casual: number;
+    tournament: number;
+    hosted: number;
+    presenceRate: number | null;
+    reviewsGiven: number;
+    reviewsReceived: number;
+  };
+  reputation: Reputation;
+  sports: {
+    sport: SportId;
+    level: SportLevel;
+    reputation: Reputation;
+    skills: { key: SkillKey; declared: number; perceived: number | null; ratings: number }[];
+    history: {
+      matchId: string;
+      title: string;
+      mode: MatchMode;
+      date: string;
+      declared: number;
+      perceived: number | null;
+    }[];
+  }[];
+  tournaments: (TournamentSummary & {
+    top: RankingEntry[];
+    history: { matchId: string; title: string; date: string; perceived: number | null }[];
+  })[];
 };
 
 export type MatchDraft = {
@@ -80,6 +169,7 @@ export type MatchDraft = {
   neighborhood: string;
   maxPlayers: number;
   sport: SportId;
+  mode: MatchMode;
   format: string;
   access: 'free' | 'level';
   minLevel: number;
@@ -101,17 +191,19 @@ export type Page =
   | { name: 'search' }
   | { name: 'filters' }
   | { name: 'match'; matchId: string }
-  | { name: 'organizer'; matchId: string }
+  | { name: 'player'; playerId: string; sport?: SportId }
   | { name: 'organizer-manage'; matchId: string }
   | { name: 'premium' }
+  | { name: 'checkout' }
   | { name: 'premium-success' }
+  | { name: 'metrics' }
   | { name: 'highlight'; matchId: string }
   | { name: 'highlight-active'; matchId: string }
-  | { name: 'quota-limit'; action: 'entry' | 'create'; weekKey: string; matchId?: string }
   | { name: 'create-details' }
   | { name: 'create-rules' }
   | { name: 'my-matches'; section?: 'upcoming' | 'history' }
   | { name: 'profile' }
   | { name: 'edit-profile' }
+  | { name: 'delete-account' }
   | { name: 'evaluate'; matchId: string }
   | { name: 'success'; kind: 'created' | 'joined' | 'requested' | 'evaluated'; matchId: string };

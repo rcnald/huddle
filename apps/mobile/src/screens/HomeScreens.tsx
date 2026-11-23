@@ -22,10 +22,10 @@ import {
   LevelBadge,
   MatchCard,
   PageTitle,
+  PlanCard,
   ScreenScroll,
   SectionHeading,
   SportFilterRow,
-  WeeklyQuotaCard,
 } from '../components/Blocks';
 import { ActionButton, SelectCard } from '../components/Controls';
 import { AppIcon } from '../components/Icon';
@@ -33,7 +33,14 @@ import { MapPreview } from '../components/MapPreview';
 import { sportById, sportName } from '../data/sports';
 import { colors } from '../theme';
 import type { Match, MatchFilters, PlanId, Profile, SportId } from '../types';
-import { formatDate, formatTime, highlightedNow, spotsLeft } from '../utils';
+import {
+  formatDate,
+  formatLevel,
+  formatTime,
+  highlightedNow,
+  inProgress,
+  spotsLeft,
+} from '../utils';
 
 export function HomeScreen({
   profile,
@@ -41,8 +48,9 @@ export function HomeScreen({
   matches,
   joinedIds,
   eligible,
-  quotaUsage,
+  highlightsUsed,
   onUpgrade,
+  onMetrics,
   onSearch,
   onCreate,
   onProfile,
@@ -54,8 +62,9 @@ export function HomeScreen({
   matches: Match[];
   joinedIds: string[];
   eligible: (match: Match) => boolean;
-  quotaUsage: { entries: number; creations: number; highlights: number };
+  highlightsUsed: number;
   onUpgrade: () => void;
+  onMetrics: () => void;
   onSearch: () => void;
   onCreate: () => void;
   onProfile: () => void;
@@ -132,7 +141,13 @@ export function HomeScreen({
           </View>
         </View>
       )}
-      <WeeklyQuotaCard plan={profile.plan} usage={quotaUsage} onUpgrade={onUpgrade} compact />
+      <PlanCard
+        plan={profile.plan}
+        highlightsUsed={highlightsUsed}
+        onUpgrade={onUpgrade}
+        onMetrics={onMetrics}
+        compact
+      />
 
       {featured.length ? (
         <>
@@ -273,6 +288,19 @@ export function SearchScreen({
         title="Encontre sua turma"
         subtitle="Partidas em cinco esportes coletivos, perto de você."
       />
+      {/* Busca por localização: só visual por enquanto (sem pedir a localização do aparelho). */}
+      <View style={[styles.searchBox, styles.locationBox]} accessibilityState={{ disabled: true }}>
+        <AppIcon name="location" size={18} color={colors.primary} />
+        <TextInput
+          editable={false}
+          placeholder={
+            profile.city ? `Perto de ${profile.city.split(',')[0]}` : 'Buscar por região'
+          }
+          placeholderTextColor="#88878D"
+          style={styles.searchInput}
+        />
+        <AppPill text="Em breve" tone="accent" />
+      </View>
       <View style={styles.searchBox}>
         <AppIcon name="search" size={18} color={colors.muted} />
         <TextInput
@@ -439,7 +467,6 @@ export function FiltersScreen({
 export function MatchDetailScreen({
   match,
   plan,
-  remainingEntries,
   joined,
   requested,
   waitlisted,
@@ -450,15 +477,16 @@ export function MatchDetailScreen({
   onJoin,
   onConfirmPresence,
   onAcceptOffer,
-  onOrganizer,
+  onOpenPlayer,
   onManage,
   onHighlight,
+  onCancelMatch,
+  onUpgrade,
   onApproveRequest,
   onRejectRequest,
 }: {
   match: Match;
   plan: PlanId;
-  remainingEntries: number;
   joined: boolean;
   requested: boolean;
   waitlisted: boolean;
@@ -469,15 +497,21 @@ export function MatchDetailScreen({
   onJoin: () => void;
   onConfirmPresence: () => void;
   onAcceptOffer: () => void;
-  onOrganizer: () => void;
+  onOpenPlayer: (playerId: string) => void;
   onManage: () => void;
   onHighlight: () => void;
+  onCancelMatch: () => void;
+  onUpgrade: () => void;
   onApproveRequest: (playerId: string) => void;
   onRejectRequest: (playerId: string) => void;
 }) {
   const players = match.players || [];
   const spots = spotsLeft(players.length, match.maxPlayers);
-  const organizer = players.find((player) => player.name === match.host);
+  const organizer = players.find((player) => player.id === match.hostId);
+  const tournament = match.mode === 'tournament';
+  const lockedTournament = tournament && plan !== 'plus' && !joined && !requested && !waitlisted;
+  const started = inProgress(match);
+  const closed = match.status === 'finished' || match.status === 'cancelled' || started;
   const offerForMe = match.waitlistOffer?.playerId === 'you';
   const offerExpiresAt = match.waitlistOffer?.expiresAt;
   const offerExpired = Boolean(
@@ -497,12 +531,49 @@ export function MatchDetailScreen({
       ? 'Cancelar pedido'
       : waitlisted
         ? 'Sair da lista de espera'
+        : lockedTournament
+          ? 'Torneio exclusivo Huddle+'
+          : spots === 0
+            ? 'Entrar na lista de espera'
+            : match.joinPolicy === 'approval'
+              ? 'Solicitar participação'
+              : 'Entrar na partida';
+  const joinIcon =
+    joined || requested || waitlisted
+      ? 'cancel'
+      : lockedTournament
+        ? 'star'
         : spots === 0
-          ? 'Entrar na lista de espera'
-          : match.joinPolicy === 'approval'
-            ? 'Solicitar participação'
-            : 'Entrar na partida';
-  const joinIcon = joined || requested || waitlisted ? 'cancel' : spots === 0 ? 'clock' : 'userAdd';
+          ? 'clock'
+          : 'userAdd';
+  const statusLabel =
+    match.status === 'cancelled'
+      ? 'Cancelada'
+      : match.status === 'finished'
+        ? 'Encerrada'
+        : started
+          ? 'Em andamento'
+          : match.status === 'full'
+            ? 'Completa'
+            : 'Aberta';
+  const playerRow = (player: Match['players'][number], subtitle: string) => (
+    <Pressable
+      key={player.id}
+      accessibilityRole="button"
+      accessibilityLabel={`Ver perfil de ${player.name}`}
+      onPress={() => onOpenPlayer(player.id)}
+      style={styles.personRow}
+    >
+      <Avatar name={player.name} color={player.color} size={38} />
+      <View style={{ flex: 1 }}>
+        <Text style={styles.personName}>
+          {player.id === 'you' ? `${player.name} (você)` : player.name}
+        </Text>
+        <Text style={styles.hint}>{subtitle}</Text>
+      </View>
+      <AppIcon name="arrow" color={colors.primary} size={14} />
+    </Pressable>
+  );
   return (
     <ScreenScroll>
       <BackHeader onBack={onBack} />
@@ -511,16 +582,17 @@ export function MatchDetailScreen({
         <View style={styles.matchDetailTags}>
           <AppPill text={`${sportName(match.sport)} · ${match.format}`} />
           <AppPill
-            text={
-              match.status === 'open'
-                ? 'Aberta'
-                : match.status === 'full'
-                  ? 'Completa'
-                  : 'Encerrada'
+            text={statusLabel}
+            tone={
+              match.status === 'open' && !started
+                ? 'success'
+                : match.status === 'cancelled'
+                  ? 'warning'
+                  : 'neutral'
             }
-            tone={match.status === 'open' ? 'success' : 'neutral'}
           />
         </View>
+        {tournament ? <AppPill text="Torneio · Huddle+" tone="accent" icon="star" /> : null}
         <Text style={styles.detailMatchTitle}>{match.title}</Text>
         <View style={styles.sectionHeader}>
           <View style={{ flex: 1, gap: 3 }}>
@@ -537,36 +609,56 @@ export function MatchDetailScreen({
             {match.venue} · {match.neighborhood}
           </Text>
         </View>
-        <View style={{ height: 1, backgroundColor: colors.line }} />
-        <View style={{ gap: 5 }}>
-          <Text style={styles.sectionLabel}>Sobre o jogo</Text>
-          <Text style={styles.body}>{match.description}</Text>
-        </View>
+        {match.description ? (
+          <>
+            <View style={{ height: 1, backgroundColor: colors.line }} />
+            <View style={{ gap: 5 }}>
+              <Text style={styles.sectionLabel}>Sobre o jogo</Text>
+              <Text style={styles.body}>{match.description}</Text>
+            </View>
+          </>
+        ) : null}
       </AppCard>
-      <View style={styles.entryQuota}>
-        <AppIcon name={plan === 'plus' ? 'star' : 'userAdd'} size={18} color={colors.primary} />
-        <View style={{ flex: 1, gap: 3 }}>
-          <Text style={styles.sectionLabel}>
-            {plan === 'plus' ? 'Entradas sem limite' : 'Suas entradas nesta semana'}
-          </Text>
-          <Text style={styles.hint}>
-            {plan === 'plus'
-              ? 'Seu Huddle+ está ativo.'
-              : `${remainingEntries} de 3 entradas disponíveis na semana desta partida.`}
-          </Text>
+      {tournament ? (
+        <View style={styles.entryQuota}>
+          <AppIcon name="star" size={18} color={colors.primary} />
+          <View style={{ flex: 1, gap: 3 }}>
+            <Text style={styles.sectionLabel}>Vale para o ranking</Text>
+            <Text style={styles.hint}>
+              No torneio não conta o placar: sua pontuação vem das notas que os outros jogadores
+              derem para você depois do jogo.
+            </Text>
+          </View>
         </View>
-      </View>
+      ) : null}
+      {match.status === 'cancelled' ? (
+        <InlineNotice
+          title="Partida cancelada"
+          message="A organização cancelou esta partida."
+          tone="warning"
+        />
+      ) : null}
       {!match.createdByMe ? (
         <ActionButton
           title={joinTitle}
           icon={joinIcon}
           tone={joined || requested || waitlisted ? 'soft' : 'primary'}
-          onPress={onJoin}
-          disabled={match.status === 'finished' || match.status === 'cancelled'}
+          onPress={lockedTournament ? onUpgrade : onJoin}
+          disabled={closed}
         />
-      ) : (
-        <ActionButton title="Gerenciar lista e vagas" icon="group" onPress={onManage} />
-      )}
+      ) : !closed ? (
+        <>
+          <ActionButton title="Gerenciar lista e vagas" icon="group" onPress={onManage} />
+          <ActionButton
+            title="Sair e cancelar a partida"
+            icon="cancel"
+            tone="soft"
+            onPress={onCancelMatch}
+          />
+        </>
+      ) : match.status !== 'cancelled' ? (
+        <ActionButton title="Gerenciar partida" icon="group" onPress={onManage} />
+      ) : null}
       {joined && confirmationDue ? (
         <AppCard style={{ gap: 8, backgroundColor: '#F0EEFF' }}>
           <Text style={styles.sectionTitle}>Confirme presença para amanhã</Text>
@@ -585,37 +677,37 @@ export function MatchDetailScreen({
       <AppCard>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Quem organiza</Text>
-          <AppPill text="Anfitriã" tone="accent" />
+          <AppPill text="Organização" tone="accent" />
         </View>
-        <Pressable onPress={onOrganizer} style={styles.personRow}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`Ver perfil de ${match.host}`}
+          onPress={() => onOpenPlayer(match.hostId)}
+          style={styles.personRow}
+        >
           <Avatar name={match.host} color={organizer?.color || colors.lavender} size={44} />
           <View style={{ flex: 1 }}>
             <Text style={styles.personName}>{match.host}</Text>
-            <Text style={styles.hint}>Organiza esta partida</Text>
+            <Text style={styles.hint}>Organiza esta partida · ver perfil</Text>
           </View>
           <AppIcon name="arrow" color={colors.primary} size={16} />
         </Pressable>
       </AppCard>
       <AppCard>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Jogadores confirmados</Text>
+          <Text style={styles.sectionTitle}>Quem já está no jogo</Text>
           <Text style={styles.detailStatAccent}>
             {players.length} / {match.maxPlayers}
           </Text>
         </View>
+        <Text style={styles.hint}>Toque em alguém para ver o perfil, o nível e a reputação.</Text>
         {players.length ? (
-          players.map((player) => (
-            <View key={player.id} style={styles.personRow}>
-              <Avatar name={player.name} color={player.color} size={38} />
-              <View style={{ flex: 1 }}>
-                <Text style={styles.personName}>{player.name}</Text>
-                <Text style={styles.hint}>
-                  {player.name === match.host ? 'Organizadora' : 'Jogadora'} · nível{' '}
-                  {player.level.toFixed(1).replace('.', ',')}
-                </Text>
-              </View>
-            </View>
-          ))
+          players.map((player) =>
+            playerRow(
+              player,
+              `${player.id === match.hostId ? 'Organização' : 'Participante'} · nível declarado ${formatLevel(player.level)}`,
+            ),
+          )
         ) : (
           <InlineNotice
             title="Ninguém confirmou ainda"
@@ -632,17 +724,13 @@ export function MatchDetailScreen({
             <Text style={styles.sectionTitle}>Lista de espera</Text>
             <AppPill text={`${match.waitlist.length}`} />
           </View>
-          {match.waitlist.map((player, index) => (
-            <View key={player.id} style={styles.personRow}>
-              <Text style={styles.waitPosition}>{index + 1}</Text>
-              <Avatar name={player.name} color={player.color} size={34} />
-              <Text style={styles.personName}>{player.name}</Text>
-            </View>
-          ))}
+          {match.waitlist.map((player, index) =>
+            playerRow(player, `${index + 1}º na fila · nível ${formatLevel(player.level)}`),
+          )}
           {waitlisted ? (
             <InlineNotice
               title="Você está na lista"
-              message="A organizadora pode oferecer a próxima vaga para você."
+              message="A organização pode oferecer a próxima vaga para você."
             />
           ) : null}
           {offerForMe && offerExpiresAt ? (
@@ -660,13 +748,23 @@ export function MatchDetailScreen({
             <Text style={styles.sectionTitle}>Pedidos para entrar</Text>
             <AppPill text={`${match.pendingRequests.length}`} tone="accent" />
           </View>
+          <Text style={styles.hint}>Toque no nome para ver o perfil antes de decidir.</Text>
           {match.pendingRequests.map((player) => (
             <View key={player.id} style={styles.requestRow}>
-              <Avatar name={player.name} color={player.color} size={38} />
-              <View style={{ flex: 1 }}>
-                <Text style={styles.personName}>{player.name}</Text>
-                <Text style={styles.hint}>Nível {player.level.toFixed(1).replace('.', ',')}</Text>
-              </View>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={`Ver perfil de ${player.name}`}
+                onPress={() => onOpenPlayer(player.id)}
+                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}
+              >
+                <Avatar name={player.name} color={player.color} size={38} />
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.personName}>{player.name}</Text>
+                  <Text style={styles.hint}>
+                    Nível declarado {formatLevel(player.level)} · ver perfil
+                  </Text>
+                </View>
+              </Pressable>
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={`Aceitar ${player.name}`}
@@ -697,28 +795,28 @@ export function MatchDetailScreen({
       {!eligible && match.access === 'level' && !joined && !requested ? (
         <InlineNotice
           title="Confira seu nível"
-          message={`Esta partida aceita níveis ${match.minLevel}–${match.maxLevel}. Seu nível neste esporte está fora da faixa.`}
+          message={`Esta partida aceita níveis ${match.minLevel}–${match.maxLevel}. Seu nível neste esporte (recalibrado pelas avaliações) está fora da faixa.`}
           tone="warning"
         />
       ) : null}
       {requested ? (
         <InlineNotice
           title="Pedido enviado"
-          message="A organizadora vai confirmar quando revisar as solicitações."
+          message="A organização vai confirmar quando revisar as solicitações."
           tone="accent"
         />
       ) : null}
       {offerForMe && offerExpired ? (
         <InlineNotice
           title="O prazo do convite terminou"
-          message="A organizadora pode oferecer a vaga à próxima pessoa da lista."
+          message="A organização pode oferecer a vaga à próxima pessoa da lista."
           tone="warning"
         />
       ) : null}
       {offerForMe && !offerExpired ? (
         <ActionButton title="Aceitar a vaga" icon="check" onPress={onAcceptOffer} />
       ) : null}
-      {match.createdByMe ? (
+      {match.createdByMe && !closed ? (
         <ActionButton
           title={plan === 'plus' ? 'Destacar por 24 horas' : 'Conhecer destaques Huddle+'}
           icon="star"
@@ -726,35 +824,6 @@ export function MatchDetailScreen({
           onPress={onHighlight}
         />
       ) : null}
-    </ScreenScroll>
-  );
-}
-
-export function OrganizerScreen({ match, onBack }: { match: Match; onBack: () => void }) {
-  const host = match.players.find((player) => player.name === match.host);
-  return (
-    <ScreenScroll>
-      <BackHeader onBack={onBack} />
-      <PageTitle title="Perfil da organizadora" subtitle="Quem está cuidando deste jogo." />
-      <AppCard style={{ alignItems: 'center', paddingVertical: 24, gap: 8 }}>
-        <Avatar name={match.host} color={host?.color || colors.lavender} size={72} />
-        <Text style={styles.detailMatchTitle}>{match.host}</Text>
-        <Text style={styles.body}>Organiza partidas de {sportName(match.sport).toLowerCase()}</Text>
-        <View style={styles.organizerLevel}>
-          <Text style={styles.sectionLabel}>Nível em {sportName(match.sport)}</Text>
-          <Text style={styles.detailStatAccent}>
-            {host?.level.toFixed(1).replace('.', ',') || '3,1'} / 5
-          </Text>
-        </View>
-      </AppCard>
-      <AppCard>
-        <Text style={styles.sectionTitle}>Partida organizada</Text>
-        <Text style={styles.personName}>{match.title}</Text>
-        <Text style={styles.body}>
-          {match.format} · {formatDate(match.startsAt)} · {formatTime(match.startsAt)} ·{' '}
-          {match.venue}
-        </Text>
-      </AppCard>
     </ScreenScroll>
   );
 }
@@ -809,6 +878,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   searchInput: { flex: 1, minHeight: 50, color: colors.ink, fontFamily: 'Manrope', fontSize: 13 },
+  locationBox: { paddingRight: 12, opacity: 0.85 },
   filterButton: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
   chips: { gap: 8, paddingBottom: 6 },
   chip: {
