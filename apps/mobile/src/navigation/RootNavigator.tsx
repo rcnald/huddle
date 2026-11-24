@@ -474,6 +474,16 @@ export function RootNavigator() {
         notify(waitlisted ? 'Você saiu da lista de espera' : 'Pedido cancelado');
         return;
       }
+      if (!profile.sports.includes(match.sport)) {
+        push({
+          name: 'match-sport-required',
+          matchId: match.id,
+          stage: 'missing',
+          currentLevel: profile.levels?.[match.sport]?.calibrated,
+          ratingsReceived: profile.levels?.[match.sport]?.ratingsReceived,
+        });
+        return;
+      }
       const result = await api.joinMatch(match.id);
       replaceMatch(result.match);
       if (result.membership === 'confirmed') {

@@ -20,7 +20,7 @@ export function MatchSportRequiredScreen({
   match,
   stage,
   currentLevel,
-  ratingsReceived = 0,
+  ratingsReceived,
   error,
   onBack,
   onAddSport,
@@ -63,7 +63,7 @@ export function MatchSportRequiredScreen({
             }
           />
           <MatchSummary match={match} />
-          {ratingsReceived > 0 ? (
+          {ratingsReceived !== undefined && ratingsReceived > 0 ? (
             <AppCard style={styles.noticeCard}>
               <Text style={styles.noticeTitle}>Você já recebeu avaliações em {sport}</Text>
               <Text style={styles.body}>
@@ -77,7 +77,7 @@ export function MatchSportRequiredScreen({
                   : 'As avaliações recebidas continuam no cálculo; mudar sua autoavaliação não garante entrada.'}
               </Text>
             </AppCard>
-          ) : (
+          ) : ratingsReceived === 0 ? (
             <InlineNotice
               title={`Seu perfil ainda não inclui ${sport}.`}
               message={
@@ -85,6 +85,11 @@ export function MatchSportRequiredScreen({
                   ? 'A entrada é livre. Adicione o esporte e informe suas habilidades para registrar seu nível e dar contexto às avaliações depois do jogo.'
                   : 'Adicione o esporte e informe suas habilidades. Sem avaliações recebidas, seu nível inicial é calculado pela autoavaliação.'
               }
+            />
+          ) : (
+            <InlineNotice
+              title={`Seu perfil ainda não inclui ${sport}.`}
+              message="Adicione o esporte e revise suas habilidades. Avaliações anteriores, se houver, também entram no nível recalibrado."
             />
           )}
           <ActionButton
@@ -182,14 +187,19 @@ export function MatchSportRequiredScreen({
           <AppPill text="Perfil atualizado" tone="warning" />
           <PageTitle
             title="Seu nível está fora desta faixa"
-            subtitle="A faixa da partida é de {match.minLevel} a {match.maxLevel}."
+            subtitle={`A faixa da partida é de ${match.minLevel} a ${match.maxLevel}.`}
           />
           <MatchSummary match={match} />
           <AppCard style={styles.noticeCard}>
             <Text style={styles.noticeTitle}>
               Seu nível recalibrado em {sport}: {formatLevel(currentLevel ?? 3)}
             </Text>
-            {ratingsReceived > 0 ? (
+            {ratingsReceived === undefined ? (
+              <Text style={styles.body}>
+                As avaliações recebidas, se houver, também influenciam o nível. Rever a
+                autoavaliação pode mudar o resultado, mas não garante compatibilidade.
+              </Text>
+            ) : ratingsReceived > 0 ? (
               <Text style={styles.body}>
                 {ratingsReceived}{' '}
                 {ratingsReceived === 1 ? 'avaliação recebida' : 'avaliações recebidas'} também
