@@ -102,10 +102,11 @@ Contas criadas (senha `huddle123`): `marina@exemplo.com` (plano grátis) e `ana@
 ### Regras principais
 
 - **Nível recalibrado**: cada habilidade vale `(nota declarada × 3 + soma das notas recebidas) / (3 + nº de notas)`. Esse nível libera as partidas por faixa.
+- **Partidas por nível**: o participante precisa ter o esporte no perfil. Se não tiver, a API responde `SPORT_REQUIRED`; o app abre o fluxo para adicionar o esporte, declarar habilidades e retornar aos detalhes para verificar a faixa.
 - **Foto na entrada**: ao entrar numa partida, as habilidades declaradas naquele momento ficam salvas; a avaliação compara o desempenho com elas.
 - **Reputação**: vem só dos votos Abaixo/Certo/Acima (`1 + 4 × % de "Certo"`).
 - **Torneios (Huddle+)**: só assinantes criam e entram. O ranking não usa placar, só as notas de habilidade recebidas em torneios (média suavizada × 200, faixas Bronze/Prata/Ouro/Diamante).
-- **Encerramento automático**: partidas não finalizadas fecham 24 horas após o início.
+- **Encerramento automático**: partidas não finalizadas são encerradas na primeira requisição recebida pela API depois de 24 horas do início.
 - **Organização sai = partida cancelada**.
 - **Plano grátis** cria e entra em partidas sem limite; o Huddle+ (R$ 9,90/mês) libera destaques, métricas de desempenho e torneios.
 - **Pagamento simulado**: `POST /api/billing/checkout` só troca o plano; não há provedor de pagamento nem coleta de dados de cartão. Em produção a rota fica desligada, a menos que `ALLOW_SIMULATED_PLUS=true`.

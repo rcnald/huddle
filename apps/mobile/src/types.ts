@@ -187,11 +187,25 @@ export type Page =
   | { name: 'recover-sent'; email: string }
   | { name: 'region' }
   | { name: 'sports'; mode: 'onboarding' | 'profile' }
-  | { name: 'sport-skills'; mode: 'onboarding' | 'profile'; sport: SportId; remaining: SportId[] }
+  | {
+      name: 'sport-skills';
+      mode: 'onboarding' | 'profile' | 'match-return';
+      sport: SportId;
+      remaining: SportId[];
+      returnMatchId?: string;
+    }
   | { name: 'home' }
   | { name: 'search' }
   | { name: 'filters' }
   | { name: 'match'; matchId: string }
+  | {
+      name: 'match-sport-required';
+      matchId: string;
+      stage: 'missing' | 'updated' | 'error';
+      currentLevel?: number;
+      ratingsReceived?: number;
+      error?: string;
+    }
   | { name: 'player'; playerId: string; sport?: SportId }
   | { name: 'organizer-manage'; matchId: string }
   | { name: 'premium' }

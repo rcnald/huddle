@@ -467,6 +467,7 @@ export function FiltersScreen({
 export function MatchDetailScreen({
   match,
   plan,
+  sportSelected,
   joined,
   requested,
   waitlisted,
@@ -487,6 +488,7 @@ export function MatchDetailScreen({
 }: {
   match: Match;
   plan: PlanId;
+  sportSelected: boolean;
   joined: boolean;
   requested: boolean;
   waitlisted: boolean;
@@ -509,6 +511,8 @@ export function MatchDetailScreen({
   const spots = spotsLeft(players.length, match.maxPlayers);
   const organizer = players.find((player) => player.id === match.hostId);
   const tournament = match.mode === 'tournament';
+  const missingMatchSport =
+    match.access === 'level' && !sportSelected && !joined && !requested && !waitlisted;
   const lockedTournament = tournament && plan !== 'plus' && !joined && !requested && !waitlisted;
   const started = inProgress(match);
   const closed = match.status === 'finished' || match.status === 'cancelled' || started;
@@ -533,11 +537,13 @@ export function MatchDetailScreen({
         ? 'Sair da lista de espera'
         : lockedTournament
           ? 'Torneio exclusivo Huddle+'
-          : spots === 0
-            ? 'Entrar na lista de espera'
-            : match.joinPolicy === 'approval'
-              ? 'Solicitar participação'
-              : 'Entrar na partida';
+          : missingMatchSport
+            ? 'Adicionar esporte e conferir nível'
+            : spots === 0
+              ? 'Entrar na lista de espera'
+              : match.joinPolicy === 'approval'
+                ? 'Solicitar participação'
+                : 'Entrar na partida';
   const joinIcon =
     joined || requested || waitlisted
       ? 'cancel'
@@ -792,7 +798,13 @@ export function MatchDetailScreen({
         <MapPreview title={match.venue} subtitle={match.neighborhood} />
         <ActionButton title="Abrir no Google Maps" icon="location" tone="soft" onPress={openMaps} />
       </AppCard>
-      {!eligible && match.access === 'level' && !joined && !requested ? (
+      {!sportSelected && match.access === 'level' && !joined && !requested ? (
+        <InlineNotice
+          title={`Adicione ${sportName(match.sport)} ao perfil`}
+          message={`Esta partida aceita níveis ${match.minLevel}–${match.maxLevel}. Escolha o esporte e informe suas habilidades para conferir sua compatibilidade.`}
+          tone="warning"
+        />
+      ) : !eligible && match.access === 'level' && !joined && !requested ? (
         <InlineNotice
           title="Confira seu nível"
           message={`Esta partida aceita níveis ${match.minLevel}–${match.maxLevel}. Seu nível neste esporte (recalibrado pelas avaliações) está fora da faixa.`}

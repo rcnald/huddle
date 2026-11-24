@@ -110886,8 +110886,8 @@
     {
       "type": "frame",
       "id": "YEANl",
-      "x": 1450,
-      "y": 30758,
+      "x": 2506,
+      "y": 30810,
       "name": "Painel · Relatório técnico × Huddle atual",
       "width": 1180,
       "height": 1089,
@@ -111871,6 +111871,1574 @@
           "fontFamily": "$huddle.font",
           "fontSize": 12,
           "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "z4J4p",
+      "x": 2730,
+      "y": 29578,
+      "name": "Proposta · Esporte exigido · padrão",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "Bb11y",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho com voltar",
+          "width": "fill_container"
+        },
+        {
+          "type": "text",
+          "id": "mjb60",
+          "name": "Contexto",
+          "fill": "$huddle.primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "ANTES DE ENTRAR · PARTIDA POR NÍVEL",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 12,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "R8OChr",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Adicione o esporte ao seu perfil",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 25,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "HjoHQ",
+          "name": "Resumo da partida",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "I743ts",
+              "name": "Esporte e formato",
+              "fill": "$huddle.primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "FUTEBOL  ·  SOCIETY",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "SdVlA",
+              "name": "Nome da partida",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Racha de quarta com a turma do Parque das Flores",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 20,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Ujzun",
+              "name": "Local e horário",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Qua., 25 nov. · 19h30\nArena Central · Pinheiros",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "frame",
+              "id": "tPXlH",
+              "name": "Faixa de nível",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 12,
+              "padding": [
+                10,
+                12
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "KiW6U",
+                  "name": "Faixa aceita",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nível aceito: 3 a 4",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rLDyA",
+          "name": "Motivo da exigência",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "yIeFe",
+              "name": "Cabeçalho do aviso",
+              "width": "fill_container",
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "jAcKr",
+                  "name": "Marca informativa",
+                  "width": 28,
+                  "height": 28,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 14,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bMth2",
+                      "name": "i",
+                      "fill": "$huddle.primary",
+                      "content": "i",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "XGg8g",
+                  "name": "Aviso",
+                  "fill": "$huddle.text",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Seu perfil ainda não inclui Futebol.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 15,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "L63CC2",
+              "name": "Orientação",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Esta partida aceita níveis de 3 a 4. Adicione Futebol e informe suas habilidades para calcular seu nível antes de entrar.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "QR1yi",
+          "name": "Privacidade",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Suas avaliações anteriores também entram no cálculo, se houver.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 12
+        },
+        {
+          "id": "QtO6O",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Ação principal",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Adicionar Futebol e avaliar"
+            }
+          }
+        },
+        {
+          "id": "L583Vi",
+          "type": "ref",
+          "ref": "j8Rkv",
+          "name": "Voltar",
+          "width": "fill_container",
+          "descendants": {
+            "razQ3": {
+              "content": "Voltar à partida"
+            },
+            "f5Ubt": {
+              "enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "gvVy2",
+      "x": 3200,
+      "y": 29578,
+      "name": "Proposta · Esporte exigido · nível compatível",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "PbJw0",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho com voltar",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "d9X6AF",
+          "name": "Status · compatível",
+          "fill": "$huddle.success-bg",
+          "cornerRadius": 999,
+          "padding": [
+            6,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "ysM09",
+              "name": "Rótulo",
+              "fill": "$huddle.success",
+              "content": "PERFIL ATUALIZADO",
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "lvqnT",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Seu perfil está pronto",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 25,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "BFIPl",
+          "name": "Resumo da partida",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "iH8tn",
+              "name": "Esporte e formato",
+              "fill": "$huddle.primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "FUTEBOL  ·  SOCIETY",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "tzirA",
+              "name": "Nome da partida",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Racha de quarta com a turma do Parque das Flores",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 20,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "hxqtz",
+              "name": "Local e horário",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Qua., 25 nov. · 19h30\nArena Central · Pinheiros",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "frame",
+              "id": "riZ6B",
+              "name": "Faixa de nível",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 12,
+              "padding": [
+                10,
+                12
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "R8Qtiw",
+                  "name": "Faixa aceita",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nível aceito: 3 a 4",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "g9DQF",
+          "name": "Resultado do nível",
+          "width": "fill_container",
+          "fill": "$huddle.success-bg",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "SXWG3",
+              "name": "Nível calculado",
+              "fill": "$huddle.success",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Seu nível em Futebol: 3,4",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 17,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "UAkoQ",
+              "name": "Compatibilidade",
+              "fill": "$huddle.success",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "A faixa desta partida é de 3 a 4. Seu nível está dentro da faixa.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "MezOC",
+          "name": "Próximo passo",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Volte aos detalhes para pedir entrada ou entrar, conforme as regras da partida.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "id": "f1vhOH",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Ação principal",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Voltar e entrar na partida"
+            }
+          }
+        },
+        {
+          "id": "AKRe4",
+          "type": "ref",
+          "ref": "j8Rkv",
+          "name": "Ajustar habilidades",
+          "width": "fill_container",
+          "descendants": {
+            "razQ3": {
+              "content": "Ajustar minhas habilidades"
+            },
+            "f5Ubt": {
+              "enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "iPwnA",
+      "x": 3670,
+      "y": 29578,
+      "name": "Proposta · Esporte exigido · fora da faixa com avaliações",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "tvBWR",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho com voltar",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "i4sZAB",
+          "name": "Status · fora da faixa",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 999,
+          "padding": [
+            6,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "M5YzRP",
+              "name": "Rótulo",
+              "fill": "$huddle.warning",
+              "content": "PERFIL ATUALIZADO",
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "wKFEy",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Seu nível atual está fora desta faixa",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 24,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "RonI2",
+          "name": "Resumo da partida",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "dLKB0",
+              "name": "Esporte e formato",
+              "fill": "$huddle.primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "FUTEBOL  ·  SOCIETY",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "l71Jq9",
+              "name": "Nome da partida",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Racha de quarta com a turma do Parque das Flores",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 20,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "H1pPF",
+              "name": "Local e horário",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Qua., 25 nov. · 19h30\nArena Central · Pinheiros",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "frame",
+              "id": "IsUci",
+              "name": "Faixa de nível",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 12,
+              "padding": [
+                10,
+                12
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mr9kI",
+                  "name": "Faixa aceita",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nível aceito: 3 a 4",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "g7Qkc",
+          "name": "Resultado do nível",
+          "width": "fill_container",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "YL8s7",
+              "name": "Nível calculado",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Futebol: 2,8 · 8 avaliações recebidas",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 17,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "SZq1W",
+              "name": "Compatibilidade",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "A partida aceita níveis de 3 a 4. As avaliações recebidas também entram no cálculo. Rever sua autoavaliação pode mudar o resultado, mas não garante compatibilidade.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "d5Dr6",
+          "name": "Próximo passo",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Procure uma partida compatível. Mantenha sua autoavaliação fiel ao seu jogo.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "id": "BIjr2",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Buscar partida compatível",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Buscar partida compatível"
+            }
+          }
+        },
+        {
+          "id": "TLJUs",
+          "type": "ref",
+          "ref": "j8Rkv",
+          "name": "Rever autoavaliação",
+          "width": "fill_container",
+          "descendants": {
+            "razQ3": {
+              "content": "Rever autoavaliação"
+            },
+            "f5Ubt": {
+              "enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ybTV4",
+      "x": 4140,
+      "y": 29578,
+      "name": "Proposta · Esporte exigido · falha ao salvar",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "sTUhh",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho com voltar",
+          "width": "fill_container"
+        },
+        {
+          "type": "text",
+          "id": "bbrny",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Não foi possível salvar",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 25,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "c0zaal",
+          "name": "Resumo da partida",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "DkxlO",
+              "name": "Esporte e formato",
+              "fill": "$huddle.primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "FUTEBOL  ·  SOCIETY",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "zWGfV",
+              "name": "Nome da partida",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Racha de quarta com a turma do Parque das Flores",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 20,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "X6Jw6f",
+              "name": "Local e horário",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Qua., 25 nov. · 19h30\nArena Central · Pinheiros",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "frame",
+              "id": "ZzZMF",
+              "name": "Faixa de nível",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 12,
+              "padding": [
+                10,
+                12
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "LdZKG",
+                  "name": "Faixa aceita",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nível aceito: 3 a 4",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "EvIjf",
+          "name": "Erro ao atualizar",
+          "width": "fill_container",
+          "fill": "$huddle.danger-bg",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "wFsLq",
+              "name": "Falha",
+              "fill": "$huddle.danger",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Suas alterações em Futebol não foram confirmadas.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 15,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Sei1Q",
+              "name": "Orientação",
+              "fill": "$huddle.danger",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Confira sua conexão e tente novamente. Se o problema continuar, volte à partida e tente depois.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "id": "YnuVH",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Tentar novamente",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Tentar novamente"
+            }
+          }
+        },
+        {
+          "id": "C1d1Hh",
+          "type": "ref",
+          "ref": "j8Rkv",
+          "name": "Voltar sem salvar",
+          "width": "fill_container",
+          "descendants": {
+            "razQ3": {
+              "content": "Voltar à partida"
+            },
+            "f5Ubt": {
+              "enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "j15Y6",
+      "x": 4610,
+      "y": 29578,
+      "name": "Proposta · Esporte exigido · partida encerrada",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "SdR9K",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho com voltar",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "B7BLj",
+          "name": "Status · encerrada",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 999,
+          "padding": [
+            6,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "FQtqL",
+              "name": "Rótulo",
+              "fill": "$huddle.warning",
+              "content": "PARTIDA INDISPONÍVEL",
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "QRBmh",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Esta partida não está mais aberta",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 23,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "efnst",
+          "name": "Resumo da partida",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "d2YJL",
+              "name": "Esporte e formato",
+              "fill": "$huddle.primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "FUTEBOL  ·  SOCIETY",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "nDBaE",
+              "name": "Nome da partida",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Racha de quarta com a turma do Parque das Flores",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 20,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "GXaU1",
+              "name": "Local e horário",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Qua., 25 nov. · 19h30\nArena Central · Pinheiros",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "frame",
+              "id": "fK94U",
+              "name": "Faixa de nível",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 12,
+              "padding": [
+                10,
+                12
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "yJJoK",
+                  "name": "Faixa aceita",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nível aceito: 3 a 4",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "G3XtEV",
+          "name": "Partida encerrada",
+          "width": "fill_container",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "Vyx6i",
+              "name": "Explicação",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "A organização encerrou a partida enquanto você atualizava seu perfil. Procure outra partida compatível.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "WepP4",
+          "name": "Próximo passo",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Seu perfil foi mantido. Veja outras partidas abertas.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "id": "H5nbQ",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Buscar partidas",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Buscar partidas"
+            }
+          }
+        },
+        {
+          "id": "FlqFS",
+          "type": "ref",
+          "ref": "j8Rkv",
+          "name": "Ir ao perfil",
+          "width": "fill_container",
+          "descendants": {
+            "razQ3": {
+              "content": "Ver meu perfil"
+            },
+            "f5Ubt": {
+              "enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "R1QhFq",
+      "x": 2730,
+      "y": 29468,
+      "name": "Fluxo · entrar em partida por nível sem esporte no perfil",
+      "width": 2390,
+      "fill": "$huddle.surface",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "gap": 8,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "gmbRY",
+          "name": "Título do fluxo",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "ENTRADA EM PARTIDA POR NÍVEL · ESPORTE AUSENTE",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 21,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "L9tQVh",
+          "name": "Caminho",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Detalhes da partida → adicionar esporte e avaliar → compatível: voltar e entrar | fora da faixa: ajustar ou buscar outra | erro: tentar de novo | partida encerrada: buscar outra.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "FCt2Z",
+      "x": 5080,
+      "y": 29578,
+      "name": "Proposta · Esporte exigido · sem avaliações recebidas",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "E5tyPL",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho com voltar",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "D6fiXs",
+          "name": "Status · fora da faixa",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 999,
+          "padding": [
+            6,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "orQEM",
+              "name": "Rótulo",
+              "fill": "$huddle.warning",
+              "content": "SEM AVALIAÇÕES RECEBIDAS",
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "uowcE",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Sua autoavaliação define seu nível inicial",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 24,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "IUuIv",
+          "name": "Resumo da partida",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "lguwI",
+              "name": "Esporte e formato",
+              "fill": "$huddle.primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "FUTEBOL  ·  SOCIETY",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "WtgC0",
+              "name": "Nome da partida",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Racha de quarta com a turma do Parque das Flores",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 20,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "cpNqy",
+              "name": "Local e horário",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Qua., 25 nov. · 19h30\nArena Central · Pinheiros",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "frame",
+              "id": "Gre8M",
+              "name": "Faixa de nível",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 12,
+              "padding": [
+                10,
+                12
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "SNPtj",
+                  "name": "Faixa aceita",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nível aceito: 3 a 4",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "O2kJlZ",
+          "name": "Resultado do nível",
+          "width": "fill_container",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "npkdA",
+              "name": "Nível calculado",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Futebol: 2,8 · nível declarado",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 17,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "w7xrdR",
+              "name": "Compatibilidade",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Ainda não há avaliações de outras pessoas. Neste momento, o nível vem das habilidades que você declarou. Revise-as para que representem seu jogo; informe suas habilidades com honestidade.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "y7EpJf",
+          "name": "Próximo passo",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "A faixa da partida é de 3 a 4. Se seu nível continuar fora dela, procure outra partida compatível.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "id": "vnXwJ",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Revisar habilidades",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Revisar habilidades"
+            }
+          }
+        },
+        {
+          "id": "u8Hks",
+          "type": "ref",
+          "ref": "j8Rkv",
+          "name": "Buscar outra partida",
+          "width": "fill_container",
+          "descendants": {
+            "razQ3": {
+              "content": "Buscar outra partida"
+            },
+            "f5Ubt": {
+              "enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "NCNrX",
+      "x": 5530,
+      "y": 29578,
+      "name": "Proposta · Esporte exigido · partida completa · lista de espera",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "OlvRc",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho com voltar",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "rDAbb",
+          "name": "Status · completa",
+          "fill": "$huddle.accent-soft",
+          "cornerRadius": 999,
+          "padding": [
+            6,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "gE3Fy",
+              "name": "Rótulo",
+              "fill": "$huddle.primary",
+              "content": "PARTIDA COMPLETA",
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "giVxe",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "A partida está completa",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 23,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "wrjg3",
+          "name": "Resumo da partida",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "lNsQD",
+              "name": "Esporte e formato",
+              "fill": "$huddle.primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "FUTEBOL  ·  SOCIETY",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Pjt7e",
+              "name": "Nome da partida",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Racha de quarta com a turma do Parque das Flores",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 20,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Lkwcm",
+              "name": "Local e horário",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Qua., 25 nov. · 19h30\nArena Central · Pinheiros",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "frame",
+              "id": "bQQsk",
+              "name": "Faixa de nível",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 12,
+              "padding": [
+                10,
+                12
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "SQU0F",
+                  "name": "Faixa aceita",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nível aceito: 3 a 4",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "JnMDx",
+          "name": "Partida encerrada",
+          "width": "fill_container",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "VSbca",
+              "name": "Explicação",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "As vagas acabaram enquanto você atualizava seu perfil. Como seu nível atende à faixa, você ainda pode entrar na lista de espera.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "hWTpH",
+          "name": "Próximo passo",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "A organização poderá oferecer uma vaga se surgir espaço.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "id": "VKIbi",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Buscar partidas",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Voltar e entrar na lista de espera"
+            }
+          }
+        },
+        {
+          "id": "y7Oajo",
+          "type": "ref",
+          "ref": "j8Rkv",
+          "name": "Ir ao perfil",
+          "width": "fill_container",
+          "descendants": {
+            "razQ3": {
+              "content": "Buscar outra partida"
+            },
+            "f5Ubt": {
+              "enabled": false
+            }
+          }
         }
       ]
     }

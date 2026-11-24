@@ -406,6 +406,19 @@ function assertSkillEligibility(
   match: Pick<MatchRow, 'sport' | 'access' | 'min_level' | 'max_level'>,
 ) {
   if (match.access === 'free') return;
+  if (!hasSportProfile(userId, match.sport)) {
+    const level = sportLevel(userId, match.sport, undefined);
+    throw new HttpError(
+      409,
+      'SPORT_REQUIRED',
+      'Adicione este esporte ao seu perfil para conferir a faixa da partida.',
+      {
+        sport: match.sport,
+        currentLevel: level.calibrated,
+        ratingsReceived: level.ratingsReceived,
+      },
+    );
+  }
   const level = effectiveLevel(userId, match.sport);
   if (level < match.min_level || level > match.max_level) {
     throw new HttpError(
@@ -416,8 +429,19 @@ function assertSkillEligibility(
   }
 }
 
+function hasSportProfile(userId: string, sport: SportId) {
+  return Boolean(
+    one<{ user_id: string }>(
+      'SELECT user_id FROM sport_profiles WHERE user_id = ? AND sport = ?',
+      userId,
+      sport,
+    ),
+  );
+}
+
 function isEligible(userId: string, match: Match) {
   if (match.access === 'free') return true;
+  if (!hasSportProfile(userId, match.sport)) return false;
   const level = effectiveLevel(userId, match.sport);
   return level >= match.minLevel && level <= match.maxLevel;
 }
@@ -1151,6 +1175,7 @@ app.post(
     const cutoff = new Date(match.starts_at).getTime() - DAY;
     if (Date.now() >= cutoff) {
       assertTournamentAccess(next.user_id, match);
+      assertSkillEligibility(next.user_id, match);
       run(
         "UPDATE match_members SET status='confirmed',queue_position=NULL,confirmed_at=NULL WHERE match_id=? AND user_id=?",
         match.id,
@@ -1215,6 +1240,7 @@ app.patch(
       if (confirmedCount(match.id) >= match.max_players)
         throw new HttpError(409, 'MATCH_FULL', 'A partida está completa.');
       assertTournamentAccess(targetId, match);
+      assertSkillEligibility(targetId, match);
       run(
         "UPDATE match_members SET status='confirmed',confirmed_at=NULL WHERE match_id=? AND user_id=?",
         match.id,

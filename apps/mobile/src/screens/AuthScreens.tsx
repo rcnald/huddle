@@ -523,6 +523,7 @@ export function SportSkillsScreen({
   onBack,
   hasMoreSports,
   mode,
+  allowSkip = true,
 }: {
   sport: SportId;
   skills: Skills;
@@ -531,7 +532,8 @@ export function SportSkillsScreen({
   onSkip: () => void;
   onBack: () => void;
   hasMoreSports: boolean;
-  mode: 'onboarding' | 'profile';
+  mode: 'onboarding' | 'profile' | 'match-return';
+  allowSkip?: boolean;
 }) {
   const definition = sportById[sport];
   return (
@@ -561,7 +563,8 @@ export function SportSkillsScreen({
             lineHeight: 20,
           }}
         >
-          Ajuste suas habilidades de 0 a 5. Você pode alterar depois.
+          Ajuste suas habilidades de 0 a 5. As avaliações recebidas também entram no nível
+          recalibrado.
         </Text>
       </View>
       <AppCard style={{ marginTop: 18, padding: 16, gap: 8.5, borderRadius: 20 }}>
@@ -577,15 +580,23 @@ export function SportSkillsScreen({
       </AppCard>
       <ActionButton
         title={
-          hasMoreSports ? 'Continuar' : mode === 'profile' ? 'Voltar ao perfil' : 'Ver partidas'
+          hasMoreSports
+            ? 'Continuar'
+            : mode === 'match-return'
+              ? 'Salvar e conferir a partida'
+              : mode === 'profile'
+                ? 'Voltar ao perfil'
+                : 'Ver partidas'
         }
         icon="arrow"
         onPress={onFinish}
         style={{ marginTop: 18 }}
       />
-      <View style={{ marginTop: 18 }}>
-        <AuthLink label="Ajustar depois" onPress={onSkip} />
-      </View>
+      {allowSkip ? (
+        <View style={{ marginTop: 18 }}>
+          <AuthLink label="Ajustar depois" onPress={onSkip} />
+        </View>
+      ) : null}
     </ScreenScroll>
   );
 }

@@ -51,6 +51,7 @@ import {
   PlayerProfileScreen,
 } from '../screens/InsightsScreens';
 import { LegalScreen } from '../screens/LegalScreen';
+import { MatchSportRequiredScreen } from '../screens/MatchSportRequiredScreen';
 import {
   HighlightActiveScreen,
   HighlightScreen,
@@ -81,6 +82,7 @@ const pageNames: Page['name'][] = [
   'search',
   'filters',
   'match',
+  'match-sport-required',
   'player',
   'organizer-manage',
   'premium',
@@ -133,6 +135,7 @@ function showsBottomNavigation(page: Page) {
     'premium-success',
     'delete-account',
     'success',
+    'match-sport-required',
   ].includes(page.name);
 }
 
@@ -341,7 +344,8 @@ export function RootNavigator() {
   const highlightsUsed = signedIn ? (apiUsage?.highlights ?? 0) : 0;
   const eligible = (match: Match) =>
     match.access === 'free' ||
-    (effectiveSportLevel(profile, match.sport) >= match.minLevel &&
+    (profile.sports.includes(match.sport) &&
+      effectiveSportLevel(profile, match.sport) >= match.minLevel &&
       effectiveSportLevel(profile, match.sport) <= match.maxLevel);
   /** Salva esportes/habilidades e atualiza o nível recalibrado devolvido pela API. */
   const saveSports = (next: Pick<Profile, 'sports' | 'skillsBySport'>) => {
@@ -393,10 +397,56 @@ export function RootNavigator() {
     const first = next[0];
     push({ name: 'sport-skills', mode, sport: first, remaining: next.slice(1) });
   };
-  const finishSkillStep = (skillPage: Extract<Page, { name: 'sport-skills' }>) => {
+  const startMatchSportSetup = (matchId: string, sport: SportId) => {
+    setProfile((current) => ({
+      ...current,
+      skillsBySport: {
+        ...current.skillsBySport,
+        [sport]: current.skillsBySport[sport] ?? defaultSkillsForSport(sport),
+      },
+    }));
+    push({
+      name: 'sport-skills',
+      mode: 'match-return',
+      sport,
+      remaining: [],
+      returnMatchId: matchId,
+    });
+  };
+  const finishSkillStep = async (skillPage: Extract<Page, { name: 'sport-skills' }>) => {
     if (skillPage.remaining.length) {
       const [next, ...remaining] = skillPage.remaining;
       replace({ name: 'sport-skills', mode: skillPage.mode, sport: next, remaining });
+    } else if (skillPage.mode === 'match-return' && skillPage.returnMatchId) {
+      const sports = [...new Set([...profile.sports, skillPage.sport])];
+      try {
+        const updated = await api.updateSports({ sports, skillsBySport: profile.skillsBySport });
+        setProfile(updated);
+        setSelectedSports(updated.sports);
+        const currentLevel = updated.levels?.[skillPage.sport]?.calibrated ?? 3;
+        const ratingsReceived = updated.levels?.[skillPage.sport]?.ratingsReceived ?? 0;
+        try {
+          replaceMatch(await api.getMatch(skillPage.returnMatchId));
+        } catch {
+          notify('Perfil salvo. Atualize os detalhes da partida para conferir as vagas.');
+        }
+        goRoot({
+          name: 'match-sport-required',
+          matchId: skillPage.returnMatchId,
+          stage: 'updated',
+          currentLevel,
+          ratingsReceived,
+        });
+      } catch (error) {
+        replace({
+          name: 'match-sport-required',
+          matchId: skillPage.returnMatchId,
+          stage: 'error',
+          currentLevel: profile.levels?.[skillPage.sport]?.calibrated ?? 3,
+          ratingsReceived: profile.levels?.[skillPage.sport]?.ratingsReceived ?? 0,
+          error: error instanceof Error ? error.message : 'Confira sua conexão e tente novamente.',
+        });
+      }
     } else {
       saveSports(profile);
       goRoot({ name: skillPage.mode === 'onboarding' ? 'home' : 'profile' });
@@ -437,7 +487,19 @@ export function RootNavigator() {
     } catch (error) {
       if (error instanceof ApiClientError) {
         if (error.code === 'PLUS_REQUIRED') push({ name: 'premium' });
-        else Alert.alert('Não foi possível entrar', error.message);
+        else if (error.code === 'SPORT_REQUIRED') {
+          const details = (error.details || {}) as {
+            currentLevel?: number;
+            ratingsReceived?: number;
+          };
+          push({
+            name: 'match-sport-required',
+            matchId: match.id,
+            stage: 'missing',
+            currentLevel: details.currentLevel,
+            ratingsReceived: details.ratingsReceived,
+          });
+        } else Alert.alert('Não foi possível entrar', error.message);
         return;
       }
       Alert.alert('Sem conexão', 'Tente novamente quando a API estiver disponível.');
@@ -454,6 +516,14 @@ export function RootNavigator() {
       notify('Vaga confirmada');
       return;
     } catch (error) {
+      if (error instanceof ApiClientError && error.code === 'SPORT_REQUIRED') {
+        const details = (error.details || {}) as {
+          currentLevel?: number;
+          ratingsReceived?: number;
+        };
+        push({ name: 'match-sport-required', matchId: match.id, stage: 'missing', ...details });
+        return;
+      }
       Alert.alert(
         'Não foi possível aceitar',
         error instanceof Error ? error.message : 'Tente novamente.',
@@ -471,6 +541,18 @@ export function RootNavigator() {
       notify(accept ? 'Pedido aprovado' : 'Pedido recusado');
       return;
     } catch (error) {
+      if (
+        playerId === 'you' &&
+        error instanceof ApiClientError &&
+        error.code === 'SPORT_REQUIRED'
+      ) {
+        const details = (error.details || {}) as {
+          currentLevel?: number;
+          ratingsReceived?: number;
+        };
+        push({ name: 'match-sport-required', matchId, stage: 'missing', ...details });
+        return;
+      }
       Alert.alert(
         'Não foi possível responder',
         error instanceof Error ? error.message : 'Tente novamente.',
@@ -784,6 +866,7 @@ export function RootNavigator() {
             }
             onFinish={() => finishSkillStep(page)}
             onSkip={() => finishSkillStep(page)}
+            allowSkip={page.mode !== 'match-return'}
           />
         );
       case 'home':
@@ -841,6 +924,7 @@ export function RootNavigator() {
           <MatchDetailScreen
             match={selectedMatch}
             plan={profile.plan}
+            sportSelected={profile.sports.includes(selectedMatch.sport)}
             joined={joinedIds.includes(selectedMatch.id)}
             requested={selectedMatch.pendingRequests.some((player) => player.id === 'you')}
             waitlisted={selectedMatch.waitlist.some((player) => player.id === 'you')}
@@ -863,6 +947,26 @@ export function RootNavigator() {
             }}
             onApproveRequest={(playerId) => respondToRequest(selectedMatch.id, playerId, true)}
             onRejectRequest={(playerId) => respondToRequest(selectedMatch.id, playerId, false)}
+          />
+        ) : null;
+      case 'match-sport-required':
+        return selectedMatch ? (
+          <MatchSportRequiredScreen
+            match={selectedMatch}
+            stage={page.stage}
+            currentLevel={page.currentLevel}
+            ratingsReceived={page.ratingsReceived}
+            error={page.error}
+            onBack={() =>
+              page.stage === 'updated'
+                ? goRoot({ name: 'match', matchId: selectedMatch.id })
+                : back()
+            }
+            onAddSport={() => startMatchSportSetup(selectedMatch.id, selectedMatch.sport)}
+            onRetry={() => startMatchSportSetup(selectedMatch.id, selectedMatch.sport)}
+            onReview={() => startMatchSportSetup(selectedMatch.id, selectedMatch.sport)}
+            onContinue={() => goRoot({ name: 'match', matchId: selectedMatch.id })}
+            onSearch={() => goRoot({ name: 'search' })}
           />
         ) : null;
       case 'player':
