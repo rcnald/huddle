@@ -15,7 +15,7 @@ import { AppIcon } from '../components/Icon';
 import { sportName } from '../data/sports';
 import { colors } from '../theme';
 import type { Match, PlanId } from '../types';
-import { formatDate, formatTime, highlightedNow, remainingWeeklyUsage } from '../utils';
+import { formatDate, formatTime, highlightedNow } from '../utils';
 
 export function PremiumScreen({
   plan,
@@ -43,6 +43,10 @@ export function PremiumScreen({
           Com o Huddle+, seu jogo ganha mais visibilidade e sua organização fica mais leve.
         </Text>
       </View>
+      <View style={premiumStyles.priceRow}>
+        <Text style={premiumStyles.priceValue}>R$ 9,90</Text>
+        <Text style={premiumStyles.benefitCaption}>/mês · cancele quando quiser</Text>
+      </View>
       <AppCard style={premiumStyles.featuredBenefit}>
         <View style={premiumStyles.highlightMetric}>
           <AppIcon name="star" size={18} color={colors.primary} />
@@ -58,33 +62,28 @@ export function PremiumScreen({
       </AppCard>
       <AppCard style={premiumStyles.includedBenefits}>
         <BenefitRow
-          icon="infinity"
-          title="Jogue e organize sem limite"
-          description="Entre e crie quantas partidas quiser."
+          icon="clock"
+          title="Métricas de desempenho"
+          description="Sua evolução por esporte e o que os outros percebem do seu jogo."
         />
         <BenefitRow
           icon="group"
-          title="Fila inteligente"
-          description="Avise a próxima pessoa quando abrir uma vaga."
-        />
-        <BenefitRow
-          icon="clock"
-          title="Lembretes em um toque"
-          description="Lembre quem confirmou antes de começar."
+          title="Torneios e ranking"
+          description="Crie e participe de torneios. Quem é bem avaliado sobe no ranking."
         />
       </AppCard>
       <View style={premiumStyles.freeIncluded}>
         <AppIcon name="check" size={16} color={colors.success} />
         <Text style={premiumStyles.freeIncludedText}>
-          No grátis: 3 entradas e 2 criações por semana.
+          No grátis: criar e entrar em partidas sem limite, nivelamento e avaliações.
         </Text>
       </View>
       <ActionButton
-        title={plan === 'plus' ? 'Huddle+ ativo' : 'Fazer upgrade'}
+        title={plan === 'plus' ? 'Huddle+ ativo' : 'Assinar por R$ 9,90/mês'}
         icon={plan === 'plus' ? 'check' : 'star'}
         onPress={onUpgrade}
       />
-      <Text style={premiumStyles.billingNote}>Você verá o valor antes de confirmar.</Text>
+      <Text style={premiumStyles.billingNote}>Você revisa o plano antes de confirmar.</Text>
     </ScreenScroll>
   );
 }
@@ -116,7 +115,7 @@ export function PremiumSuccessScreen({
         />
         <Text style={premiumStyles.successTitle}>Tudo pronto para jogar!</Text>
         <Text style={premiumStyles.successCopy}>
-          Seu Huddle+ está ativo. Você já pode destacar até 3 partidas por semana.
+          Seu Huddle+ está ativo. Métricas, torneios e destaques já estão liberados.
         </Text>
       </View>
       <AppCard style={premiumStyles.successBenefits}>
@@ -126,119 +125,19 @@ export function PremiumSuccessScreen({
           description="Mais jogadores compatíveis veem seus jogos."
         />
         <BenefitRow
-          icon="group"
-          title="Fila inteligente"
-          description="Uma vaga abriu? A próxima pessoa recebe aviso."
+          icon="clock"
+          title="Métricas de desempenho"
+          description="Acompanhe sua evolução e sua reputação."
         />
-        <BenefitRow icon="clock" title="Lembretes" description="Avise sua turma antes do jogo." />
+        <BenefitRow
+          icon="group"
+          title="Torneios e ranking"
+          description="Participe e suba no ranking sendo bem avaliado."
+        />
       </AppCard>
       <View style={{ flex: 1 }} />
-      <ActionButton title="Destacar minha primeira partida" icon="star" onPress={onContinue} />
+      <ActionButton title="Ver minhas métricas" icon="star" onPress={onContinue} />
       <ActionButton title="Voltar ao perfil" icon="user" tone="glass" onPress={onProfile} />
-    </ScreenScroll>
-  );
-}
-
-export function QuotaLimitScreen({
-  action,
-  plan,
-  matches,
-  joinedIds,
-  date,
-  onBack,
-  onUpgrade,
-  onContinue,
-}: {
-  action: 'entry' | 'create';
-  plan: PlanId;
-  matches: Match[];
-  joinedIds: string[];
-  date: string;
-  onBack: () => void;
-  onUpgrade: () => void;
-  onContinue: () => void;
-}) {
-  const entry = action === 'entry';
-  const limit = entry ? 3 : 2;
-  const remaining = remainingWeeklyUsage(matches, joinedIds, date, plan);
-  const available = entry ? remaining.entries : remaining.creations;
-  return (
-    <ScreenScroll atmosphere="premium" contentStyle={{ gap: 20, paddingTop: 8, paddingBottom: 24 }}>
-      <BackHeader onBack={onBack} />
-      <PageTitle
-        title={
-          plan === 'plus'
-            ? 'Você pode continuar'
-            : `Você atingiu o limite de ${entry ? 'entradas' : 'criações'}`
-        }
-        subtitle={
-          plan === 'plus'
-            ? 'O Huddle+ remove esse limite.'
-            : entry
-              ? 'Não há mais entradas grátis disponíveis nesta semana.'
-              : 'Não há mais partidas grátis disponíveis para criar nesta semana.'
-        }
-      />
-      <AppCard style={{ padding: 20, borderRadius: 22, gap: 12 }}>
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-        >
-          <Text
-            style={{
-              color: colors.primary,
-              fontFamily: 'Manrope',
-              fontSize: 30,
-              fontWeight: '700',
-            }}
-          >
-            {plan === 'plus' ? 'Sem limite' : `${available} / ${limit}`}
-          </Text>
-          <Text style={copyStyle.title}>
-            {entry ? 'entradas disponíveis' : 'partidas para criar'}
-          </Text>
-        </View>
-        {plan === 'plus' ? null : (
-          <View style={{ flexDirection: 'row', gap: 4 }}>
-            {Array.from({ length: limit }, (_, i) => `limit-segment-${i + 1}`).map(
-              (segmentId, index) => (
-                <View
-                  key={segmentId}
-                  style={{
-                    flex: 1,
-                    height: 6,
-                    borderRadius: 3,
-                    backgroundColor: index < available ? '#978EFF' : '#D1CEDB',
-                  }}
-                />
-              ),
-            )}
-          </View>
-        )}
-        <Text style={copyStyle.body}>
-          {entry
-            ? 'Conta pela semana do jogo. Se você cancelar antes da partida, a entrada volta a ficar disponível.'
-            : 'O limite conta pela semana em que o jogo acontece; escolha outra semana ou faça upgrade.'}
-        </Text>
-      </AppCard>
-      <AppCard style={{ backgroundColor: '#F0EEFF', gap: 8 }}>
-        <Text style={{ color: colors.primary, fontFamily: 'Manrope', fontSize: 12 }}>
-          Com Huddle+
-        </Text>
-        <Text style={copyStyle.title}>
-          {entry
-            ? 'Entre em quantas partidas quiser com Huddle+.'
-            : 'Crie quantas partidas quiser com Huddle+.'}
-        </Text>
-        <Text style={copyStyle.body}>
-          Você também tem 3 destaques por semana, fila de espera e lembretes.
-        </Text>
-      </AppCard>
-      <ActionButton
-        title={plan === 'plus' ? 'Continuar' : 'Conhecer Huddle+'}
-        icon="star"
-        onPress={plan === 'plus' ? onContinue : onUpgrade}
-      />
-      <ActionButton title="Voltar às partidas" icon="arrow" tone="glass" onPress={onContinue} />
     </ScreenScroll>
   );
 }
@@ -456,18 +355,19 @@ export function OrganizerManageScreen({
   onBack,
   onToggleAutoFill,
   onInviteNext,
-  onUpgrade,
   onFinish,
+  onCancel,
 }: {
   match: Match;
   plan: PlanId;
   onBack: () => void;
   onToggleAutoFill: () => void;
   onInviteNext: () => void;
-  onUpgrade: () => void;
   onFinish: () => void;
+  onCancel: () => void;
 }) {
   const premium = plan === 'plus';
+  const started = Date.now() >= new Date(match.startsAt).getTime();
   const cutoff = new Date(match.startsAt).getTime() - 24 * 60 * 60 * 1000;
   const afterCutoff = Date.now() >= cutoff;
   const hasVacancy = match.players.length < match.maxPlayers;
@@ -509,15 +409,15 @@ export function OrganizerManageScreen({
           </View>
           <Pressable
             accessibilityRole="switch"
-            accessibilityState={{ checked: premium && match.autoFillWaitlist }}
-            onPress={premium ? onToggleAutoFill : onUpgrade}
+            accessibilityState={{ checked: match.autoFillWaitlist }}
+            onPress={onToggleAutoFill}
             style={{
               width: 50,
               height: 30,
               borderRadius: 15,
               padding: 3,
               justifyContent: 'center',
-              backgroundColor: premium && match.autoFillWaitlist ? colors.primary : '#D6D5DC',
+              backgroundColor: match.autoFillWaitlist ? colors.primary : '#D6D5DC',
             }}
           >
             <View
@@ -525,20 +425,12 @@ export function OrganizerManageScreen({
                 width: 24,
                 height: 24,
                 borderRadius: 12,
-                alignSelf: premium && match.autoFillWaitlist ? 'flex-end' : 'flex-start',
+                alignSelf: match.autoFillWaitlist ? 'flex-end' : 'flex-start',
                 backgroundColor: '#FFFFFF',
               }}
             />
           </Pressable>
         </View>
-        {!premium ? (
-          <ActionButton
-            title="Desbloquear no Huddle+"
-            icon="star"
-            tone="soft"
-            onPress={onUpgrade}
-          />
-        ) : null}
         <InlineNotice
           title={afterCutoff ? 'Confirmação de presença' : 'Convite com prazo claro'}
           message={
@@ -623,6 +515,14 @@ export function OrganizerManageScreen({
       match.status !== 'cancelled' ? (
         <ActionButton title="Finalizar partida" icon="check" tone="soft" onPress={onFinish} />
       ) : null}
+      {started && match.status !== 'finished' && match.status !== 'cancelled' ? (
+        <Text style={copyStyle.footnote}>
+          Se ninguém finalizar, a partida é encerrada sozinha 24 horas depois do início.
+        </Text>
+      ) : null}
+      {!started && match.status !== 'cancelled' && match.status !== 'finished' ? (
+        <ActionButton title="Cancelar partida" icon="cancel" tone="glass" onPress={onCancel} />
+      ) : null}
     </ScreenScroll>
   );
 }
@@ -651,6 +551,18 @@ function BenefitRow({
 
 const premiumStyles = {
   hero: { alignItems: 'center' as const, gap: 8 },
+  priceRow: {
+    flexDirection: 'row' as const,
+    alignItems: 'baseline' as const,
+    justifyContent: 'center' as const,
+    gap: 6,
+  },
+  priceValue: {
+    color: colors.primary,
+    fontFamily: 'Manrope',
+    fontSize: 30,
+    fontWeight: '800' as const,
+  },
   heroTitle: {
     maxWidth: 350,
     color: '#322474',
@@ -730,7 +642,6 @@ const premiumStyles = {
     textAlign: 'center' as const,
   },
   successHero: {
-    flex: 1,
     alignItems: 'center' as const,
     justifyContent: 'center' as const,
     gap: 10,

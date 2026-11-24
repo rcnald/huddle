@@ -1,0 +1,5 @@
+# Capturas locais usadas como referência no arquivo do Pencil.
+/preview-*.png
+
+# Proxy local do Metro usado durante a pré-visualização.
+/metro.config.js

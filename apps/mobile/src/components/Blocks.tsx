@@ -6,8 +6,8 @@ import {
   type StyleProp,
   StyleSheet,
   Text,
-  View,
   type TextStyle,
+  View,
   type ViewStyle,
 } from 'react-native';
 import Animated, { cubicBezier, useReducedMotion } from 'react-native-reanimated';
@@ -20,7 +20,7 @@ import { AnimatedBrand } from './AnimatedBrand';
 import { Avatar, AvatarStack } from './Avatar';
 import { ActionButton } from './Controls';
 import { HuddleMark } from './HuddleMark';
-import { AppIcon } from './Icon';
+import { AppIcon, type IconName } from './Icon';
 
 const tabPressTransition = {
   transitionProperty: 'transform',
@@ -103,7 +103,7 @@ export function AppPill({
 }: {
   text: string;
   tone?: 'neutral' | 'success' | 'warning' | 'accent';
-  icon?: 'check' | 'clock';
+  icon?: IconName;
 }) {
   const background =
     tone === 'success'
@@ -123,9 +123,7 @@ export function AppPill({
           : colors.muted;
   return (
     <View style={[styles.pill, { backgroundColor: background }]}>
-      {icon ? (
-        <AppIcon name={icon === 'check' ? 'check' : 'clock'} size={13} color={color} />
-      ) : null}
+      {icon ? <AppIcon name={icon} size={13} color={color} /> : null}
       <Text style={[styles.pillText, { color }]}>{text}</Text>
     </View>
   );
@@ -208,44 +206,44 @@ function SportFilterChip({
   );
 }
 
-export function WeeklyQuotaCard({
+export function PlanCard({
   plan,
-  usage,
+  highlightsUsed = 0,
   onUpgrade,
+  onMetrics,
   compact = false,
 }: {
   plan: PlanId;
-  usage: { entries: number; creations: number; highlights: number };
+  highlightsUsed?: number;
   onUpgrade: () => void;
+  onMetrics?: () => void;
   compact?: boolean;
 }) {
   const premium = plan === 'plus';
-  const availableHighlights = Math.max(0, 3 - usage.highlights);
-  const tile = (label: string, used: number, limit: number) => {
-    const available = Math.max(0, limit - used);
-    return (
-      <View key={label} style={styles.quotaTile}>
-        <Text style={styles.quotaLabel}>{label}</Text>
-        <Text numberOfLines={1} style={styles.quotaValue}>
-          {premium
-            ? 'Sem limite'
-            : `${available} ${available === 1 ? 'disponível' : 'disponíveis'}`}
-        </Text>
-        {!premium ? (
-          <View style={styles.quotaSegments}>
-            {Array.from({ length: limit }, (_, index) => `${label}-segment-${index + 1}`).map(
-              (segmentId, index) => (
-                <View
-                  key={segmentId}
-                  style={[styles.quotaSegment, index < available && styles.quotaSegmentAvailable]}
-                />
-              ),
-            )}
-          </View>
-        ) : null}
-      </View>
-    );
-  };
+  const availableHighlights = Math.max(0, 3 - highlightsUsed);
+  const tile = (label: string, value: string, segments?: { total: number; filled: number }) => (
+    <View key={label} style={styles.quotaTile}>
+      <Text style={styles.quotaLabel}>{label}</Text>
+      <Text numberOfLines={1} style={styles.quotaValue}>
+        {value}
+      </Text>
+      {segments ? (
+        <View style={styles.quotaSegments}>
+          {Array.from({ length: segments.total }, (_, index) => `${label}-${index + 1}`).map(
+            (segmentId, index) => (
+              <View
+                key={segmentId}
+                style={[
+                  styles.quotaSegment,
+                  index < segments.filled && styles.quotaSegmentAvailable,
+                ]}
+              />
+            ),
+          )}
+        </View>
+      ) : null}
+    </View>
+  );
   return (
     <View style={[styles.weeklyQuota, compact && styles.weeklyQuotaCompact]}>
       <Svg
@@ -270,50 +268,37 @@ export function WeeklyQuotaCard({
           <HuddleMark size={20} premium={premium} />
         </View>
         <View style={{ flex: 1, gap: 2 }}>
-          <Text style={styles.quotaHeading}>Sua semana de jogo</Text>
+          <Text style={styles.quotaHeading}>Seu plano</Text>
           <Text style={styles.quotaSubheading}>
-            {premium ? 'Plano Huddle+ · uso sem limite' : 'Plano grátis · uso semanal'}
+            {premium ? 'Huddle+ · R$ 9,90/mês' : 'Grátis · partidas sem limite'}
           </Text>
         </View>
         <AppPill text={premium ? 'Huddle+' : 'Grátis'} tone={premium ? 'accent' : 'neutral'} />
       </View>
       <View style={styles.quotaRow}>
-        {tile('Entrar em partidas', usage.entries, 3)}
-        {tile('Criar partidas', usage.creations, 2)}
+        {premium
+          ? tile(
+              'Destaques na semana',
+              `${availableHighlights} ${availableHighlights === 1 ? 'disponível' : 'disponíveis'}`,
+              { total: 3, filled: availableHighlights },
+            )
+          : tile('Criar e entrar', 'Sem limite')}
+        {tile('Torneios e ranking', premium ? 'Liberados' : 'Exclusivo Huddle+')}
       </View>
       <View style={styles.quotaFooter}>
         <Text numberOfLines={1} style={styles.quotaFootnote}>
-          {premium
-            ? `Destaques · ${availableHighlights} ${availableHighlights === 1 ? 'disponível' : 'disponíveis'}`
-            : 'Conta pela semana do jogo'}
+          {premium ? 'Métricas de desempenho ativas' : 'Métricas, torneios e destaques'}
         </Text>
-        <Pressable accessibilityRole="button" onPress={onUpgrade} style={styles.quotaUpgrade}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={premium && onMetrics ? onMetrics : onUpgrade}
+          style={styles.quotaUpgrade}
+        >
           <AppIcon name={premium ? 'arrow' : 'star'} size={14} color={colors.primary} />
-          <Text style={styles.quotaUpgradeText}>{premium ? 'Ver plano' : 'Conhecer Huddle+'}</Text>
+          <Text style={styles.quotaUpgradeText}>
+            {premium ? (onMetrics ? 'Ver métricas' : 'Ver plano') : 'Conhecer Huddle+'}
+          </Text>
         </Pressable>
-      </View>
-    </View>
-  );
-}
-
-export function CreationQuotaBanner({ plan, used }: { plan: PlanId; used: number }) {
-  const remaining = Math.max(0, 2 - used);
-  const copy =
-    remaining > 0
-      ? remaining === 1
-        ? 'Você tem 1 partida grátis disponível para criar nesta semana.'
-        : `Você tem ${remaining} partidas grátis disponíveis para criar nesta semana.`
-      : 'Nenhuma partida grátis disponível para criar nesta semana.';
-  return (
-    <View style={styles.creationQuota}>
-      <AppIcon name={plan === 'plus' ? 'star' : 'add'} size={18} color={colors.primary} />
-      <View style={{ flex: 1, gap: 3 }}>
-        <Text style={styles.creationQuotaTitle}>
-          {plan === 'plus' ? 'Criações Huddle+' : 'Suas criações nesta semana'}
-        </Text>
-        <Text style={styles.creationQuotaCopy}>
-          {plan === 'plus' ? 'Crie partidas sem limite.' : copy}
-        </Text>
       </View>
     </View>
   );
@@ -352,7 +337,7 @@ export function FeaturedMatchCard({ match, onPress }: { match: Match; onPress: (
       <View style={styles.featuredTop}>
         <View style={{ flex: 1, gap: 3 }}>
           <Text numberOfLines={1} style={styles.featuredTitle}>
-            {match.title}
+            {match.mode === 'tournament' ? `Torneio · ${match.title}` : match.title}
           </Text>
           <Text style={styles.featuredTime}>
             {sportName(match.sport)} · {formatDate(match.startsAt)} · {formatTime(match.startsAt)}
@@ -439,6 +424,9 @@ export function MatchCard({
     <View style={styles.matchCard}>
       <View style={styles.fullMatchTop}>
         <View style={{ flex: 1, minWidth: 0, gap: 5 }}>
+          {match.mode === 'tournament' ? (
+            <AppPill text="Torneio · Huddle+" tone="accent" icon="star" />
+          ) : null}
           <Text numberOfLines={1} style={styles.matchTitle}>
             {match.title}
           </Text>
@@ -456,11 +444,10 @@ export function MatchCard({
         </Text>
       </View>
       <ActionButton
-        title={joined ? 'Ver detalhes' : 'Ver partida'}
+        title={joined ? 'Ver detalhes' : spots === 0 ? 'Ver lista de espera' : 'Ver partida'}
         icon="arrow"
         tone="soft"
         onPress={onPress}
-        disabled={spots === 0 && !joined}
       />
       {!eligible && match.access === 'level' && !joined ? (
         <Text style={styles.matchHint}>Seu nível está fora da faixa; veja os detalhes.</Text>
@@ -788,10 +775,12 @@ export function InlineNotice({
   title,
   message,
   tone = 'accent',
+  messageStyle,
 }: {
   title: string;
   message: string;
   tone?: 'accent' | 'danger' | 'success' | 'warning';
+  messageStyle?: StyleProp<TextStyle>;
 }) {
   const bg =
     tone === 'danger'
@@ -812,7 +801,7 @@ export function InlineNotice({
   return (
     <View style={[styles.notice, { backgroundColor: bg }]}>
       <Text style={[styles.noticeTitle, { color }]}>{title}</Text>
-      <Text style={[styles.noticeMessage, { color }]}>{message}</Text>
+      <Text style={[styles.noticeMessage, { color }, messageStyle]}>{message}</Text>
     </View>
   );
 }

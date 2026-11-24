@@ -7,7 +7,9 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "scheme": "huddle",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "icon": "./assets/icon.png"
@@ -20,8 +22,17 @@
     },
     "web": {
       "bundler": "metro",
+      "output": "single",
       "favicon": "./assets/favicon-huddle-v2.png"
     },
-    "plugins": ["expo-status-bar"]
+    "plugins": [
+      "expo-status-bar"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c7c48abd-df77-43e6-929f-819383cc2bc8"
+      }
+    },
+    "owner": "rcnald"
   }
 }

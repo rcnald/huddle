@@ -27,8 +27,11 @@ export type MembershipStatus = 'confirmed' | 'pending' | 'waitlist';
 
 export type Player = { id: string; name: string; color: string; level: number };
 
+export type MatchMode = 'casual' | 'tournament';
+
 export type Match = {
   id: string;
+  mode: MatchMode;
   title: string;
   sport: SportId;
   format: string;
@@ -40,6 +43,8 @@ export type Match = {
   maxLevel: number;
   maxPlayers: number;
   host: string;
+  /** "you" quando a pessoa logada organiza a partida. */
+  hostId: string;
   description: string;
   players: Player[];
   pendingRequests: Player[];
@@ -57,17 +62,6 @@ export type Match = {
   cancelledAt?: string;
 };
 
-export type Profile = {
-  id: string;
-  name: string;
-  email: string;
-  city: string;
-  timezone: string;
-  sports: SportId[];
-  skillsBySport: SportSkills;
-  plan: PlanId;
-};
-
 export const skillKeysBySport: Record<SportId, SkillKey[]> = {
   football: ['passing', 'finishing', 'dribbling', 'marking', 'speed', 'stamina'],
   basketball: ['shooting', 'passing', 'dribbling', 'defense', 'speed', 'stamina'],
@@ -83,11 +77,6 @@ export const defaultSkillsBySport: Record<SportId, Skills> = {
   handball: { throwing: 4, passing: 4, dribbling: 3, defense: 3, speed: 3, stamina: 2 },
   dodgeball: { throwing: 4, dodging: 4, reception: 3, movement: 3, aim: 3, teamwork: 2 },
 };
-
-export function skillLevel(skills: Skills | undefined, sport: SportId): number {
-  const keys = skillKeysBySport[sport];
-  return keys.reduce((total, key) => total + (skills?.[key] ?? 3), 0) / keys.length;
-}
 
 export function weekKey(value: string | Date, timeZone = 'America/Sao_Paulo'): string {
   const date = value instanceof Date ? value : new Date(value);

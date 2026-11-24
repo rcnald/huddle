@@ -123,3 +123,8 @@ export function sportSkillLevel(profile: Profile, sport: SportId): number {
   const definitions = sportById[sport].skills;
   return definitions.reduce((sum, skill) => sum + (skills[skill.key] ?? 3), 0) / definitions.length;
 }
+
+/** Nível que vale para entrar em partidas: o recalibrado pelas avaliações recebidas. */
+export function effectiveSportLevel(profile: Profile, sport: SportId): number {
+  return profile.levels?.[sport]?.calibrated ?? sportSkillLevel(profile, sport);
+}
