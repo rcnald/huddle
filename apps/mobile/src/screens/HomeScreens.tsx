@@ -511,8 +511,7 @@ export function MatchDetailScreen({
   const spots = spotsLeft(players.length, match.maxPlayers);
   const organizer = players.find((player) => player.id === match.hostId);
   const tournament = match.mode === 'tournament';
-  const missingMatchSport =
-    match.access === 'level' && !sportSelected && !joined && !requested && !waitlisted;
+  const missingMatchSport = !sportSelected && !joined && !requested && !waitlisted;
   const lockedTournament = tournament && plan !== 'plus' && !joined && !requested && !waitlisted;
   const started = inProgress(match);
   const closed = match.status === 'finished' || match.status === 'cancelled' || started;
@@ -798,10 +797,14 @@ export function MatchDetailScreen({
         <MapPreview title={match.venue} subtitle={match.neighborhood} />
         <ActionButton title="Abrir no Google Maps" icon="location" tone="soft" onPress={openMaps} />
       </AppCard>
-      {!sportSelected && match.access === 'level' && !joined && !requested ? (
+      {!sportSelected && !joined && !requested && !waitlisted ? (
         <InlineNotice
           title={`Adicione ${sportName(match.sport)} ao perfil`}
-          message={`Esta partida aceita níveis ${match.minLevel}–${match.maxLevel}. Escolha o esporte e informe suas habilidades para conferir sua compatibilidade.`}
+          message={
+            match.access === 'free'
+              ? 'Esta partida é livre e não exige faixa mínima, mas o Huddle precisa registrar seu nível neste esporte para as avaliações.'
+              : `Esta partida aceita níveis ${match.minLevel}–${match.maxLevel}. Escolha o esporte e informe suas habilidades para conferir sua compatibilidade.`
+          }
           tone="warning"
         />
       ) : !eligible && match.access === 'level' && !joined && !requested ? (

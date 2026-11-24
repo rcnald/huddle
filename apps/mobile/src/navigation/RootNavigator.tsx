@@ -847,6 +847,7 @@ export function RootNavigator() {
       case 'sport-skills':
         return (
           <SportSkillsScreen
+            key={`${page.mode}-${page.sport}`}
             sport={page.sport}
             hasMoreSports={page.remaining.length > 0}
             mode={page.mode}

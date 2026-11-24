@@ -405,7 +405,6 @@ function assertSkillEligibility(
   userId: string,
   match: Pick<MatchRow, 'sport' | 'access' | 'min_level' | 'max_level'>,
 ) {
-  if (match.access === 'free') return;
   if (!hasSportProfile(userId, match.sport)) {
     const level = sportLevel(userId, match.sport, undefined);
     throw new HttpError(
@@ -419,6 +418,7 @@ function assertSkillEligibility(
       },
     );
   }
+  if (match.access === 'free') return;
   const level = effectiveLevel(userId, match.sport);
   if (level < match.min_level || level > match.max_level) {
     throw new HttpError(

@@ -535,6 +535,7 @@ export function SportSkillsScreen({
   mode: 'onboarding' | 'profile' | 'match-return';
   allowSkip?: boolean;
 }) {
+  const [confirmed, setConfirmed] = useState(false);
   const definition = sportById[sport];
   return (
     <ScreenScroll
@@ -578,6 +579,50 @@ export function SportSkillsScreen({
           />
         ))}
       </AppCard>
+      {mode === 'match-return' ? (
+        <Pressable
+          accessibilityRole="checkbox"
+          accessibilityState={{ checked: confirmed }}
+          accessibilityLabel="Confirmo que revisei as habilidades e que elas representam meu nível atual"
+          onPress={() => setConfirmed((current) => !current)}
+          style={{
+            minHeight: 52,
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            gap: 10,
+            padding: 12,
+            borderRadius: 14,
+            backgroundColor: colors.lavender,
+          }}
+        >
+          <View
+            style={{
+              width: 22,
+              height: 22,
+              borderRadius: 4,
+              borderWidth: confirmed ? 0 : 1.5,
+              borderColor: colors.primary,
+              backgroundColor: confirmed ? colors.primary : colors.surface,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {confirmed ? <AppIcon name="check" size={16} color="#FFFFFF" /> : null}
+          </View>
+          <View style={{ flex: 1, gap: 4 }}>
+            <Text
+              style={{ color: colors.ink, fontFamily: 'Manrope', fontSize: 13, lineHeight: 18 }}
+            >
+              Confirmo que revisei as notas e que representam meu nível atual.
+            </Text>
+            <Text
+              style={{ color: colors.muted, fontFamily: 'Manrope', fontSize: 12, lineHeight: 17 }}
+            >
+              Avaliações recebidas também influenciam o nível recalibrado.
+            </Text>
+          </View>
+        </Pressable>
+      ) : null}
       <ActionButton
         title={
           hasMoreSports
@@ -590,6 +635,7 @@ export function SportSkillsScreen({
         }
         icon="arrow"
         onPress={onFinish}
+        disabled={mode === 'match-return' && !confirmed}
         style={{ marginTop: 18 }}
       />
       {allowSkip ? (

@@ -113441,6 +113441,2005 @@
           }
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "scSpP",
+      "x": 6000,
+      "y": 29578,
+      "name": "Proposta · Esporte exigido · partida livre",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "Cx9GF",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho com voltar",
+          "width": "fill_container"
+        },
+        {
+          "type": "text",
+          "id": "r4yCt",
+          "name": "Contexto",
+          "fill": "$huddle.primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "ANTES DE ENTRAR · PARTIDA LIVRE",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 12,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "pY7pA",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Adicione Futebol ao seu perfil",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 25,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "kgh20",
+          "name": "Resumo da partida",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "TMVOm",
+              "name": "Esporte e formato",
+              "fill": "$huddle.primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "FUTEBOL  ·  SOCIETY",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Ukxui",
+              "name": "Nome da partida",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Racha de quarta com a turma do Parque das Flores",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 20,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "LjRqT",
+              "name": "Local e horário",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Qua., 25 nov. · 19h30\nArena Central · Pinheiros",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "frame",
+              "id": "tBIn4",
+              "name": "Faixa de nível",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 12,
+              "padding": [
+                10,
+                12
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "NCtoW",
+                  "name": "Faixa aceita",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Entrada livre · sem faixa mínima",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "MQYs5",
+          "name": "Motivo da exigência",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "k6Cpd",
+              "name": "Cabeçalho do aviso",
+              "width": "fill_container",
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "FhlYD",
+                  "name": "Marca informativa",
+                  "width": 28,
+                  "height": 28,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 14,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "aQnpN",
+                      "name": "i",
+                      "fill": "$huddle.primary",
+                      "content": "i",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Th2Sm",
+                  "name": "Aviso",
+                  "fill": "$huddle.text",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Seu perfil ainda não inclui Futebol.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 15,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "Zrale",
+              "name": "Orientação",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Mesmo sem restrição de nível, o Huddle precisa registrar sua autoavaliação em Futebol. Informe suas habilidades para dar contexto às avaliações do jogo.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "k5CY5",
+          "name": "Privacidade",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Sua entrada continua livre; a autoavaliação ajuda a formar seu perfil neste esporte.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 12
+        },
+        {
+          "id": "GqRzD",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Adicionar Futebol e avaliar",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Adicionar Futebol e avaliar"
+            }
+          }
+        },
+        {
+          "id": "qctlr",
+          "type": "ref",
+          "ref": "j8Rkv",
+          "name": "Voltar",
+          "width": "fill_container",
+          "descendants": {
+            "razQ3": {
+              "content": "Voltar à partida"
+            },
+            "f5Ubt": {
+              "enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "p3Ij3",
+      "x": 6450,
+      "y": 29578,
+      "name": "Proposta · Confirmar autoavaliação · desmarcado",
+      "clip": true,
+      "width": 390,
+      "height": 900,
+      "fill": {
+        "type": "gradient",
+        "gradientType": "linear",
+        "enabled": true,
+        "rotation": 90,
+        "size": {
+          "height": 1
+        },
+        "colors": [
+          {
+            "color": "#F5F5F7",
+            "position": 0
+          },
+          {
+            "color": "#F8F8F9",
+            "position": 0.65
+          },
+          {
+            "color": "#EFEEF3",
+            "position": 1
+          }
+        ]
+      },
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Iu2PW",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 48,
+          "padding": [
+            0,
+            22
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "qYeo8",
+              "name": "Hora",
+              "fill": "#202021",
+              "content": "9:41",
+              "fontFamily": "Manrope",
+              "fontSize": 13,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Z6rBQ",
+              "name": "Indicadores",
+              "fill": "#202021",
+              "content": "●  ▰  ▰",
+              "fontFamily": "Manrope",
+              "fontSize": 11,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "m5ZDFo",
+          "name": "Conteúdo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": [
+            8,
+            24,
+            28,
+            24
+          ],
+          "children": [
+            {
+              "id": "HfPwi",
+              "type": "ref",
+              "ref": "a3qm8",
+              "name": "Cabeçalho · voltar e marca",
+              "width": "fill_container",
+              "descendants": {
+                "hqbpM": {
+                  "type": "frame",
+                  "id": "cnjgN",
+                  "name": "Símbolo · Huddle",
+                  "width": 24,
+                  "height": 24,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "v7670z",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Roda",
+                      "geometry": "M49 33a45 45 0 0 1 62 0l-13 14a26 26 0 0 0-36 0z",
+                      "viewBox": [
+                        0,
+                        0,
+                        160,
+                        160
+                      ],
+                      "fill": "#5947C4",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "path",
+                      "id": "a5XHP",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Roda",
+                      "geometry": "M127 49a45 45 0 0 1 0 62l-14-13a26 26 0 0 0 0-36z",
+                      "viewBox": [
+                        0,
+                        0,
+                        160,
+                        160
+                      ],
+                      "fill": "#5947C4",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "path",
+                      "id": "Z2BeC",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Roda",
+                      "geometry": "M111 127a45 45 0 0 1-62 0l13-14a26 26 0 0 0 36 0z",
+                      "viewBox": [
+                        0,
+                        0,
+                        160,
+                        160
+                      ],
+                      "fill": "#5947C4",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "path",
+                      "id": "e6gm3",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Roda",
+                      "geometry": "M33 111a45 45 0 0 1 0-62l14 13a26 26 0 0 0 0 36z",
+                      "viewBox": [
+                        0,
+                        0,
+                        160,
+                        160
+                      ],
+                      "fill": "#5947C4",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "sbJ1T",
+                      "x": 10.65,
+                      "y": 1.5,
+                      "name": "Jogador",
+                      "fill": "#5947C4",
+                      "width": 2.6999999999999997,
+                      "height": 2.6999999999999997
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "l4j5x",
+                      "x": 19.8,
+                      "y": 10.65,
+                      "name": "Jogador",
+                      "fill": "#5947C4",
+                      "width": 2.6999999999999997,
+                      "height": 2.6999999999999997
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "QXF3v",
+                      "x": 10.65,
+                      "y": 19.8,
+                      "name": "Jogador",
+                      "fill": "#5947C4",
+                      "width": 2.6999999999999997,
+                      "height": 2.6999999999999997
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "UIBqt",
+                      "x": 1.5,
+                      "y": 10.65,
+                      "name": "Jogador",
+                      "fill": "#5947C4",
+                      "width": 2.6999999999999997,
+                      "height": 2.6999999999999997
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "iAeSv",
+              "name": "Introdução",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "nGHdg",
+                  "name": "Título",
+                  "fill": "#202021",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Confirme seu nível em Futebol",
+                  "fontFamily": "Manrope",
+                  "fontSize": 25,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "hRAfa",
+                  "name": "Descrição",
+                  "fill": "#5D5D5A",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Revise as seis habilidades. Confirme que as notas representam seu jogo para continuar.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "Manrope",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "zxAML",
+              "name": "Habilidades",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 20,
+              "layout": "vertical",
+              "gap": 9,
+              "padding": [
+                14,
+                16
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "m6sai",
+                  "name": "Slider · Fôlego",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ueuvb",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Wx6PW",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Passe",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "j5inCh",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "4 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "f5E0c",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Dh24c",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "oIG6m",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 232,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "dQVLm",
+                          "x": 233,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "HVAEi",
+                  "name": "Slider · Velocidade",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "EzTEJ",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Gab6X",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Finalização",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "HufBP",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "4 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "C8aY6",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "E2fcs3",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fFcXP",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 232,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "KIOLB",
+                          "x": 233,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "P3C7a",
+                  "name": "Slider · Drible",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "b81axC",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "P4XvUm",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Drible",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "QzxtY",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "3 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ARLO6",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "GBVoo",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "EoEZA",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 174,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "m7sRXP",
+                          "x": 175,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xaGD2",
+                  "name": "Slider · Passe",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Z84FFA",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hDrwM",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Marcação",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "zPSaw",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "3 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "g4XiTW",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "tmQ79",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Hsdw5",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 174,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "U2fA3",
+                          "x": 175,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "I6bac",
+                  "name": "Slider · Chute",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "OPZhE",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "R10K5",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Velocidade",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "wnl2D",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "3 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Z7W3n",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "lqcE6",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "GbTFb",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 174,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "GQMcJ",
+                          "x": 175,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "AV8mz",
+                  "name": "Slider · Marcação",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "N1Apt1",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "w6cFO",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Fôlego",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "P3vKsm",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "2 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "YL64e",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "k840Do",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "zU8gs",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 116,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "iiXlf",
+                          "x": 117,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "TcOkF",
+              "name": "Confirmação obrigatória",
+              "width": "fill_container",
+              "fill": "#F0EEFF",
+              "cornerRadius": 14,
+              "gap": 10,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 4,
+                  "id": "dYE3D",
+                  "name": "Caixa desmarcada",
+                  "fill": "#FFFFFF",
+                  "width": 22,
+                  "height": 22,
+                  "stroke": "#5947C4",
+                  "strokeWidth": 1.5
+                },
+                {
+                  "type": "frame",
+                  "id": "ZHzxh",
+                  "name": "Texto da confirmação",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "nwXco",
+                      "name": "Declaração",
+                      "fill": "#202021",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Confirmo que estas notas representam meu nível atual.",
+                      "fontFamily": "Manrope",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "uXPUE",
+                      "name": "Efeito das avaliações",
+                      "fill": "#5D5D5A",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Avaliações recebidas também podem influenciar o nível recalibrado.",
+                      "fontFamily": "Manrope",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "LwKoN",
+              "type": "ref",
+              "ref": "s1vUq",
+              "name": "Ver partidas",
+              "width": "fill_container",
+              "opacity": 0.48,
+              "descendants": {
+                "IjchX": {
+                  "type": "frame",
+                  "id": "NnUzP",
+                  "name": "Hugeicons · seta",
+                  "width": 20,
+                  "height": 20,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "OzMbb",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Seta",
+                      "geometry": "M9.00005 6c0 0 5.99995 4.4189 5.99995 6 0 1.5812-6 6-6 6",
+                      "viewBox": [
+                        0,
+                        0,
+                        24,
+                        24
+                      ],
+                      "width": 20,
+                      "height": 20,
+                      "stroke": "#FFFFFF",
+                      "strokeWidth": 1.25,
+                      "strokeLinejoin": "round",
+                      "strokeLinecap": "round"
+                    }
+                  ]
+                },
+                "M1RZc": {
+                  "content": "Salvar e conferir partida"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Sc5VB",
+      "x": 6900,
+      "y": 29578,
+      "name": "Proposta · Confirmar autoavaliação · marcado",
+      "clip": true,
+      "width": 390,
+      "height": 900,
+      "fill": {
+        "type": "gradient",
+        "gradientType": "linear",
+        "enabled": true,
+        "rotation": 90,
+        "size": {
+          "height": 1
+        },
+        "colors": [
+          {
+            "color": "#F5F5F7",
+            "position": 0
+          },
+          {
+            "color": "#F8F8F9",
+            "position": 0.65
+          },
+          {
+            "color": "#EFEEF3",
+            "position": 1
+          }
+        ]
+      },
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "QauqL",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 48,
+          "padding": [
+            0,
+            22
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "SERQN",
+              "name": "Hora",
+              "fill": "#202021",
+              "content": "9:41",
+              "fontFamily": "Manrope",
+              "fontSize": 13,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "rH9Sx",
+              "name": "Indicadores",
+              "fill": "#202021",
+              "content": "●  ▰  ▰",
+              "fontFamily": "Manrope",
+              "fontSize": 11,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "iMOlU",
+          "name": "Conteúdo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": [
+            8,
+            24,
+            28,
+            24
+          ],
+          "children": [
+            {
+              "id": "osa4E",
+              "type": "ref",
+              "ref": "a3qm8",
+              "name": "Cabeçalho · voltar e marca",
+              "width": "fill_container",
+              "descendants": {
+                "hqbpM": {
+                  "type": "frame",
+                  "id": "vavHH",
+                  "name": "Símbolo · Huddle",
+                  "width": 24,
+                  "height": 24,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "U5FpX",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Roda",
+                      "geometry": "M49 33a45 45 0 0 1 62 0l-13 14a26 26 0 0 0-36 0z",
+                      "viewBox": [
+                        0,
+                        0,
+                        160,
+                        160
+                      ],
+                      "fill": "#5947C4",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "path",
+                      "id": "tGUoa",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Roda",
+                      "geometry": "M127 49a45 45 0 0 1 0 62l-14-13a26 26 0 0 0 0-36z",
+                      "viewBox": [
+                        0,
+                        0,
+                        160,
+                        160
+                      ],
+                      "fill": "#5947C4",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "path",
+                      "id": "pb9cF",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Roda",
+                      "geometry": "M111 127a45 45 0 0 1-62 0l13-14a26 26 0 0 0 36 0z",
+                      "viewBox": [
+                        0,
+                        0,
+                        160,
+                        160
+                      ],
+                      "fill": "#5947C4",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "path",
+                      "id": "g6ZbA",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Roda",
+                      "geometry": "M33 111a45 45 0 0 1 0-62l14 13a26 26 0 0 0 0 36z",
+                      "viewBox": [
+                        0,
+                        0,
+                        160,
+                        160
+                      ],
+                      "fill": "#5947C4",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "FWHAs",
+                      "x": 10.65,
+                      "y": 1.5,
+                      "name": "Jogador",
+                      "fill": "#5947C4",
+                      "width": 2.6999999999999997,
+                      "height": 2.6999999999999997
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "xq5w2",
+                      "x": 19.8,
+                      "y": 10.65,
+                      "name": "Jogador",
+                      "fill": "#5947C4",
+                      "width": 2.6999999999999997,
+                      "height": 2.6999999999999997
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "jOIGL",
+                      "x": 10.65,
+                      "y": 19.8,
+                      "name": "Jogador",
+                      "fill": "#5947C4",
+                      "width": 2.6999999999999997,
+                      "height": 2.6999999999999997
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "BTTkw",
+                      "x": 1.5,
+                      "y": 10.65,
+                      "name": "Jogador",
+                      "fill": "#5947C4",
+                      "width": 2.6999999999999997,
+                      "height": 2.6999999999999997
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "kpW5F",
+              "name": "Introdução",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "YEbt8",
+                  "name": "Título",
+                  "fill": "#202021",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Confirme seu nível em Futebol",
+                  "fontFamily": "Manrope",
+                  "fontSize": 25,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "SwRLi",
+                  "name": "Descrição",
+                  "fill": "#5D5D5A",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Revise as seis habilidades. Confirme que as notas representam seu jogo para continuar.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "Manrope",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "dIJOC",
+              "name": "Habilidades",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 20,
+              "layout": "vertical",
+              "gap": 9,
+              "padding": [
+                14,
+                16
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "GV7El",
+                  "name": "Slider · Fôlego",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "l1VbGK",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "z8VXNW",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Passe",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LQCQv",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "4 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "d5XFG",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "k8s4pl",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fgCgV",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 232,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "Yrs6Z",
+                          "x": 233,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Lfpfj",
+                  "name": "Slider · Velocidade",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Sxy65",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "XURr7",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Finalização",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Nxpox",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "4 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UapWv",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "V6BoS",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "S0UeXd",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 232,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "o7GpM",
+                          "x": 233,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "P2T6JK",
+                  "name": "Slider · Drible",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "FvLSQ",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Kko14",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Drible",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ohWYw",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "3 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "WUfab",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "v7hdh4",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "G8CWU",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 174,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "x7FRX0",
+                          "x": 175,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "mshHX",
+                  "name": "Slider · Passe",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "hiLOb",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "byelX",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Marcação",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "SC2wn",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "3 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "C0IBHQ",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ThR4O",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "N6C270",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 174,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "Ryx1B",
+                          "x": 175,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "RVTS4",
+                  "name": "Slider · Chute",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "sgQRK",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "QL8aM",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Velocidade",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "GfN7Y",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "3 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "vHQTF",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "yQt30",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "vYqAY",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 174,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "doSwM",
+                          "x": 175,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VpRhN",
+                  "name": "Slider · Marcação",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ASSpj",
+                      "name": "Nome e nota",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "v7BfY",
+                          "name": "Habilidade",
+                          "fill": "#202021",
+                          "content": "Fôlego",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "tRYzO",
+                          "name": "Nota atual",
+                          "fill": "#5947C4",
+                          "content": "2 / 5",
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "m8aViW",
+                      "name": "Controle deslizante · 0 a 5",
+                      "width": "fill_container",
+                      "height": 22,
+                      "layout": "none",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "W5GAxL",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Trilho",
+                          "width": 290,
+                          "height": 4,
+                          "fill": "#D8D8DD",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "JfiJ1",
+                          "x": 10,
+                          "y": 9,
+                          "name": "Progresso",
+                          "width": 116,
+                          "height": 4,
+                          "fill": "#9C90E8",
+                          "cornerRadius": 2
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "uhMcz",
+                          "x": 117,
+                          "y": 2,
+                          "name": "Indicador",
+                          "fill": "#5947C4",
+                          "width": 18,
+                          "height": 18,
+                          "stroke": "#FFFFFF",
+                          "strokeWidth": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k6IauR",
+              "name": "Confirmação obrigatória",
+              "width": "fill_container",
+              "fill": "#F0EEFF",
+              "cornerRadius": 14,
+              "gap": 10,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "AvL4U",
+                  "name": "Caixa marcada",
+                  "width": 22,
+                  "height": 22,
+                  "fill": "#5947C4",
+                  "cornerRadius": 4,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "H9yOua",
+                      "name": "Confirmação",
+                      "width": 15,
+                      "height": 15,
+                      "icon": "check",
+                      "library": "lucide",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gV1mQ",
+                  "name": "Texto da confirmação",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "SEG4w",
+                      "name": "Declaração",
+                      "fill": "#202021",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Confirmo que estas notas representam meu nível atual.",
+                      "fontFamily": "Manrope",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Xwlhi",
+                      "name": "Efeito das avaliações",
+                      "fill": "#5D5D5A",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Avaliações recebidas também podem influenciar o nível recalibrado.",
+                      "fontFamily": "Manrope",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "BBfbH",
+              "type": "ref",
+              "ref": "s1vUq",
+              "name": "Ver partidas",
+              "width": "fill_container",
+              "opacity": 1,
+              "descendants": {
+                "IjchX": {
+                  "type": "frame",
+                  "id": "oZq7b",
+                  "name": "Hugeicons · seta",
+                  "width": 20,
+                  "height": 20,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "rq4nZ",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Seta",
+                      "geometry": "M9.00005 6c0 0 5.99995 4.4189 5.99995 6 0 1.5812-6 6-6 6",
+                      "viewBox": [
+                        0,
+                        0,
+                        24,
+                        24
+                      ],
+                      "width": 20,
+                      "height": 20,
+                      "stroke": "#FFFFFF",
+                      "strokeWidth": 1.25,
+                      "strokeLinejoin": "round",
+                      "strokeLinecap": "round"
+                    }
+                  ]
+                },
+                "M1RZc": {
+                  "content": "Confirmar nível e continuar"
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "variables": {

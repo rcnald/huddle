@@ -53,10 +53,14 @@ export function MatchSportRequiredScreen({
       <BackHeader onBack={onBack} />
       {stage === 'missing' ? (
         <>
-          <Text style={styles.eyebrow}>ANTES DE ENTRAR · PARTIDA POR NÍVEL</Text>
+          <Text style={styles.eyebrow}>ANTES DE ENTRAR · ESPORTE NÃO DECLARADO</Text>
           <PageTitle
             title={`Adicione ${sport} ao seu perfil`}
-            subtitle="Esta partida usa seu nível neste esporte para conferir se você pode participar."
+            subtitle={
+              match.access === 'free'
+                ? 'A entrada é livre, mas seu esporte e nível precisam estar no perfil.'
+                : 'Esta partida usa seu nível neste esporte para conferir se você pode participar.'
+            }
           />
           <MatchSummary match={match} />
           {ratingsReceived > 0 ? (
@@ -64,18 +68,23 @@ export function MatchSportRequiredScreen({
               <Text style={styles.noticeTitle}>Você já recebeu avaliações em {sport}</Text>
               <Text style={styles.body}>
                 Seu nível atual é {formatLevel(currentLevel ?? 3)} com {ratingsReceived}{' '}
-                {ratingsReceived === 1 ? 'nota recebida' : 'notas recebidas'}. Adicione o esporte e
-                revise suas habilidades para conferir a faixa.
+                {ratingsReceived === 1 ? 'avaliação recebida' : 'avaliações recebidas'}. Adicione o
+                esporte e registre suas habilidades no perfil.
               </Text>
               <Text style={styles.hint}>
-                As notas recebidas continuam no cálculo; mudar sua autoavaliação não garante
-                entrada.
+                {match.access === 'free'
+                  ? 'A entrada não tem faixa mínima; as avaliações recebidas continuam ligadas a este esporte.'
+                  : 'As avaliações recebidas continuam no cálculo; mudar sua autoavaliação não garante entrada.'}
               </Text>
             </AppCard>
           ) : (
             <InlineNotice
               title={`Seu perfil ainda não inclui ${sport}.`}
-              message="Adicione o esporte e informe suas habilidades. Sem avaliações recebidas, seu nível inicial é calculado pela autoavaliação."
+              message={
+                match.access === 'free'
+                  ? 'A entrada é livre. Adicione o esporte e informe suas habilidades para registrar seu nível e dar contexto às avaliações depois do jogo.'
+                  : 'Adicione o esporte e informe suas habilidades. Sem avaliações recebidas, seu nível inicial é calculado pela autoavaliação.'
+              }
             />
           )}
           <ActionButton
@@ -108,8 +117,8 @@ export function MatchSportRequiredScreen({
           />
           <MatchSummary match={match} />
           <InlineNotice
-            title="Enquanto você atualizava seu perfil, a partida mudou."
-            message="A partida foi encerrada ou as vagas foram preenchidas. Procure outra partida compatível."
+            title="Enquanto você atualizava seu perfil, a partida foi encerrada."
+            message="Seu perfil foi mantido. Procure outra partida aberta."
             tone="warning"
           />
           <ActionButton title="Buscar partidas" icon="search" onPress={onSearch} />
@@ -119,19 +128,27 @@ export function MatchSportRequiredScreen({
           <AppPill text="Perfil atualizado" tone="success" />
           <PageTitle
             title={
-              match.status === 'full' ? 'A partida está completa' : 'Seu nível está nesta faixa'
+              match.status === 'full'
+                ? 'A partida está completa'
+                : match.access === 'free'
+                  ? 'Esporte adicionado ao perfil'
+                  : 'Seu nível está nesta faixa'
             }
             subtitle={
               match.status === 'full'
                 ? 'Você ainda pode entrar na lista de espera.'
-                : 'Você pode voltar aos detalhes para entrar.'
+                : 'Volte aos detalhes para continuar.'
             }
           />
           <MatchSummary match={match} />
           {match.status === 'full' ? (
             <InlineNotice
               title={`Seu nível em ${sport}: ${formatLevel(currentLevel ?? 3)}`}
-              message={`A faixa aceita é de ${match.minLevel} a ${match.maxLevel}. Você pode entrar na lista de espera.`}
+              message={
+                match.access === 'free'
+                  ? 'A entrada é livre. Você pode entrar na lista de espera.'
+                  : `A faixa aceita é de ${match.minLevel} a ${match.maxLevel}. Você pode entrar na lista de espera.`
+              }
               tone="accent"
             />
           ) : (
@@ -140,8 +157,9 @@ export function MatchSportRequiredScreen({
                 Seu nível em {sport}: {formatLevel(currentLevel ?? 3)}
               </Text>
               <Text style={styles.successText}>
-                A faixa aceita é de {match.minLevel} a {match.maxLevel}. Seu nível está dentro da
-                faixa.
+                {match.access === 'free'
+                  ? 'Partida livre, sem faixa mínima. Seu nível fica no perfil e pode ser recalibrado pelas avaliações recebidas.'
+                  : `A faixa aceita é de ${match.minLevel} a ${match.maxLevel}. Seu nível está dentro da faixa.`}
               </Text>
             </AppCard>
           )}
@@ -203,7 +221,14 @@ function MatchSummary({ match }: { match: Match }) {
     <AppCard style={{ gap: 10 }}>
       <View style={styles.matchMeta}>
         <AppPill text={`${sportName(match.sport)} · ${match.format}`} />
-        <AppPill text={`Nível aceito: ${match.minLevel} a ${match.maxLevel}`} tone="accent" />
+        <AppPill
+          text={
+            match.access === 'free'
+              ? 'Entrada livre'
+              : `Nível aceito: ${match.minLevel} a ${match.maxLevel}`
+          }
+          tone="accent"
+        />
       </View>
       <Text style={styles.matchTitle}>{match.title}</Text>
       <Text style={styles.body}>

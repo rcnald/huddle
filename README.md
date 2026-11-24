@@ -102,7 +102,7 @@ Contas criadas (senha `huddle123`): `marina@exemplo.com` (plano grátis) e `ana@
 ### Regras principais
 
 - **Nível recalibrado**: cada habilidade vale `(nota declarada × 3 + soma das notas recebidas) / (3 + nº de notas)`. Esse nível libera as partidas por faixa.
-- **Partidas por nível**: o participante precisa ter o esporte no perfil. Se não tiver, a API responde `SPORT_REQUIRED`; o app abre o fluxo para adicionar o esporte, declarar habilidades e retornar aos detalhes para verificar a faixa.
+- **Entrada em partidas**: em qualquer modalidade, inclusive nas partidas livres, o participante precisa ter o esporte no perfil e confirmar sua autoavaliação. Partidas livres não impõem faixa mínima; partidas por nível também verificam a faixa recalibrada. Se faltar o esporte, a API responde `SPORT_REQUIRED` e o app abre o fluxo para adicionar, avaliar e voltar à partida.
 - **Foto na entrada**: ao entrar numa partida, as habilidades declaradas naquele momento ficam salvas; a avaliação compara o desempenho com elas.
 - **Reputação**: vem só dos votos Abaixo/Certo/Acima (`1 + 4 × % de "Certo"`).
 - **Torneios (Huddle+)**: só assinantes criam e entram. O ranking não usa placar, só as notas de habilidade recebidas em torneios (média suavizada × 200, faixas Bronze/Prata/Ouro/Diamante).
