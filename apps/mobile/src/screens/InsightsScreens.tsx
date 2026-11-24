@@ -401,7 +401,9 @@ export function CheckoutScreen({
           <Text style={styles.cardTitle}>Huddle+ mensal</Text>
           <Text style={styles.price}>R$ 9,90</Text>
         </View>
-        <Text style={styles.hint}>Renova todo mês. Cancele quando quiser pelo seu perfil.</Text>
+        <Text style={styles.checkoutRenewal}>
+          Renovação mensal. Cancele quando quiser no perfil.
+        </Text>
         <View style={{ height: 1, backgroundColor: colors.line }} />
         {[
           'Destaque das suas partidas (3 por semana)',
@@ -446,9 +448,8 @@ export function CheckoutScreen({
           }, 1200);
         }}
       />
-      <Text style={styles.footnote}>
-        Num lançamento real, esta etapa seria feita por um provedor de pagamento (ex.: Mercado Pago
-        ou Stripe).
+      <Text style={styles.checkoutFootnote}>
+        Pagamento simulado: nenhuma cobrança será realizada.
       </Text>
     </ScreenScroll>
   );
@@ -474,6 +475,7 @@ export function DeleteAccountScreen({
         title="O que acontece"
         message="Seus dados pessoais, esportes e habilidades são apagados. Partidas futuras que você organiza são canceladas e você sai das partidas em que está inscrito. Avaliações antigas ficam anônimas."
         tone="warning"
+        messageStyle={styles.deleteNotice}
       />
       <TextField
         label="Confirme sua senha"
@@ -482,13 +484,15 @@ export function DeleteAccountScreen({
         secureTextEntry
         autoCapitalize="none"
         placeholder="Sua senha"
+        placeholderTextColor="#68686A"
       />
       {error ? (
         <InlineNotice title="Não foi possível excluir" message={error} tone="danger" />
       ) : null}
       <ActionButton
-        title={busy ? 'Excluindo…' : 'Excluir minha conta'}
+        title={busy ? 'Excluindo…' : 'Excluir conta definitivamente'}
         icon="cancel"
+        tone="danger"
         disabled={busy || !password}
         onPress={async () => {
           setBusy(true);
@@ -762,14 +766,16 @@ const styles = {
     color: colors.ink,
   },
   body: { fontFamily: 'Manrope', fontSize: 13, lineHeight: 19, color: colors.muted },
-  hint: { fontFamily: 'Manrope', fontSize: 11, lineHeight: 16, color: colors.muted },
-  footnote: {
+  hint: { fontFamily: 'Manrope', fontSize: 12, lineHeight: 17, color: colors.muted },
+  checkoutRenewal: { fontFamily: 'Manrope', fontSize: 13, lineHeight: 19, color: colors.muted },
+  checkoutFootnote: {
     fontFamily: 'Manrope',
-    fontSize: 10,
-    lineHeight: 14,
-    color: colors.faint,
+    fontSize: 12,
+    lineHeight: 17,
+    color: colors.muted,
     textAlign: 'center' as const,
   },
+  deleteNotice: { fontSize: 13, lineHeight: 19 },
   rowBetween: {
     flexDirection: 'row' as const,
     justifyContent: 'space-between' as const,
@@ -883,7 +889,7 @@ const styles = {
     backgroundColor: colors.warningBg,
     alignItems: 'center' as const,
   },
-  demoText: { flex: 1, fontFamily: 'Manrope', fontSize: 11, lineHeight: 16, color: colors.warning },
+  demoText: { flex: 1, fontFamily: 'Manrope', fontSize: 13, lineHeight: 19, color: colors.warning },
   price: { fontFamily: 'Manrope', fontSize: 22, fontWeight: '800' as const, color: colors.primary },
   checkRow: { flexDirection: 'row' as const, alignItems: 'center' as const, gap: 8 },
   methodCard: {

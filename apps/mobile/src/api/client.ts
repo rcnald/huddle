@@ -30,7 +30,7 @@ function inferredApiUrl() {
   const configured = process.env.EXPO_PUBLIC_API_URL?.trim();
   if (configured) return configured.replace(/\/$/, '');
   if (Platform.OS === 'web' && typeof window !== 'undefined') {
-    return `http://${window.location.hostname}:4000/api`;
+    return new URL('/api', window.location.origin).toString().replace(/\/$/, '');
   }
   const scriptUrl = NativeModules.SourceCode?.scriptURL as string | undefined;
   if (scriptUrl) {
@@ -86,7 +86,23 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
       `Não foi possível conectar à API em ${apiBaseUrl}.`,
     );
   }
-  const data = (await response.json().catch(() => ({}))) as ApiResponse<T>;
+  let data: ApiResponse<T>;
+  try {
+    data = (await response.json()) as ApiResponse<T>;
+  } catch {
+    throw new ApiClientError(
+      response.status,
+      'INVALID_API_RESPONSE',
+      'A API retornou uma resposta inválida. Tente novamente.',
+    );
+  }
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    throw new ApiClientError(
+      response.status,
+      'INVALID_API_RESPONSE',
+      'A API retornou uma resposta inválida. Tente novamente.',
+    );
+  }
   if (!response.ok) {
     throw new ApiClientError(
       response.status,

@@ -4,8 +4,8 @@ import {
   Pressable,
   Text,
   TextInput,
-  type TextStyle,
   type TextInputProps,
+  type TextStyle,
   View,
   type ViewStyle,
 } from 'react-native';
@@ -15,7 +15,6 @@ import {
   usePanGesture,
   useTapGesture,
 } from 'react-native-gesture-handler';
-import { scheduleOnRN } from 'react-native-worklets';
 import Animated, {
   cubicBezier,
   Easing,
@@ -26,6 +25,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 import { colors, radius } from '../theme';
 import { AppIcon, type IconName } from './Icon';
 
@@ -79,7 +79,7 @@ export function ActionButton({
   title: string;
   icon: IconName;
   onPress: () => void;
-  tone?: 'primary' | 'soft' | 'glass';
+  tone?: 'primary' | 'soft' | 'glass' | 'danger';
   disabled?: boolean;
   style?: ViewStyle;
 }) {
@@ -108,13 +108,23 @@ export function ActionButton({
           pressing && !disabled && tone === 'primary' && styles.primaryPressed,
           pressing && !disabled && tone === 'soft' && styles.softPressed,
           pressing && !disabled && tone === 'glass' && styles.glassPressed,
+          pressing && !disabled && tone === 'danger' && styles.dangerPressed,
           disabled && styles.buttonDisabled,
         ]}
       >
         <View>
-          <AppIcon name={icon} size={18} color={tone === 'primary' ? '#FFFFFF' : colors.primary} />
+          <AppIcon
+            name={icon}
+            size={18}
+            color={tone === 'primary' || tone === 'danger' ? '#FFFFFF' : colors.primary}
+          />
         </View>
-        <Text style={[styles.buttonText, tone !== 'primary' && styles.buttonTextSoft]}>
+        <Text
+          style={[
+            styles.buttonText,
+            (tone === 'soft' || tone === 'glass') && styles.buttonTextSoft,
+          ]}
+        >
           {title}
         </Text>
       </Animated.View>
@@ -437,6 +447,7 @@ const styles = {
     gap: 8,
   },
   primary: { backgroundColor: colors.primary },
+  danger: { backgroundColor: colors.danger },
   soft: { backgroundColor: colors.lavender },
   glass: { backgroundColor: 'rgba(255,255,255,0.7)', borderWidth: 1, borderColor: '#FFFFFF' },
   buttonText: { fontFamily: 'Manrope', fontWeight: '700' as const, fontSize: 14, color: '#FFFFFF' },
@@ -452,6 +463,7 @@ const styles = {
   },
   buttonPressed: { transform: [{ scale: 0.97 }] },
   primaryPressed: { backgroundColor: colors.primaryDark },
+  dangerPressed: { backgroundColor: '#84212C' },
   softPressed: { backgroundColor: '#E7E3FC' },
   glassPressed: { backgroundColor: 'rgba(255,255,255,0.94)' },
   fieldWrap: { gap: 7 },

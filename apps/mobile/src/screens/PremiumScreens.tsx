@@ -642,7 +642,6 @@ const premiumStyles = {
     textAlign: 'center' as const,
   },
   successHero: {
-    flex: 1,
     alignItems: 'center' as const,
     justifyContent: 'center' as const,
     gap: 10,

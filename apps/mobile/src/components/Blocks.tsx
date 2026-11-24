@@ -775,10 +775,12 @@ export function InlineNotice({
   title,
   message,
   tone = 'accent',
+  messageStyle,
 }: {
   title: string;
   message: string;
   tone?: 'accent' | 'danger' | 'success' | 'warning';
+  messageStyle?: StyleProp<TextStyle>;
 }) {
   const bg =
     tone === 'danger'
@@ -799,7 +801,7 @@ export function InlineNotice({
   return (
     <View style={[styles.notice, { backgroundColor: bg }]}>
       <Text style={[styles.noticeTitle, { color }]}>{title}</Text>
-      <Text style={[styles.noticeMessage, { color }]}>{message}</Text>
+      <Text style={[styles.noticeMessage, { color }, messageStyle]}>{message}</Text>
     </View>
   );
 }
