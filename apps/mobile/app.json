@@ -16,6 +16,7 @@
       "icon": "./assets/icon.png"
     },
     "android": {
+      "package": "dev.rcnald.huddle",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
