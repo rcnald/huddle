@@ -1,5 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
-import { NativeModules, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import type {
   Match,
   MatchDraft,
@@ -28,22 +28,7 @@ export class ApiClientError extends Error {
 
 function inferredApiUrl() {
   const configured = process.env.EXPO_PUBLIC_API_URL?.trim();
-  if (configured) return configured.replace(/\/$/, '');
-  if (Platform.OS === 'web' && typeof window !== 'undefined') {
-    return `http://${window.location.hostname}:4000/api`;
-  }
-  const scriptUrl = NativeModules.SourceCode?.scriptURL as string | undefined;
-  if (scriptUrl) {
-    try {
-      const url = new URL(scriptUrl);
-      if (url.protocol === 'http:' || url.protocol === 'https:') {
-        return `http://${url.hostname}:4000/api`;
-      }
-    } catch {
-      // Fall back to the simulator/emulator address.
-    }
-  }
-  return `${Platform.OS === 'android' ? 'http://10.0.2.2' : 'http://localhost'}:4000/api`;
+  return (configured || 'https://huddle.rcnald.dev/api').replace(/\/$/, '');
 }
 
 export const apiBaseUrl = inferredApiUrl();

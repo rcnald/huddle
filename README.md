@@ -49,7 +49,7 @@ docker compose logs -f api
 
 A API fica em `http://localhost:4000`. Como o banco é SQLite, ele roda como arquivo dentro de um volume persistente, sem serviço de banco separado. O volume `huddle_sqlite_data` sobrevive a `docker compose down`.
 
-No desenvolvimento local, o cliente mobile usa o host do Metro com a porta `4000`. Para builds instaladas ou endereços diferentes, defina `EXPO_PUBLIC_API_URL` antes de iniciar ou gerar a build.
+Por padrão, o app aponta para `https://huddle.rcnald.dev/api`. Para desenvolvimento local, defina `EXPO_PUBLIC_API_URL` em `apps/mobile/.env.local` antes de iniciar o Expo.
 
 ### Expo Go em um celular Android
 
