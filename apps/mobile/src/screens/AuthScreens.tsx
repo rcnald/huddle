@@ -3,6 +3,7 @@ import { Image, Pressable, Text, View } from 'react-native';
 import { AppCard, BackHeader, InlineNotice, PageTitle, ScreenScroll } from '../components/Blocks';
 import { ActionButton, LevelSlider, TextField } from '../components/Controls';
 import { AppIcon } from '../components/Icon';
+import type { LegalDocument } from '../data/legal';
 import { sportById, sports } from '../data/sports';
 import { colors } from '../theme';
 import type { Profile, SkillKey, Skills, SportId } from '../types';
@@ -73,15 +74,18 @@ export function SignUpScreen({
   onBack,
   onCreate,
   onLogin,
+  onOpenLegal,
 }: {
   onBack: () => void;
   onCreate: (name: string, email: string, password: string) => void;
   onLogin: () => void;
+  onOpenLegal: (document: LegalDocument) => void;
 }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [accepted, setAccepted] = useState(false);
   return (
     <ScreenScroll atmosphere contentStyle={{ paddingBottom: 20 }}>
       <BackHeader onBack={onBack} />
@@ -114,9 +118,72 @@ export function SignUpScreen({
         />
         {error ? <InlineNotice title="Revise seus dados" message={error} tone="danger" /> : null}
       </View>
+      <View style={{ gap: 8 }}>
+        <Pressable
+          accessibilityRole="checkbox"
+          accessibilityState={{ checked: accepted }}
+          accessibilityLabel="Li e aceito os rascunhos dos Termos de Uso e da Política de Privacidade do relatório para testes"
+          onPress={() => setAccepted((current) => !current)}
+          style={{ minHeight: 44, flexDirection: 'row', alignItems: 'center', gap: 10 }}
+        >
+          <View
+            style={{
+              width: 22,
+              height: 22,
+              borderWidth: 1.5,
+              borderColor: colors.primary,
+              borderRadius: 4,
+              backgroundColor: accepted ? colors.primary : colors.surface,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {accepted ? <AppIcon name="check" size={16} color="#FFFFFF" /> : null}
+          </View>
+          <Text
+            style={{
+              flex: 1,
+              fontFamily: 'Manrope',
+              fontSize: 14,
+              lineHeight: 20,
+              color: colors.ink,
+            }}
+          >
+            Li e aceito os rascunhos dos Termos de Uso e da Política de Privacidade do relatório
+            para testes.
+          </Text>
+        </Pressable>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+          <Pressable accessibilityRole="link" onPress={() => onOpenLegal('terms')}>
+            <Text
+              style={{
+                color: colors.primary,
+                fontFamily: 'Manrope',
+                fontSize: 13,
+                fontWeight: '700',
+              }}
+            >
+              Ler Termos de Uso
+            </Text>
+          </Pressable>
+          <Pressable accessibilityRole="link" onPress={() => onOpenLegal('privacy')}>
+            <Text
+              style={{
+                color: colors.primary,
+                fontFamily: 'Manrope',
+                fontSize: 13,
+                fontWeight: '700',
+              }}
+            >
+              Ler Política de Privacidade
+            </Text>
+          </Pressable>
+        </View>
+      </View>
       <ActionButton
         title="Criar conta"
         icon="userAdd"
+        disabled={!accepted}
         onPress={() => {
           if (!name.trim() || !email.includes('@') || password.length < 8) {
             setError('Informe seu nome, um e-mail válido e uma senha com pelo menos 8 caracteres.');

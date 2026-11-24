@@ -134,18 +134,24 @@ export function MetricsScreen({
   onBack,
   onUpgrade,
   onOpenPlayer,
+  onSearch,
 }: {
   plan: PlanId;
   onBack: () => void;
   onUpgrade: () => void;
   onOpenPlayer: (playerId: string, sport: SportId) => void;
+  onSearch: () => void;
 }) {
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
   const [error, setError] = useState('');
+  const [metricsAttempt, setMetricsAttempt] = useState(0);
   const [tab, setTab] = useState<'casual' | 'tournament'>('casual');
   const [sport, setSport] = useState<SportId | undefined>();
   const [tournamentSport, setTournamentSport] = useState<SportId | undefined>();
   const [ranking, setRanking] = useState<RankingEntry[] | null>(null);
+  const [rankingError, setRankingError] = useState(false);
+  const [rankingAttempt, setRankingAttempt] = useState(0);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: metricsAttempt explicitly retries the request.
   useEffect(() => {
     if (plan !== 'plus') return;
     let active = true;
@@ -160,22 +166,24 @@ export function MetricsScreen({
     return () => {
       active = false;
     };
-  }, [plan]);
+  }, [plan, metricsAttempt]);
   const activeTournament =
     metrics?.tournaments.find((item) => item.sport === tournamentSport) ?? metrics?.tournaments[0];
   const rankingSport = activeTournament?.sport;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: rankingAttempt explicitly retries the request.
   useEffect(() => {
     if (!rankingSport || tab !== 'tournament') return;
     let active = true;
     setRanking(null);
+    setRankingError(false);
     api
       .ranking(rankingSport)
       .then((result) => active && setRanking(result))
-      .catch(() => active && setRanking([]));
+      .catch(() => active && setRankingError(true));
     return () => {
       active = false;
     };
-  }, [rankingSport, tab]);
+  }, [rankingSport, tab, rankingAttempt]);
 
   if (plan !== 'plus')
     return (
@@ -195,8 +203,19 @@ export function MetricsScreen({
   if (error)
     return (
       <ScreenScroll>
-        <BackHeader onBack={onBack} />
-        <InlineNotice title="Não foi possível carregar" message={error} tone="warning" />
+        <BackHeader onBack={onBack} premium />
+        <PageTitle title="Métricas de desempenho" subtitle="Seu jogo em números." />
+        <MetricsTabs tab={tab} onChange={setTab} />
+        <MetricsStatus
+          title="Não foi possível carregar"
+          message="Confira sua conexão e tente novamente para ver suas métricas."
+          icon="refresh"
+          action="Tentar novamente"
+          onPress={() => {
+            setError('');
+            setMetricsAttempt((attempt) => attempt + 1);
+          }}
+        />
       </ScreenScroll>
     );
   if (!metrics) return <Loading onBack={onBack} />;
@@ -206,31 +225,7 @@ export function MetricsScreen({
     <ScreenScroll>
       <BackHeader onBack={onBack} premium />
       <PageTitle title="Métricas de desempenho" subtitle="Seu jogo em números." />
-      <View style={styles.segment}>
-        {(
-          [
-            ['casual', 'Partidas'],
-            ['tournament', 'Torneios'],
-          ] as const
-        ).map(([key, label]) => (
-          <Pressable
-            key={key}
-            accessibilityRole="tab"
-            accessibilityState={{ selected: tab === key }}
-            onPress={() => setTab(key)}
-            style={[styles.segmentItem, tab === key && styles.segmentActive]}
-          >
-            <AppIcon
-              name={key === 'casual' ? 'group' : 'star'}
-              size={15}
-              color={tab === key ? colors.primary : colors.muted}
-            />
-            <Text style={[styles.segmentText, tab === key && styles.segmentTextActive]}>
-              {label}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
+      <MetricsTabs tab={tab} onChange={setTab} />
 
       {tab === 'casual' ? (
         <>
@@ -312,7 +307,17 @@ export function MetricsScreen({
           <TournamentBadgeCard summary={activeTournament} />
           <AppCard style={{ gap: 10 }}>
             <Text style={styles.cardTitle}>Ranking de {sportName(activeTournament.sport)}</Text>
-            {ranking === null ? (
+            {rankingError ? (
+              <>
+                <Text style={styles.body}>Não foi possível carregar o ranking.</Text>
+                <ActionButton
+                  title="Tentar novamente"
+                  icon="refresh"
+                  tone="soft"
+                  onPress={() => setRankingAttempt((attempt) => attempt + 1)}
+                />
+              </>
+            ) : ranking === null ? (
               <ActivityIndicator color={colors.primary} />
             ) : ranking.length ? (
               ranking.slice(0, 10).map((entry) => (
@@ -365,12 +370,76 @@ export function MetricsScreen({
           </AppCard>
         </>
       ) : (
-        <InlineNotice
+        <MetricsStatus
           title="Você ainda não jogou torneios"
           message="Procure partidas marcadas como Torneio · Huddle+ ou crie a sua. Seu ranking aparece aqui."
+          icon="star"
+          action="Buscar partidas"
+          onPress={onSearch}
         />
       )}
     </ScreenScroll>
+  );
+}
+
+function MetricsTabs({
+  tab,
+  onChange,
+}: {
+  tab: 'casual' | 'tournament';
+  onChange: (tab: 'casual' | 'tournament') => void;
+}) {
+  return (
+    <View style={styles.segment}>
+      {(
+        [
+          ['casual', 'Partidas'],
+          ['tournament', 'Torneios'],
+        ] as const
+      ).map(([key, label]) => (
+        <Pressable
+          key={key}
+          accessibilityRole="tab"
+          accessibilityState={{ selected: tab === key }}
+          onPress={() => onChange(key)}
+          style={[styles.segmentItem, tab === key && styles.segmentActive]}
+        >
+          <AppIcon
+            name={key === 'casual' ? 'group' : 'star'}
+            size={15}
+            color={tab === key ? colors.primary : colors.muted}
+          />
+          <Text style={[styles.segmentText, tab === key && styles.segmentTextActive]}>{label}</Text>
+        </Pressable>
+      ))}
+    </View>
+  );
+}
+
+function MetricsStatus({
+  title,
+  message,
+  icon,
+  action,
+  onPress,
+}: {
+  title: string;
+  message: string;
+  icon: 'star' | 'refresh';
+  action: string;
+  onPress: () => void;
+}) {
+  return (
+    <>
+      <AppCard style={{ gap: 12, padding: 24 }}>
+        <View style={styles.statusIcon}>
+          <AppIcon name={icon} size={22} color={colors.primary} />
+        </View>
+        <Text style={styles.statusTitle}>{title}</Text>
+        <Text style={styles.body}>{message}</Text>
+      </AppCard>
+      <ActionButton title={action} icon={icon} onPress={onPress} />
+    </>
   );
 }
 
@@ -757,6 +826,20 @@ const styles = {
     fontWeight: '800' as const,
     color: colors.ink,
     textAlign: 'center' as const,
+  },
+  statusIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: colors.lavender,
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
+  },
+  statusTitle: {
+    fontFamily: 'Manrope',
+    fontSize: 18,
+    fontWeight: '700' as const,
+    color: colors.ink,
   },
   cardTitle: { fontFamily: 'Manrope', fontSize: 15, fontWeight: '700' as const, color: colors.ink },
   personName: {

@@ -49,7 +49,7 @@ docker compose logs -f api
 
 A API fica em `http://localhost:4000`. Como o banco é SQLite, ele roda como arquivo dentro de um volume persistente, sem serviço de banco separado. O volume `huddle_sqlite_data` sobrevive a `docker compose down`.
 
-O cliente mobile infere o host da API a partir do host do Metro e usa a porta `4000`. Configure `EXPO_PUBLIC_API_URL` somente se a API estiver em outro endereço.
+No desenvolvimento local, o cliente mobile usa o host do Metro com a porta `4000`. Para builds instaladas ou endereços diferentes, defina `EXPO_PUBLIC_API_URL` antes de iniciar ou gerar a build.
 
 ### Expo Go em um celular Android
 
@@ -59,7 +59,9 @@ Com `npm run dev`, configure uma URL de API acessível pelo celular em `apps/mob
 EXPO_PUBLIC_API_URL=http://192.168.1.10:4000/api
 ```
 
-Mantenha o computador e o celular na mesma rede e deixe a API rodando. O Expo Tunnel encaminha o bundle do app, mas não encaminha automaticamente a API local; nesse caso use um endereço de API acessível ao celular.
+Mantenha o computador e o celular na mesma rede e deixe a API rodando. O Expo Tunnel encaminha o bundle do app, mas não encaminha automaticamente a API local; nesse caso use um endereço de API acessível ao celular, como `http://192.168.1.10:4000/api`.
+
+No iPhone, configure também `EXPO_PUBLIC_API_URL` em `apps/mobile/.env.local` para um endereço acessível pelo aparelho. O túnel do Expo não encaminha a porta local da API.
 
 ## Workspaces
 
@@ -81,7 +83,9 @@ Mantenha o computador e o celular na mesma rede e deixe a API rodando. O Expo Tu
 
 Bancos novos começam vazios. Contas e partidas criadas anteriormente permanecem no banco existente.
 
-O schema evolui por migrations em `apps/api/src/migrations`: `001_init.sql` é a base e as seguintes (`002_...`) rodam uma única vez ao iniciar a API, registradas na tabela `schema_migrations`, sem apagar dados.
+O schema evolui por migrations em `apps/api/src/migrations`: `001_init.sql` é a base e as seguintes (`002_...`, `003_...`) rodam uma única vez ao iniciar a API, registradas na tabela `schema_migrations`, sem apagar dados. A migration `003_legal_acceptances.sql` armazena as versões dos termos e da política aceitas no cadastro e a data/hora do aceite.
+
+Os textos legais atuais são transcritos do relatório técnico e ainda têm campos pendentes e cláusulas que precisam de revisão jurídica e alinhamento com as funções do MVP. O cadastro grava o aceite como `relatorio-v1`; atualize a versão quando os documentos forem revisados.
 
 ### Dados de demonstração
 

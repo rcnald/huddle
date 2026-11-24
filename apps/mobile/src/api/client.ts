@@ -30,14 +30,17 @@ function inferredApiUrl() {
   const configured = process.env.EXPO_PUBLIC_API_URL?.trim();
   if (configured) return configured.replace(/\/$/, '');
   if (Platform.OS === 'web' && typeof window !== 'undefined') {
-    return new URL('/api', window.location.origin).toString().replace(/\/$/, '');
+    return `http://${window.location.hostname}:4000/api`;
   }
   const scriptUrl = NativeModules.SourceCode?.scriptURL as string | undefined;
   if (scriptUrl) {
     try {
-      return `http://${new URL(scriptUrl).hostname}:4000/api`;
+      const url = new URL(scriptUrl);
+      if (url.protocol === 'http:' || url.protocol === 'https:') {
+        return `http://${url.hostname}:4000/api`;
+      }
     } catch {
-      // Keep the emulator fallback below.
+      // Fall back to the simulator/emulator address.
     }
   }
   return `${Platform.OS === 'android' ? 'http://10.0.2.2' : 'http://localhost'}:4000/api`;
@@ -172,7 +175,12 @@ export const api = {
   async cancelPlan() {
     return (await request<{ user: Profile }>('/billing/cancel', json({}))).user;
   },
-  async register(input: { name: string; email: string; password: string }) {
+  async register(input: {
+    name: string;
+    email: string;
+    password: string;
+    acceptance: { accepted: true; termsVersion: string; privacyVersion: string };
+  }) {
     return request<{ token: string; user: Profile; joinedIds: string[] }>(
       '/auth/register',
       json(input),

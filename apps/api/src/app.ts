@@ -32,8 +32,11 @@ import {
   tournamentSummaries,
 } from './ratings.ts';
 import {
+  clearLoginFailures,
   hashPassword,
   issueSession,
+  loginBlocked,
+  recordLoginFailure,
   revokeSession,
   sessionUserId,
   verifyPassword,
@@ -41,6 +44,7 @@ import {
 
 const DAY = 24 * 60 * 60 * 1000;
 const HIGHLIGHTS_PER_WEEK = 3;
+const LEGAL_DOCUMENT_VERSION = 'relatorio-v1';
 
 class HttpError extends Error {
   readonly status: number;
@@ -70,6 +74,11 @@ const registerSchema = z.object({
   email: z.string().trim().email().max(254),
   password: z.string().min(8).max(128),
   city: z.string().trim().max(100).default(''),
+  acceptance: z.object({
+    accepted: z.literal(true),
+    termsVersion: z.literal(LEGAL_DOCUMENT_VERSION),
+    privacyVersion: z.literal(LEGAL_DOCUMENT_VERSION),
+  }),
 });
 const loginSchema = z.object({ email: z.string().trim().email(), password: z.string().min(1) });
 const profileSchema = z.object({
@@ -93,7 +102,7 @@ const createMatchSchema = z.object({
   access: z.enum(['free', 'level']),
   minLevel: z.number().int().min(0).max(5),
   maxLevel: z.number().int().min(0).max(5),
-  maxPlayers: z.number().int().min(2).max(40),
+  maxPlayers: z.number().int().min(2).max(30),
   description: z.string().trim().max(500).default(''),
   joinPolicy: z.enum(['instant', 'approval']).default('instant'),
   autoFillWaitlist: z.boolean().default(false),
@@ -523,21 +532,31 @@ app.post(
   endpoint((request, response) => {
     const input = parseBody(registerSchema, request.body);
     const id = randomUUID();
+    const createdAt = new Date().toISOString();
     try {
-      run(
-        `INSERT INTO users (id,name,email,city,timezone,plan,password_hash,color,sports_json,created_at)
+      transaction(() => {
+        run(
+          `INSERT INTO users (id,name,email,city,timezone,plan,password_hash,color,sports_json,created_at)
          VALUES (?,?,?,?,?,?,?,?,?,?)`,
-        id,
-        input.name,
-        input.email.toLowerCase(),
-        input.city,
-        'America/Sao_Paulo',
-        'free',
-        hashPassword(input.password),
-        '#D8D1FA',
-        '[]',
-        new Date().toISOString(),
-      );
+          id,
+          input.name,
+          input.email.toLowerCase(),
+          input.city,
+          'America/Sao_Paulo',
+          'free',
+          hashPassword(input.password),
+          '#D8D1FA',
+          '[]',
+          createdAt,
+        );
+        run(
+          'INSERT INTO legal_acceptances (user_id, terms_version, privacy_version, accepted_at) VALUES (?, ?, ?, ?)',
+          id,
+          input.acceptance.termsVersion,
+          input.acceptance.privacyVersion,
+          createdAt,
+        );
+      });
     } catch (error) {
       if (String(error).includes('UNIQUE'))
         throw new HttpError(409, 'EMAIL_IN_USE', 'Esse e-mail já tem uma conta.');
@@ -552,19 +571,33 @@ app.post(
   '/api/auth/login',
   endpoint((request, response) => {
     const input = parseBody(loginSchema, request.body);
+    const address = request.socket.remoteAddress || 'unknown';
+    if (loginBlocked(address, input.email)) {
+      throw new HttpError(
+        429,
+        'LOGIN_RATE_LIMIT',
+        'Muitas tentativas. Aguarde 15 minutos e tente novamente.',
+      );
+    }
     const user = one<UserRow>(
       'SELECT * FROM users WHERE email = ? AND deleted_at IS NULL',
       input.email.toLowerCase(),
     );
     if (!user || !verifyPassword(input.password, user.password_hash)) {
+      recordLoginFailure(address, input.email);
       throw new HttpError(401, 'INVALID_CREDENTIALS', 'Confira seu e-mail e sua senha.');
     }
+    clearLoginFailures(address, input.email);
     const session = issueSession(user.id);
     const joinedIds = many<{ match_id: string }>(
       "SELECT match_id FROM match_members WHERE user_id = ? AND status = 'confirmed'",
       user.id,
     ).map((row) => row.match_id);
-    return response.json({ token: session.token, user: profileFor(user.id), joinedIds });
+    return response.json({
+      token: session.token,
+      user: profileFor(user.id),
+      joinedIds,
+    });
   }),
 );
 

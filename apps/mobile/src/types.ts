@@ -181,6 +181,7 @@ export type MatchDraft = {
 export type Page =
   | { name: 'welcome' }
   | { name: 'signup' }
+  | { name: 'legal'; document: 'terms' | 'privacy' }
   | { name: 'signin'; error?: string }
   | { name: 'recover' }
   | { name: 'recover-sent'; email: string }

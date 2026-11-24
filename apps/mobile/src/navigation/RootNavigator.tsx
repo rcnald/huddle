@@ -23,6 +23,7 @@ import { ApiClientError, api, getSessionToken, setSessionToken } from '../api/cl
 import { BrandPlanContext } from '../components/AnimatedBrand';
 import { FloatingNavigation } from '../components/Blocks';
 import { CompactToast } from '../components/CompactToast';
+import { LEGAL_DOCUMENT_VERSION } from '../data/legal';
 import { defaultSkillsForSport, effectiveSportLevel } from '../data/sports';
 import {
   CreateMatchStepOne,
@@ -49,6 +50,7 @@ import {
   MetricsScreen,
   PlayerProfileScreen,
 } from '../screens/InsightsScreens';
+import { LegalScreen } from '../screens/LegalScreen';
 import {
   HighlightActiveScreen,
   HighlightScreen,
@@ -68,6 +70,7 @@ const WebStack = createStackNavigator<ParamListBase>();
 const pageNames: Page['name'][] = [
   'welcome',
   'signup',
+  'legal',
   'signin',
   'recover',
   'recover-sent',
@@ -118,6 +121,7 @@ function showsBottomNavigation(page: Page) {
   return ![
     'welcome',
     'signup',
+    'legal',
     'signin',
     'recover',
     'recover-sent',
@@ -214,7 +218,7 @@ export function RootNavigator() {
   const reducedMotion = useReducedMotion();
   const [toast, setToast] = useState('');
   const dismissToast = useCallback(() => setToast(''), []);
-  const notify = (message: string) => setToast(message);
+  const notify = useCallback((message: string) => setToast(message), []);
   const [page, setPage] = useState<Page>({ name: 'welcome' });
   const pendingNavigation = useRef<(() => void) | null>(null);
   const [matches, setMatches] = useState<Match[]>([]);
@@ -232,10 +236,10 @@ export function RootNavigator() {
   });
   const [selectedSports, setSelectedSports] = useState<SportId[]>(initialProfile.sports);
   const [evaluatedIds, setEvaluatedIds] = useState<string[]>([]);
-  const dispatchWhenReady = (action: () => void) => {
+  const dispatchWhenReady = useCallback((action: () => void) => {
     if (navigationRef.isReady()) action();
     else pendingNavigation.current = action;
-  };
+  }, []);
   const push = (next: Page) =>
     dispatchWhenReady(() =>
       navigationRef.dispatch(StackActions.push(next.name, routeFromPage(next).params)),
@@ -244,10 +248,13 @@ export function RootNavigator() {
     dispatchWhenReady(() =>
       navigationRef.dispatch(StackActions.replace(next.name, routeFromPage(next).params)),
     );
-  const goRoot = (next: Page) =>
-    dispatchWhenReady(() =>
-      navigationRef.dispatch(CommonActions.reset({ index: 0, routes: [routeFromPage(next)] })),
-    );
+  const goRoot = useCallback(
+    (next: Page) =>
+      dispatchWhenReady(() =>
+        navigationRef.dispatch(CommonActions.reset({ index: 0, routes: [routeFromPage(next)] })),
+      ),
+    [dispatchWhenReady],
+  );
   const back = () =>
     dispatchWhenReady(() => {
       if (navigationRef.canGoBack()) navigationRef.goBack();
@@ -297,7 +304,7 @@ export function RootNavigator() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [goRoot, notify]);
 
   const requireSignIn = () => {
     if (signedIn) return true;
@@ -640,9 +647,19 @@ export function RootNavigator() {
         return (
           <SignUpScreen
             onBack={back}
+            onOpenLegal={(document) => push({ name: 'legal', document })}
             onCreate={async (name, email, password) => {
               try {
-                const result = await api.register({ name, email, password });
+                const result = await api.register({
+                  name,
+                  email,
+                  password,
+                  acceptance: {
+                    accepted: true,
+                    termsVersion: LEGAL_DOCUMENT_VERSION,
+                    privacyVersion: LEGAL_DOCUMENT_VERSION,
+                  },
+                });
                 await setSessionToken(result.token);
                 setSignedIn(true);
                 setProfile(result.user);
@@ -669,6 +686,8 @@ export function RootNavigator() {
             onLogin={() => push({ name: 'signin' })}
           />
         );
+      case 'legal':
+        return <LegalScreen document={page.document} onBack={back} />;
       case 'signin':
         return (
           <SignInScreen
@@ -904,6 +923,7 @@ export function RootNavigator() {
             onBack={back}
             onUpgrade={() => push({ name: 'premium' })}
             onOpenPlayer={openPlayer}
+            onSearch={() => goRoot({ name: 'search' })}
           />
         );
       case 'delete-account':
@@ -1008,6 +1028,7 @@ export function RootNavigator() {
             onPublicProfile={() => openPlayer('you')}
             onCancelPlan={() => void cancelPlan()}
             onDeleteAccount={() => push({ name: 'delete-account' })}
+            onOpenLegal={(document) => push({ name: 'legal', document })}
             onEdit={() => {
               if (requireSignIn()) push({ name: 'edit-profile' });
             }}

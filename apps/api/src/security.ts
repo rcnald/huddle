@@ -2,6 +2,42 @@ import { createHash, randomBytes, scryptSync, timingSafeEqual } from 'node:crypt
 import { one, run } from './database.ts';
 
 const sessionDays = 30;
+const loginWindowMs = 15 * 60 * 1000;
+const maxLoginFailures = 10;
+const maxLoginKeys = 5000;
+const loginFailures = new Map<string, { count: number; expiresAt: number }>();
+
+// Limit each address/account pair without trusting forwarded headers by default.
+function loginKey(address: string, email: string) {
+  return createHash('sha256').update(`${address}\0${email.toLowerCase()}`).digest('hex');
+}
+
+export function loginBlocked(address: string, email: string, now = Date.now()) {
+  const key = loginKey(address, email);
+  const entry = loginFailures.get(key);
+  if (!entry) return false;
+  if (entry.expiresAt <= now) {
+    loginFailures.delete(key);
+    return false;
+  }
+  return entry.count >= maxLoginFailures;
+}
+
+export function recordLoginFailure(address: string, email: string, now = Date.now()) {
+  const key = loginKey(address, email);
+  const current = loginFailures.get(key);
+  if (!current || current.expiresAt <= now) {
+    if (loginFailures.size >= maxLoginKeys) {
+      const oldest = loginFailures.keys().next().value;
+      if (oldest) loginFailures.delete(oldest);
+    }
+    loginFailures.set(key, { count: 1, expiresAt: now + loginWindowMs });
+  } else current.count += 1;
+}
+
+export function clearLoginFailures(address: string, email: string) {
+  loginFailures.delete(loginKey(address, email));
+}
 
 export function hashPassword(password: string) {
   const salt = randomBytes(16).toString('hex');

@@ -12,6 +12,7 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "dev.rcnald.huddle",
       "icon": "./assets/icon.png"
     },
     "android": {

@@ -286,7 +286,7 @@ export function SearchScreen({
       <BrandHeader profile={profile} onProfile={onProfile} />
       <PageTitle
         title="Encontre sua turma"
-        subtitle="Partidas em cinco esportes coletivos, perto de você."
+        subtitle="Encontre partidas em cinco esportes coletivos."
       />
       {/* Busca por localização: só visual por enquanto (sem pedir a localização do aparelho). */}
       <View style={[styles.searchBox, styles.locationBox]} accessibilityState={{ disabled: true }}>

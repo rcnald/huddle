@@ -107183,6 +107183,4696 @@
         "url": "preview-assinatura-concluida.png",
         "mode": "contain"
       }
+    },
+    {
+      "type": "frame",
+      "id": "Z6T5O2",
+      "x": 0,
+      "y": 29308,
+      "name": "Propostas · relatório técnico e fluxos",
+      "width": 1950,
+      "fill": "$huddle.surface",
+      "cornerRadius": 16,
+      "layout": "vertical",
+      "gap": 8,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "VL23V",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "HUDDLE · PROPOSTAS A PARTIR DO RELATÓRIO",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 22,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "VnUAZ",
+          "name": "Legenda",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Cadastro e leitura → métricas e ranking → painel de divergências. Telas propostas; textos jurídicos sujeitos à revisão.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "GEZEt",
+      "x": 0,
+      "y": 29468,
+      "name": "Proposta · Cadastro e aceite · não marcado",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "IXwih",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho",
+          "width": "fill_container"
+        },
+        {
+          "type": "text",
+          "id": "a0t60",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Vamos jogar juntos?",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 27,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "oLvSL",
+          "name": "Introdução",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Crie sua conta para encontrar partidas e participar do seu jeito.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "type": "text",
+          "id": "hhxYw",
+          "name": "Nome",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Nome",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "QFTkF",
+          "name": "Nome · campo",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-medium",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "U9RRrb",
+              "name": "Placeholder",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Como você quer ser chamado?",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "yQlhU",
+          "name": "E-mail",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "E-mail",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "UgrH7",
+          "name": "E-mail · campo",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-medium",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "G8DrT9",
+              "name": "Placeholder",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "voce@exemplo.com",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "PR0fK",
+          "name": "Senha",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Senha",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "L40gy",
+          "name": "Senha · campo",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-medium",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "K6KO6l",
+              "name": "Placeholder",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Pelo menos 8 caracteres",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "w7zu8",
+          "name": "Aceite obrigatório",
+          "width": "fill_container",
+          "gap": 10,
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 4,
+              "id": "hlDQS",
+              "name": "Marcação",
+              "fill": "$huddle.surface",
+              "width": 22,
+              "height": 22,
+              "stroke": "$huddle.primary",
+              "strokeWidth": 1.5
+            },
+            {
+              "type": "text",
+              "id": "IoqL9",
+              "name": "Termos e privacidade",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Li e aceito os rascunhos dos Termos de Uso e da Política de Privacidade do relatório para testes.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "kt7E0",
+          "name": "Links",
+          "fill": "$huddle.primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Ler Termos de Uso   ·   Ler Política de Privacidade",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        },
+        {
+          "id": "lHIAd",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Criar conta",
+          "width": "fill_container",
+          "opacity": 0.48,
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Criar conta"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "id": "mIFX2",
+          "name": "Acesso",
+          "fill": "$huddle.primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Já tenho conta · Entrar",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Uo6mH",
+      "x": 450,
+      "y": 29468,
+      "name": "Proposta · Cadastro e aceite · marcado",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "uyB9y",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho",
+          "width": "fill_container"
+        },
+        {
+          "type": "text",
+          "id": "ujrBq",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Vamos jogar juntos?",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 27,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "EUZpw",
+          "name": "Introdução",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Crie sua conta para encontrar partidas e participar do seu jeito.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "type": "text",
+          "id": "ZjRtO",
+          "name": "Nome",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Nome",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "dTGwU",
+          "name": "Nome · campo",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-medium",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "yFD4F",
+              "name": "Placeholder",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Maria Fernanda de Albuquerque Santos",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "AZSkX",
+          "name": "E-mail",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "E-mail",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "J1mW7M",
+          "name": "E-mail · campo",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-medium",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "hUrrb",
+              "name": "Placeholder",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "maria@exemplo.com",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "iAGjS",
+          "name": "Senha",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Senha",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "sran2",
+          "name": "Senha · campo",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-medium",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "vXuWP",
+              "name": "Placeholder",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "••••••••••",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "tiPAO",
+          "name": "Aceite obrigatório",
+          "width": "fill_container",
+          "gap": 10,
+          "children": [
+            {
+              "type": "frame",
+              "id": "LJv3f",
+              "name": "Aceite marcado",
+              "width": 22,
+              "height": 22,
+              "fill": "$huddle.primary",
+              "cornerRadius": 4,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "FINrh",
+                  "name": "Confirmação",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "check",
+                  "library": "lucide",
+                  "fill": "#FFFFFF"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "F7Stv",
+              "name": "Termos e privacidade",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Li e aceito os rascunhos dos Termos de Uso e da Política de Privacidade do relatório para testes.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "tdOna",
+          "name": "Links",
+          "fill": "$huddle.primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Ler Termos de Uso   ·   Ler Política de Privacidade",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        },
+        {
+          "id": "QdDKL",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Criar conta",
+          "width": "fill_container",
+          "opacity": 1,
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Criar conta"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "id": "fICaW",
+          "name": "Acesso",
+          "fill": "$huddle.primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Já tenho conta · Entrar",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13,
+          "fontWeight": "700"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "i19AH",
+      "x": 900,
+      "y": 29468,
+      "name": "Referência · Termos de Uso · relatório",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "J61Ka",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho",
+          "width": "fill_container"
+        },
+        {
+          "type": "text",
+          "id": "ZRgXK",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Termos de Uso · relatório",
+          "lineHeight": 1.45,
+          "fontFamily": "$huddle.font",
+          "fontSize": 27,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "tvuQj",
+          "name": "Descrição",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Versão transcrita do relatório técnico.",
+          "lineHeight": 1.45,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "type": "frame",
+          "id": "AqNRF",
+          "name": "Aviso de rascunho",
+          "width": "fill_container",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 4,
+          "padding": 12,
+          "children": [
+            {
+              "type": "text",
+              "id": "z5y6D",
+              "name": "Aviso",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Rascunho transcrito do relatório",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 13,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "qntZ6",
+              "name": "Detalhe",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Contém campos pendentes e condições a verificar antes do uso público.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "OuBDt",
+          "name": "Termos completos do relatório",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 24,
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 20,
+          "children": [
+            {
+              "type": "text",
+              "id": "OlhzQ",
+              "name": "Título documento",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "TERMO DE USO DO APLICATIVO HUDDLE",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Y10Ze",
+              "name": "Atualização",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Última atualização: 25 de novembro de 2026",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "qSIio",
+              "name": "Apresentação",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Este Termo de uso regula a utilização do aplicativo Huddle, disponibilizado pela empresa Huddle, inscrita no CNPJ sob o nº [CNPJ], com sede em [endereço], doravante denominada Huddle. Ao criar uma conta ou utilizar o aplicativo, o usuário declara ter lido, compreendido e aceitado integralmente este Termo e a Política de privacidade. Caso não concorde com qualquer disposição, o usuário não deve utilizar o aplicativo.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "ZYend",
+              "name": "1. Objeto",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "1. Objeto",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "C545t",
+              "name": "Objeto",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "O Huddle é uma plataforma que permite aos usuários indicar as modalidades esportivas que praticam, realizar uma autoavaliação de habilidades, criar partidas de esportes coletivos, participar de partidas organizadas por outros usuários e avaliar os demais participantes após cada jogo. O Huddle atua apenas como intermediador da organização das partidas e não é proprietário, locador ou administrador dos locais onde elas acontecem.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "eGNd0",
+              "name": "2. Cadastro e conta",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2. Cadastro e conta",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Z0OyU",
+              "name": "Cadastro 2.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2.1. Para utilizar as funções do aplicativo, o usuário deve criar uma conta informando nome, e-mail e senha, e se compromete a fornecer informações verdadeiras e atualizadas.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "zPzU1",
+              "name": "Cadastro 2.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2.2. O uso do aplicativo é permitido a maiores de 18 anos. Usuários entre 16 e 18 anos podem utilizar o aplicativo com o consentimento de pelo menos um dos pais ou do responsável legal, que responde pelos atos praticados pelo menor.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "N8QLmw",
+              "name": "Cadastro 2.3",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2.3. A conta é pessoal e intransferível. O usuário é responsável por manter a confidencialidade da sua senha e por todas as atividades realizadas com a sua conta, devendo comunicar a Huddle imediatamente em caso de uso não autorizado.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "IIReK",
+              "name": "Cadastro 2.4",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2.4. O usuário pode excluir a sua conta a qualquer momento, pela opção disponível no perfil, mediante confirmação da senha. A exclusão é definitiva e segue o disposto na Política de privacidade.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "XwH80",
+              "name": "3. Nivelamento e avaliações",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3. Nivelamento e avaliações",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "weIKJ",
+              "name": "Avaliações 3.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3.1. O usuário deve realizar a autoavaliação das suas habilidades de forma honesta. O nível exibido no aplicativo é recalibrado pelas avaliações recebidas de outros participantes, e o nível declarado no momento da entrada em cada partida fica registrado para fins de comparação.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "x3ERPl",
+              "name": "Avaliações 3.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3.2. As avaliações devem se referir exclusivamente ao desempenho esportivo observado na partida. É proibido utilizar avaliações e comentários para ofender, discriminar, ameaçar ou expor outros usuários, bem como combinar avaliações com o objetivo de manipular níveis, reputações ou rankings.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "wEdLP",
+              "name": "Avaliações 3.3",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3.3. A reputação e o ranking são calculados automaticamente pelo aplicativo, segundo regras informadas ao usuário, e não representam opinião da Huddle sobre qualquer pessoa.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "L5VO2",
+              "name": "4. Partidas",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "4. Partidas",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "QxEUx",
+              "name": "Partidas 4.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "4.1. O organizador é responsável pelas informações da partida, como data, horário, local e regras de entrada, e pela eventual contratação do espaço. Os participantes se comprometem a comparecer às partidas em que estiverem confirmados ou a sair delas com antecedência.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "e6e6X",
+              "name": "Partidas 4.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "4.2. A saída do organizador implica o cancelamento da partida para todos os participantes. Partidas não encerradas pelo organizador são encerradas automaticamente 24 horas após o horário de início.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "i6N4u",
+              "name": "Partidas 4.3",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "4.3. A prática esportiva envolve riscos inerentes à atividade física. Cabe a cada usuário avaliar as suas condições de saúde antes de participar de uma partida. A Huddle não se responsabiliza por lesões, acidentes, danos materiais, perdas ou desentendimentos ocorridos durante as partidas ou nos locais em que elas são realizadas.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "DUfaS",
+              "name": "5. Plano Huddle+",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "5. Plano Huddle+",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "FL7In",
+              "name": "Plano 5.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "5.1. O plano Huddle+ é uma assinatura mensal no valor de R$ 9,90, que inclui destaques de partidas, métricas de desempenho e acesso a torneios e rankings. O preço, os recursos e as condições são apresentados ao usuário antes da confirmação da contratação.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "qPE9i",
+              "name": "Plano 5.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "5.2. A assinatura é renovada automaticamente a cada mês e pode ser cancelada a qualquer momento pelo perfil, mantendo-se os benefícios até o fim do período já pago.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "daeqx",
+              "name": "Plano 5.3",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "5.3. Nos termos do art. 49 do Código de Defesa do Consumidor, o usuário pode desistir da contratação em até 7 dias a partir da assinatura, com a devolução integral do valor pago.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "EmJvN",
+              "name": "6. Condutas proibidas",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "6. Condutas proibidas",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "NrrBK",
+              "name": "Condutas",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "É proibido ao usuário: criar contas falsas ou se passar por outra pessoa; publicar conteúdo ofensivo, discriminatório, ilegal ou que viole direitos de terceiros; utilizar o aplicativo para fins comerciais não autorizados ou para envio de mensagens não solicitadas; tentar acessar dados de outros usuários ou partes restritas do sistema; e utilizar meios automatizados para coletar dados ou interferir no funcionamento do aplicativo.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "w74j9",
+              "name": "7. Suspensão e encerramento",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "7. Suspensão e encerramento",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "DRSQL",
+              "name": "Suspensão",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "A Huddle pode suspender ou encerrar contas que violem este Termo, a legislação vigente ou os direitos de outros usuários, mediante comunicação ao usuário, salvo nos casos em que a comunicação prévia possa prejudicar a apuração dos fatos.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "sqLfj",
+              "name": "8. Propriedade intelectual",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "8. Propriedade intelectual",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "pp7zp",
+              "name": "Propriedade",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "A marca, o nome, o logotipo, o código-fonte, o design e os demais elementos do aplicativo pertencem à Huddle e são protegidos pela legislação de propriedade intelectual. O uso do aplicativo não concede ao usuário qualquer direito sobre esses elementos.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "EQzFW",
+              "name": "9. Disponibilidade e alterações",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "9. Disponibilidade e alterações",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "n6cHhV",
+              "name": "Disponibilidade 9.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "9.1. A Huddle busca manter o aplicativo disponível de forma contínua, mas pode realizar interrupções para manutenção, atualizações ou por motivos alheios ao seu controle.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "LD8YK",
+              "name": "Disponibilidade 9.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "9.2. Este Termo pode ser alterado a qualquer tempo. As alterações relevantes serão comunicadas ao usuário pelo aplicativo ou por e-mail, e o uso continuado após a comunicação representa a concordância com a nova versão.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "k5RdFP",
+              "name": "10. Legislação e foro",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "10. Legislação e foro",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "XlzWS",
+              "name": "Legislação",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Este Termo é regido pela legislação brasileira. Fica eleito o foro do domicílio do usuário para dirimir quaisquer controvérsias decorrentes deste Termo, conforme o Código de Defesa do Consumidor.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "kB36l",
+              "name": "11. Contato",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "11. Contato",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "ka11O",
+              "name": "Contato",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Dúvidas, sugestões ou reclamações sobre este Termo podem ser enviadas para [e-mail de contato].",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "id": "NGSnk",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Voltar ao cadastro",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Voltar ao cadastro"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "s7TQ9",
+      "x": 1350,
+      "y": 29468,
+      "name": "Referência · Política de Privacidade · relatório",
+      "clip": true,
+      "width": 390,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "WtCy9",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho",
+          "width": "fill_container"
+        },
+        {
+          "type": "text",
+          "id": "pHCz5",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Política de Privacidade · relatório",
+          "lineHeight": 1.45,
+          "fontFamily": "$huddle.font",
+          "fontSize": 27,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "YXd0u",
+          "name": "Descrição",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Versão transcrita do relatório técnico.",
+          "lineHeight": 1.45,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "type": "frame",
+          "id": "u5Q95B",
+          "name": "Aviso de rascunho",
+          "width": "fill_container",
+          "fill": "$huddle.warning-bg",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 4,
+          "padding": 12,
+          "children": [
+            {
+              "type": "text",
+              "id": "mJZYg",
+              "name": "Aviso",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Rascunho transcrito do relatório",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 13,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "WwQwJ",
+              "name": "Detalhe",
+              "fill": "$huddle.warning",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Contém campos pendentes e práticas a verificar antes do uso público.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 12
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "c2p1T0",
+          "name": "Política completa do relatório",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": 24,
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 20,
+          "children": [
+            {
+              "type": "text",
+              "id": "xcnAp",
+              "name": "Título documento",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "POLÍTICA DE PRIVACIDADE DO APLICATIVO HUDDLE",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "JyyWp",
+              "name": "Atualização",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Última atualização: 25 de novembro de 2026",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "q1DpaN",
+              "name": "Apresentação",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Esta Política de privacidade descreve como a Huddle, inscrita no CNPJ sob o nº [CNPJ], com sede em [endereço], na condição de controladora, coleta, utiliza, armazena, compartilha e protege os dados pessoais dos usuários do aplicativo Huddle, em conformidade com a Lei nº 13.709/2018, Lei Geral de Proteção de Dados Pessoais (LGPD).",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "i4kLM",
+              "name": "1. Dados coletados",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "1. Dados coletados",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "bvZlB",
+              "name": "Dados 1.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "1.1. Dados de cadastro: nome, e-mail e senha, esta última armazenada apenas de forma criptografada e irreversível.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "cNNpH",
+              "name": "Dados 1.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "1.2. Dados de perfil: cidade ou região, de informação opcional, modalidades esportivas escolhidas e notas da autoavaliação de habilidades.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "ne94T",
+              "name": "Dados 1.3",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "1.3. Dados de uso: partidas criadas e das quais o usuário participou, pedidos de participação, posição em listas de espera, confirmações de presença, avaliações enviadas e recebidas, comentários e destaques utilizados.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "TZH3s",
+              "name": "Dados 1.4",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "1.4. Dados de assinatura: plano contratado, forma de pagamento escolhida e datas de contratação e cancelamento. Os dados de pagamento, como número de cartão, são processados exclusivamente pelo provedor de pagamento e não são armazenados pela Huddle.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "eES4G",
+              "name": "Dados 1.5",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "1.5. Dados técnicos: registros de acesso à aplicação, com data, hora e endereço IP, conforme exigido pelo Marco Civil da Internet.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "OKNPm",
+              "name": "Dados 1.6",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "1.6. A Huddle não coleta dados pessoais sensíveis, como origem racial, convicção religiosa, opinião política ou dados de saúde, nem a localização precisa do aparelho sem autorização expressa do usuário.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "PORVj",
+              "name": "2. Finalidades e bases legais",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2. Finalidades e bases legais",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "W2YmO",
+              "name": "Finalidades 2.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2.1. Os dados de cadastro, perfil e uso são tratados para a execução do contrato com o usuário (art. 7º, V, da LGPD), com as finalidades de criar e manter a conta, calcular o nível e a reputação, permitir a criação e a participação em partidas e exibir o perfil público.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "G9QM3",
+              "name": "Finalidades 2.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2.2. Os dados de assinatura são tratados para a execução do contrato e para o cumprimento de obrigações legais e fiscais (art. 7º, II e V).",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "EmZ0W",
+              "name": "Finalidades 2.3",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2.3. Os registros de acesso são mantidos para cumprimento de obrigação legal (art. 7º, II) e para a segurança da plataforma.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "sOTz3",
+              "name": "Finalidades 2.4",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "2.4. Dados agregados e anonimizados podem ser utilizados para gerar estatísticas sobre a prática esportiva, melhorar o aplicativo e apoiar parceiros e políticas públicas, sem permitir a identificação dos usuários.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "U8uhMJ",
+              "name": "3. Compartilhamento",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3. Compartilhamento",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "hRF6b",
+              "name": "Compartilhamento 3.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3.1. Outros usuários do aplicativo visualizam o nome, a cidade, os esportes, os níveis, a reputação, a quantidade de partidas e o nível declarado em cada partida. O e-mail e os demais dados de cadastro nunca são exibidos.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "yrJdB",
+              "name": "Compartilhamento 3.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3.2. A Huddle pode compartilhar dados com prestadores de serviço necessários à operação, como provedores de hospedagem, de envio de e-mails, de notificações e de pagamento, que tratam os dados apenas conforme as instruções da Huddle e com garantias de segurança.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "JgOBB",
+              "name": "Compartilhamento 3.3",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3.3. Os dados podem ser compartilhados com autoridades públicas mediante requisição legal ou ordem judicial.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "sPCAF",
+              "name": "Compartilhamento 3.4",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "3.4. A Huddle não vende dados pessoais a terceiros.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "BELmS",
+              "name": "4. Armazenamento e segurança",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "4. Armazenamento e segurança",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "w7rMeb",
+              "name": "Segurança 4.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "4.1. As senhas são armazenadas com função de derivação de chave e salt individual, e os tokens de sessão são guardados no servidor apenas na forma de hash, com expiração em 30 dias. No aparelho, o token é mantido no armazenamento seguro do sistema operacional.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "N4g0r",
+              "name": "Segurança 4.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "4.2. A comunicação entre o aplicativo e o servidor é protegida por criptografia, e o acesso aos dados é restrito à equipe autorizada.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "hH5a8",
+              "name": "Segurança 4.3",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "4.3. Em caso de incidente de segurança que possa acarretar risco ou dano relevante, a Huddle comunicará os usuários afetados e a Autoridade Nacional de Proteção de Dados, nos termos do art. 48 da LGPD.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "cySkS",
+              "name": "5. Retenção e eliminação",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "5. Retenção e eliminação",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "s00sU",
+              "name": "Retenção 5.1",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "5.1. Os dados pessoais são mantidos enquanto a conta estiver ativa. Os registros de acesso são mantidos pelo prazo de 6 meses.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "LnsFx",
+              "name": "Retenção 5.2",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "5.2. Ao excluir a conta, os dados de cadastro e de perfil são eliminados ou anonimizados imediatamente. As participações em partidas já realizadas e as avaliações relacionadas são mantidas de forma anônima, apenas para preservar o histórico dos demais usuários. Os dados necessários ao cumprimento de obrigações legais são mantidos pelo prazo exigido em lei.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "r4WgBj",
+              "name": "6. Direitos do titular",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "6. Direitos do titular",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "DQmwg",
+              "name": "Direitos",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Nos termos do art. 18 da LGPD, o usuário pode solicitar: a confirmação da existência de tratamento; o acesso aos seus dados; a correção de dados incompletos, inexatos ou desatualizados; a anonimização, o bloqueio ou a eliminação de dados desnecessários ou tratados em desconformidade com a lei; a portabilidade dos dados; a eliminação dos dados; a informação sobre o compartilhamento; e a revisão de decisões tomadas exclusivamente com base em tratamento automatizado. A edição dos dados de perfil e a exclusão da conta podem ser feitas diretamente no aplicativo, e os demais pedidos podem ser enviados ao encarregado.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "B1AfU2",
+              "name": "7. Crianças e adolescentes",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "7. Crianças e adolescentes",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "mOdWP",
+              "name": "Menores",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "O aplicativo não é destinado a menores de 16 anos. O tratamento de dados de usuários entre 16 e 18 anos ocorre com o consentimento de pelo menos um dos pais ou do responsável legal, no melhor interesse do adolescente, conforme o art. 14 da LGPD.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "JHI5z",
+              "name": "8. Alterações desta Política",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "8. Alterações desta Política",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "Ny9wL",
+              "name": "Alterações",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Esta Política pode ser atualizada para refletir mudanças no aplicativo ou na legislação. As alterações relevantes serão comunicadas ao usuário pelo aplicativo ou por e-mail.",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            },
+            {
+              "type": "text",
+              "id": "dhKkR",
+              "name": "9. Encarregado e contato",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "9. Encarregado e contato",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "XWXUr",
+              "name": "Contato",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "O encarregado pelo tratamento de dados pessoais da Huddle é [nome do encarregado], que pode ser contatado pelo e-mail [e-mail do encarregado]. Dúvidas gerais sobre esta Política podem ser enviadas para [e-mail de contato].",
+              "lineHeight": 1.45,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "id": "wKu63",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Voltar ao cadastro",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Voltar ao cadastro"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "s0K3rO",
+      "x": 0,
+      "y": 30758,
+      "name": "Referência atual · Métricas e ranking · com dados",
+      "context": "div",
+      "clip": true,
+      "width": 430,
+      "height": 1285,
+      "fill": "#F1F1F3",
+      "layout": "vertical",
+      "gap": 18,
+      "padding": [
+        8,
+        20,
+        128,
+        20
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "vKzn6",
+          "name": "div",
+          "context": "div",
+          "width": "fill_container",
+          "height": 44,
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "D1H9pI",
+              "name": "button",
+              "context": "button",
+              "width": 40,
+              "height": 40,
+              "fill": "#ffffffad",
+              "cornerRadius": 20,
+              "layout": "vertical",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "jrLeS",
+                  "name": "svg",
+                  "context": "Svg - svg",
+                  "clip": true,
+                  "width": 18,
+                  "height": 18,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "yn7H4",
+                      "x": 6.75,
+                      "y": 4.5,
+                      "geometry": "M4.5 0c0 0-4.5 3.31425-4.5 4.5 0 1.18575 4.5 4.5 4.5 4.5",
+                      "width": 4.5,
+                      "height": 9,
+                      "stroke": "#5947C4",
+                      "strokeWidth": 1.125,
+                      "strokeLinejoin": "round",
+                      "strokeLinecap": "round"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "lp9bV",
+              "name": "div",
+              "context": "div",
+              "width": 94,
+              "height": 32,
+              "layout": "vertical",
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "F6lmc",
+                  "name": "div",
+                  "context": "div",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "pWbaG",
+                      "name": "h",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "h",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Manrope",
+                      "fontSize": 20,
+                      "fontWeight": "700",
+                      "letterSpacing": -0.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "DCDue",
+                      "name": "u",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "u",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Manrope",
+                      "fontSize": 20,
+                      "fontWeight": "700",
+                      "letterSpacing": -0.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "h1PIv",
+                      "name": "d",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "d",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Manrope",
+                      "fontSize": 20,
+                      "fontWeight": "700",
+                      "letterSpacing": -0.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "i1AOIu",
+                      "name": "d",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "d",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Manrope",
+                      "fontSize": 20,
+                      "fontWeight": "700",
+                      "letterSpacing": -0.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "iEQjW",
+                      "name": "l",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "l",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Manrope",
+                      "fontSize": 20,
+                      "fontWeight": "700",
+                      "letterSpacing": -0.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "KzkFU",
+                      "name": "e",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "e",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Manrope",
+                      "fontSize": 20,
+                      "fontWeight": "700",
+                      "letterSpacing": -0.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "j0t3y",
+                      "name": "+",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "+",
+                      "lineHeight": 1.33,
+                      "fontFamily": "Manrope",
+                      "fontSize": 18,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "zBZUL",
+          "name": "div",
+          "context": "div",
+          "width": "fill_container",
+          "height": 58,
+          "layout": "vertical",
+          "gap": 6,
+          "children": [
+            {
+              "type": "text",
+              "id": "XYccg",
+              "name": "Métricas de desempenho",
+              "context": "Text - div",
+              "fill": "#202021",
+              "content": "Métricas de desempenho",
+              "lineHeight": 1.19,
+              "fontFamily": "Manrope",
+              "fontSize": 27,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "OSx7L",
+              "name": "Seu jogo em números.",
+              "context": "Text - div",
+              "fill": "#5d5d5a",
+              "content": "Seu jogo em números.",
+              "lineHeight": 1.43,
+              "fontFamily": "Manrope",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "g5CN6",
+          "name": "div",
+          "context": "div",
+          "width": "fill_container",
+          "fill": "#e1e1e5",
+          "cornerRadius": 14,
+          "gap": 4,
+          "padding": 4,
+          "children": [
+            {
+              "type": "frame",
+              "id": "C5Yn3x",
+              "name": "div",
+              "context": "div",
+              "width": "fill_container",
+              "height": 42,
+              "cornerRadius": 11,
+              "gap": 7,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "B3ajS",
+                  "name": "svg",
+                  "context": "Svg - svg",
+                  "clip": true,
+                  "width": 15,
+                  "height": 15,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "SjJWp",
+                      "x": 1.25,
+                      "y": 2.185741901397705,
+                      "geometry": "M10.3125 10.62676c-0.14625-1.83188-1.66125-3.2825-3.5575-3.405l-0.50563-0.0325q-0.26937 0.0075-0.50687 0.01875c-1.88 0.08875-3.41125 1.60438-3.555 3.41875m6.09375-7.03125c0 1.12183-0.90942 2.03125-2.03125 2.03125-1.12183 0-2.03125-0.90942-2.03125-2.03125 0-1.12183 0.90942-2.03125 2.03125-2.03125 1.12183 0 2.03125 0.90942 2.03125 2.03125m-6.0925-0.46875c-0.47972-0.74914-0.41618-1.72327 0.1568-2.40374 0.57298-0.68047 1.52207-0.90894 2.34195-0.56376m5.6225 2.9675c0.47914-0.74892 0.41555-1.72241-0.15694-2.40264-0.57249-0.68023-1.52083-0.9091-2.34056-0.56486m4.6875 8.905c-0.1125-1.41438-1.25-2.8125-2.5-3.125m-10 3.125c0.1125-1.41438 1.25-2.8125 2.5-3.125",
+                      "width": 12.5,
+                      "height": 10.626758098602295,
+                      "stroke": "#5D5D5A",
+                      "strokeWidth": 0.9375,
+                      "strokeLinejoin": "round",
+                      "strokeLinecap": "round"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "c5bDEE",
+                  "name": "Partidas",
+                  "context": "Text - div",
+                  "fill": "#5d5d5a",
+                  "content": "Partidas",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Manrope",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "oTPJd",
+              "name": "div",
+              "context": "div",
+              "width": "fill_container",
+              "height": 42,
+              "fill": "#ffffff",
+              "cornerRadius": 11,
+              "gap": 7,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "QSyoa",
+                  "name": "svg",
+                  "context": "Svg - svg",
+                  "clip": true,
+                  "width": 15,
+                  "height": 15,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "M4sQS",
+                      "x": 1.2512500286102295,
+                      "y": 1.5624394416809082,
+                      "geometry": "M6.74687 0.25319c0.28625 0.41563 0.71875 1.12688 1.15875 1.9625 0.33938 0.645 0.50938 0.9675 0.7525 1.14062 0.24375 0.1725 0.59813 0.22562 1.3075 0.33188 0.98313 0.1475 1.70875 0.30687 2.125 0.40875 0.24136 0.06075 0.40944 0.27926 0.40625 0.52812 0.00054 0.1413-0.05211 0.27763-0.1475 0.38188-0.43563 0.47937-0.8825 0.98312-1.43125 1.53125-0.54125 0.54-0.81188 0.81-0.90374 1.10312-0.09187 0.29375-0.02625 0.65812 0.10562 1.3875 0.13021 0.72013 0.23403 1.44478 0.31125 2.1725 0.01875 0.19114-0.05323 0.38001-0.19445 0.51018-0.14122 0.13017-0.33531 0.18656-0.5243 0.15232-0.3075-0.0775-1.01437-0.43562-2.13563-1.09875-0.65812-0.38875-0.98688-0.5825-1.32874-0.5825-0.34187 0-0.67 0.19375-1.32813 0.5825-1.12125 0.6625-1.8275 1.02125-2.135 1.09875-0.18898 0.03423-0.38308-0.02216-0.5243-0.15232-0.14122-0.13017-0.21321-0.31904-0.19445-0.51018 0.07723-0.72751 0.18105-1.45195 0.31125-2.17187 0.13125-0.73 0.1975-1.095 0.10563-1.3875-0.09187-0.29375-0.3625-0.56375-0.90313-1.10375-0.54938-0.54812-0.99625-1.05187-1.43125-1.53125-0.09569-0.1039-0.14879-0.24-0.14875-0.38125 0-0.25 0.16438-0.46875 0.40688-0.52875 0.70193-0.16764 1.41096-0.30402 2.12499-0.40875 0.70937-0.10625 1.06437-0.15938 1.30751-0.33188 0.24375-0.17312 0.4125-0.49563 0.7525-1.14062 0.43938-0.83562 0.8725-1.54687 1.15875-1.9625 0.11423-0.16126 0.30053-0.25593 0.49812-0.25313 0.19759-0.0028 0.3839 0.09187 0.49812 0.25313",
+                      "width": 12.496919870376587,
+                      "height": 11.873626232147217,
+                      "stroke": "#5947C4",
+                      "strokeWidth": 0.9375,
+                      "strokeLinejoin": "round",
+                      "strokeLinecap": "round"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "pfA83",
+                  "name": "Torneios",
+                  "context": "Text - div",
+                  "fill": "#202021",
+                  "content": "Torneios",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Manrope",
+                  "fontSize": 13,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "bppNW",
+          "name": "div",
+          "context": "div",
+          "width": "fill_container",
+          "fill": "#f0eeff",
+          "cornerRadius": 16,
+          "layout": "vertical",
+          "gap": 5,
+          "padding": 14,
+          "children": [
+            {
+              "type": "text",
+              "id": "G5GgNB",
+              "name": "Como funciona o ranking",
+              "context": "Text - div",
+              "fill": "#3b2c83",
+              "content": "Como funciona o ranking",
+              "lineHeight": 1.36,
+              "fontFamily": "Manrope",
+              "fontSize": 14,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "E0rLJ",
+              "name": "Nos torneios não conta o placar: sua pon",
+              "context": "Text - div",
+              "fill": "#3b2c83",
+              "textGrowth": "fixed-width-height",
+              "width": "fill_container",
+              "height": 51,
+              "content": "Nos torneios não conta o placar: sua pontuação vem só das notas que você recebe dos outros jogadores. Seja bem avaliado para subir.",
+              "lineHeight": 1.42,
+              "fontFamily": "Manrope",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Q88ZVO",
+          "name": "div",
+          "context": "div",
+          "clip": true,
+          "width": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "X0SpKa",
+              "name": "div",
+              "context": "div",
+              "gap": 8,
+              "padding": [
+                0,
+                20,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "uNTbB",
+                  "name": "div",
+                  "context": "div",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Zumpq",
+                      "name": "div",
+                      "context": "div",
+                      "height": 34,
+                      "fill": "#5947c4",
+                      "cornerRadius": 99,
+                      "stroke": "#5947c4",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 5,
+                      "padding": [
+                        1,
+                        12
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "G6Tpv8",
+                          "name": "svg",
+                          "context": "Svg - svg",
+                          "clip": true,
+                          "width": 14,
+                          "height": 14,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "geNQC",
+                              "x": 1.1666666269302368,
+                              "y": 1.1666666269302368,
+                              "geometry": "M11.66667 5.83333c0 3.22175-2.61158 5.83333-5.83334 5.83334-3.22175 0-5.83333-2.61158-5.83333-5.83334 0-3.22175 2.61158-5.83333 5.83333-5.83333 3.22175 0 5.83333 2.61158 5.83334 5.83333z",
+                              "width": 11.666666388511658,
+                              "height": 11.666666388511658,
+                              "stroke": "#FFF",
+                              "strokeWidth": 0.875
+                            },
+                            {
+                              "type": "path",
+                              "id": "aBEPp",
+                              "x": 5.39589262008667,
+                              "y": 5.395813941955566,
+                              "geometry": "M1.43377 0.05777c0.10049-0.07703 0.24017-0.07703 0.34067 0l1.31425 0.99458c0.10255 0.07956 0.14449 0.2147 0.105 0.33834l-0.50167 1.60883c-0.03629 0.12254-0.14812 0.20719-0.27591 0.20883l-1.624 0c-0.12779-0.00164-0.23963-0.08629-0.27592-0.20883l-0.50167-1.60942c-0.03922-0.12346 0.0027-0.25828 0.105-0.33775l1.31425-0.99458z",
+                              "width": 3.2083640098571777,
+                              "height": 3.2083520889282227,
+                              "stroke": "#FFF",
+                              "strokeWidth": 0.875
+                            },
+                            {
+                              "type": "path",
+                              "id": "QFwSm",
+                              "x": 2.9166665077209473,
+                              "y": 2.9166665077209473,
+                              "geometry": "M4.08333 2.33333l0-2.33333m1.75 3.5l2.33334-0.875m-2.91667 3.20833l1.16667 1.75m-3.5-2.04166l-1.16667 1.45833m0.58333-3.20833l-2.33333-0.58334",
+                              "width": 8.166666507720947,
+                              "height": 7.583333492279053,
+                              "stroke": "#FFF",
+                              "strokeWidth": 0.875,
+                              "strokeLinejoin": "round",
+                              "strokeLinecap": "round"
+                            },
+                            {
+                              "type": "path",
+                              "id": "ibPDZ",
+                              "x": 1.1666666269302368,
+                              "y": 1.4583332538604736,
+                              "geometry": "M4.08333 0l1.75992 1.23783 1.74008-1.23783m-7.58333 6.00833l1.86492-1.37725-0.95784-2.16941m9.28375 7.07758l-2.24816-0.40717-0.7875 2.24292m3.36233-9.219l-0.71575 1.86317 1.86492 1.37666m-8.16084 5.63325l0.02392-2.47333-2.36133 0.02567",
+                              "width": 11.666666388511658,
+                              "height": 11.374999761581421,
+                              "stroke": "#FFF",
+                              "strokeWidth": 0.875,
+                              "strokeLinejoin": "round"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "Y9EeqP",
+                          "name": "Futebol",
+                          "context": "Text - div",
+                          "fill": "#ffffff",
+                          "content": "Futebol",
+                          "lineHeight": 1.42,
+                          "fontFamily": "Manrope",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zo806",
+                  "name": "div",
+                  "context": "div",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "YaZKa",
+                      "name": "div",
+                      "context": "div",
+                      "height": 34,
+                      "fill": "#ffffff",
+                      "cornerRadius": 99,
+                      "stroke": "#e1e1e7",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 5,
+                      "padding": [
+                        1,
+                        12
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "l199v0",
+                          "name": "svg",
+                          "context": "Svg - svg",
+                          "clip": true,
+                          "width": 14,
+                          "height": 14,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "JAF7g",
+                              "x": 1.1666666269302368,
+                              "y": 1.1666666269302368,
+                              "geometry": "M11.66667 5.83333c0 3.22175-2.61158 5.83333-5.83334 5.83334-3.22175 0-5.83333-2.61158-5.83333-5.83334 0-3.22175 2.61158-5.83333 5.83333-5.83333 3.22175 0 5.83333 2.61158 5.83334 5.83333z",
+                              "width": 11.666666388511658,
+                              "height": 11.666666388511658,
+                              "stroke": "#5D5D5A",
+                              "strokeWidth": 0.875
+                            },
+                            {
+                              "type": "path",
+                              "id": "jGtah",
+                              "x": 4.0833330154418945,
+                              "y": 1.75,
+                              "geometry": "M0.65333 0c-0.25958 0.94442-0.20767 3.2585 2.08134 4.95833m0 0c2.88283-0.77583 4.92158-0.49583 6.01533 0.49584m-6.01533-0.49584c0.329 2.73467-1.64092 4.4625-2.73467 4.95834",
+                              "width": 8.75,
+                              "height": 9.916666030883789,
+                              "stroke": "#5D5D5A",
+                              "strokeWidth": 0.875,
+                              "strokeLinejoin": "round",
+                              "strokeLinecap": "round"
+                            },
+                            {
+                              "type": "path",
+                              "id": "cRLJ2",
+                              "x": 2.3333332538604736,
+                              "y": 3.4999136924743652,
+                              "geometry": "M2.91667 1.16675c1.21742-1.10017 4.2735-1.67533 6.70833-0.57516m-2.10642 2.32516c0.34358 1.68875-0.68542 4.77633-2.85191 6.41667m-1.16667-2.91667c-1.53125-0.735-3.40783-3.52333-3.5-6.41666",
+                              "width": 9.624999761581421,
+                              "height": 9.33341932296753,
+                              "stroke": "#5D5D5A",
+                              "strokeWidth": 0.875,
+                              "strokeLinejoin": "round"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "Mv8pj",
+                          "name": "Vôlei",
+                          "context": "Text - div",
+                          "fill": "#5d5d5a",
+                          "content": "Vôlei",
+                          "lineHeight": 1.42,
+                          "fontFamily": "Manrope",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "nTQOK",
+          "name": "div",
+          "context": "div",
+          "width": "fill_container",
+          "fill": "#ffffff",
+          "cornerRadius": 22,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 18,
+          "children": [
+            {
+              "type": "frame",
+              "id": "K36lSV",
+              "name": "div",
+              "context": "div",
+              "width": "fill_container",
+              "gap": 8,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ZJ7kU",
+                  "name": "div",
+                  "context": "div",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "D0t9ES",
+                      "name": "div",
+                      "context": "div",
+                      "width": 42,
+                      "height": 42,
+                      "fill": "#ffffff",
+                      "cornerRadius": 21,
+                      "stroke": "#b88a00",
+                      "strokeWidth": 3,
+                      "strokeAlignment": "inner",
+                      "layout": "vertical",
+                      "padding": 3,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "qjGMA",
+                          "name": "svg",
+                          "context": "Svg - svg",
+                          "clip": true,
+                          "width": 20,
+                          "height": 20,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "qogHh",
+                              "x": 1.6683334112167358,
+                              "y": 2.083252429962158,
+                              "geometry": "M8.99583 0.33758c0.38167 0.55417 0.95833 1.5025 1.545 2.61667 0.4525 0.86 0.67917 1.29 1.00334 1.52083 0.325 0.23 0.7975 0.30083 1.74333 0.4425 1.31083 0.19667 2.27833 0.40917 2.83333 0.545 0.32181 0.08101 0.54592 0.37235 0.54167 0.70417 0.00072 0.1884-0.06949 0.37017-0.19667 0.50916-0.58084 0.63917-1.17667 1.31083-1.90833 2.04167-0.72167 0.72-1.0825 1.08-1.205 1.47083-0.1225 0.39167-0.035 0.8775 0.14084 1.85 0.17361 0.96017 0.31204 1.92637 0.41499 2.89667 0.025 0.25485-0.07098 0.50668-0.25927 0.68023-0.18829 0.17356-0.44709 0.24874-0.69906 0.20311-0.41-0.10333-1.3525-0.58083-2.8475-1.465-0.8775-0.51833-1.31583-0.77667-1.77167-0.77667-0.45583 0-0.89333 0.25833-1.77083 0.77667-1.495 0.88333-2.43667 1.36167-2.84667 1.465-0.25198 0.04564-0.51077-0.02954-0.69906-0.20311-0.18829-0.17356-0.28427-0.42538-0.25927-0.68023 0.10298-0.97001 0.2414-1.93594 0.415-2.89583 0.175-0.97333 0.26333-1.46 0.14083-1.85-0.1225-0.39167-0.48333-0.75167-1.20416-1.47167-0.7325-0.73083-1.32833-1.4025-1.90834-2.04167-0.12759-0.13853-0.19839-0.32-0.19833-0.50833 0-0.33333 0.21917-0.625 0.5425-0.705 0.93591-0.22352 1.88129-0.40537 2.83333-0.545 0.94583-0.14167 1.41917-0.2125 1.74334-0.4425 0.325-0.23083 0.55-0.66083 1.00333-1.52083 0.58583-1.11417 1.16333-2.0625 1.545-2.61667 0.1523-0.21501 0.40071-0.34124 0.66417-0.3375 0.26346-0.00374 0.51187 0.12249 0.66416 0.3375",
+                              "width": 16.662559151649475,
+                              "height": 15.831502437591553,
+                              "stroke": "#B88A00",
+                              "strokeWidth": 1.25,
+                              "strokeLinejoin": "round",
+                              "strokeLinecap": "round"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qXA4Q",
+                      "name": "div",
+                      "context": "div",
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "R9zw8",
+                          "name": "Futebol",
+                          "context": "Text - div",
+                          "fill": "#202021",
+                          "content": "Futebol",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Manrope",
+                          "fontSize": 15,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "q3Lyn",
+                          "name": "Ouro",
+                          "context": "Text - div",
+                          "fill": "#b88a00",
+                          "content": "Ouro",
+                          "lineHeight": 1.38,
+                          "fontFamily": "Manrope",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "LhdOY",
+                  "name": "div",
+                  "context": "div",
+                  "layout": "vertical",
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "H97psR",
+                      "name": "750",
+                      "context": "Text - div",
+                      "fill": "#b88a00",
+                      "content": "750",
+                      "lineHeight": 1.36,
+                      "fontFamily": "Manrope",
+                      "fontSize": 28,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PXrog",
+                      "name": "pontos",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "pontos",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k0cUy",
+              "name": "div",
+              "context": "div",
+              "width": "fill_container",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "go1gH",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "fill": "#f0eeff",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "w0kZT",
+                      "name": "3º de 6",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "3º de 6",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "M6w3Hz",
+                      "name": "posição",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "posição",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "vhrg1",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "fill": "#f0eeff",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "oVxkA",
+                      "name": "2",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "2",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "NeXwf",
+                      "name": "torneios",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "torneios",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "B89vU",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "fill": "#f0eeff",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Es5av",
+                      "name": "4,2",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "4,2",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "b9ZeD",
+                      "name": "nota média",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "nota média",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "UE6fS",
+          "name": "div",
+          "context": "div",
+          "width": "fill_container",
+          "fill": "#ffffff",
+          "cornerRadius": 22,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 18,
+          "children": [
+            {
+              "type": "text",
+              "id": "OtgfW",
+              "name": "Ranking de Futebol",
+              "context": "Text - div",
+              "fill": "#202021",
+              "content": "Ranking de Futebol",
+              "lineHeight": 1.4,
+              "fontFamily": "Manrope",
+              "fontSize": 15,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "OMVbk",
+              "name": "button",
+              "context": "button",
+              "width": "fill_container",
+              "height": 50,
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                0,
+                6
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "M3ZZi",
+                  "name": "1º",
+                  "context": "Text - div",
+                  "fill": "#5947c4",
+                  "content": "1º",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Manrope",
+                  "fontSize": 13,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "r0IQMp",
+                  "name": "div",
+                  "context": "div",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "#c7d8f0",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "C16NG",
+                      "name": "CS",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "CS",
+                      "lineHeight": 1.41,
+                      "fontFamily": "Manrope",
+                      "fontSize": 9.92,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "G9EzDV",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "I87sj1",
+                      "name": "Caio Santos",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "Caio Santos",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "I7aO2s",
+                      "name": "Diamante · nota 4,7 · 9 avaliações",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "Diamante · nota 4,7 · 9 avaliações",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "gKrX1",
+                  "name": "817",
+                  "context": "Text - div",
+                  "fill": "#3e7bd6",
+                  "content": "817",
+                  "lineHeight": 1.4,
+                  "fontFamily": "Manrope",
+                  "fontSize": 15,
+                  "fontWeight": "800"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Z7aexE",
+              "name": "button",
+              "context": "button",
+              "width": "fill_container",
+              "height": 50,
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                0,
+                6
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "cv65F",
+                  "name": "2º",
+                  "context": "Text - div",
+                  "fill": "#5947c4",
+                  "content": "2º",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Manrope",
+                  "fontSize": 13,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "O8xSi",
+                  "name": "div",
+                  "context": "div",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "#d6c8f5",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "FpFEK",
+                      "name": "PN",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "PN",
+                      "lineHeight": 1.41,
+                      "fontFamily": "Manrope",
+                      "fontSize": 9.92,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "WeHDx",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "SZbp1",
+                      "name": "Pedro Nunes",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "Pedro Nunes",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "r0zrOK",
+                      "name": "Ouro · nota 4,2 · 9 avaliações",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "Ouro · nota 4,2 · 9 avaliações",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "CRZkO",
+                  "name": "755",
+                  "context": "Text - div",
+                  "fill": "#b88a00",
+                  "content": "755",
+                  "lineHeight": 1.4,
+                  "fontFamily": "Manrope",
+                  "fontSize": 15,
+                  "fontWeight": "800"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "C2wp3",
+              "name": "button",
+              "context": "button",
+              "width": "fill_container",
+              "height": 50,
+              "fill": "#f0eeff",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                0,
+                6
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "BvlFh",
+                  "name": "3º",
+                  "context": "Text - div",
+                  "fill": "#5947c4",
+                  "content": "3º",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Manrope",
+                  "fontSize": 13,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "OWJ5b",
+                  "name": "div",
+                  "context": "div",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "#cbe6a4",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bYkW4",
+                      "name": "AO",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "AO",
+                      "lineHeight": 1.41,
+                      "fontFamily": "Manrope",
+                      "fontSize": 9.92,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xnm8N",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "jLNuK",
+                      "name": "Você",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "Você",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "k2iEX",
+                      "name": "Ouro · nota 4,2 · 9 avaliações",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "Ouro · nota 4,2 · 9 avaliações",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "q3V8x",
+                  "name": "750",
+                  "context": "Text - div",
+                  "fill": "#b88a00",
+                  "content": "750",
+                  "lineHeight": 1.4,
+                  "fontFamily": "Manrope",
+                  "fontSize": 15,
+                  "fontWeight": "800"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tbKGV",
+              "name": "button",
+              "context": "button",
+              "width": "fill_container",
+              "height": 50,
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                0,
+                6
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "qiY5j",
+                  "name": "4º",
+                  "context": "Text - div",
+                  "fill": "#5947c4",
+                  "content": "4º",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Manrope",
+                  "fontSize": 13,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "Plgqu",
+                  "name": "div",
+                  "context": "div",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "#e2cbd4",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "G6vTh6",
+                      "name": "GA",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "GA",
+                      "lineHeight": 1.41,
+                      "fontFamily": "Manrope",
+                      "fontSize": 9.92,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zraqA",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "IsQQA",
+                      "name": "Giovana Alves",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "Giovana Alves",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oGX7a",
+                      "name": "Prata · nota 3,5 · 9 avaliações",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "Prata · nota 3,5 · 9 avaliações",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "YDlLD",
+                  "name": "664",
+                  "context": "Text - div",
+                  "fill": "#7c8592",
+                  "content": "664",
+                  "lineHeight": 1.4,
+                  "fontFamily": "Manrope",
+                  "fontSize": 15,
+                  "fontWeight": "800"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "TILA3",
+              "name": "button",
+              "context": "button",
+              "width": "fill_container",
+              "height": 50,
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                0,
+                6
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "x1IZ2",
+                  "name": "5º",
+                  "context": "Text - div",
+                  "fill": "#5947c4",
+                  "content": "5º",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Manrope",
+                  "fontSize": 13,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "sI1SO",
+                  "name": "div",
+                  "context": "div",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "#f0c6c0",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "HeySP",
+                      "name": "DR",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "DR",
+                      "lineHeight": 1.41,
+                      "fontFamily": "Manrope",
+                      "fontSize": 9.92,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "c3X1O",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gDY8c",
+                      "name": "Dani Rocha",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "Dani Rocha",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PuBDh",
+                      "name": "Prata · nota 3,1 · 5 avaliações",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "Prata · nota 3,1 · 5 avaliações",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "o8ZAbb",
+                  "name": "613",
+                  "context": "Text - div",
+                  "fill": "#7c8592",
+                  "content": "613",
+                  "lineHeight": 1.4,
+                  "fontFamily": "Manrope",
+                  "fontSize": 15,
+                  "fontWeight": "800"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "L5Afnp",
+              "name": "button",
+              "context": "button",
+              "width": "fill_container",
+              "height": 50,
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                0,
+                6
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "IZiOo",
+                  "name": "6º",
+                  "context": "Text - div",
+                  "fill": "#5947c4",
+                  "content": "6º",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Manrope",
+                  "fontSize": 13,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "jQSDA",
+                  "name": "div",
+                  "context": "div",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "#f2d4a6",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "f2C02H",
+                      "name": "BM",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "BM",
+                      "lineHeight": 1.41,
+                      "fontFamily": "Manrope",
+                      "fontSize": 9.92,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Z3YAlT",
+                  "name": "div",
+                  "context": "div",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Antyf",
+                      "name": "Bruno Martins",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "Bruno Martins",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "V452Oc",
+                      "name": "Prata · nota 3,0 · 9 avaliações",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "Prata · nota 3,0 · 9 avaliações",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "xT47Z",
+                  "name": "600",
+                  "context": "Text - div",
+                  "fill": "#7c8592",
+                  "content": "600",
+                  "lineHeight": 1.4,
+                  "fontFamily": "Manrope",
+                  "fontSize": 15,
+                  "fontWeight": "800"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "v1Hhn5",
+          "name": "div",
+          "context": "div",
+          "width": "fill_container",
+          "fill": "#ffffff",
+          "cornerRadius": 22,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 18,
+          "children": [
+            {
+              "type": "text",
+              "id": "gyjuu",
+              "name": "Seus torneios",
+              "context": "Text - div",
+              "fill": "#202021",
+              "content": "Seus torneios",
+              "lineHeight": 1.4,
+              "fontFamily": "Manrope",
+              "fontSize": 15,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "ybhDn",
+              "name": "div",
+              "context": "div",
+              "width": "fill_container",
+              "height": 44,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "DxhI7",
+                  "x": 0,
+                  "y": 5,
+                  "name": "div",
+                  "context": "div",
+                  "width": 287.67,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "zMnpj",
+                      "name": "Copa Pinheiros · rodada 1",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "Copa Pinheiros · rodada 1",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oWt5v",
+                      "name": "dom., 15 de nov.",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "dom., 15 de nov.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "HGCF5",
+                  "x": 295.67,
+                  "y": 0,
+                  "name": "div",
+                  "context": "div",
+                  "height": 26,
+                  "fill": "#f0eeff",
+                  "cornerRadius": 99,
+                  "padding": [
+                    0,
+                    9
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "OB3rG",
+                      "name": "Nota 4,2",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "Nota 4,2",
+                      "lineHeight": 1.4,
+                      "fontFamily": "Manrope",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "T1d7O",
+              "name": "div",
+              "context": "div",
+              "width": "fill_container",
+              "height": 44,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "wBMDL",
+                  "x": 0,
+                  "y": 5,
+                  "name": "div",
+                  "context": "div",
+                  "width": 287.67,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ZBTE6",
+                      "name": "Copa Pinheiros · rodada 2",
+                      "context": "Text - div",
+                      "fill": "#202021",
+                      "content": "Copa Pinheiros · rodada 2",
+                      "lineHeight": 1.38,
+                      "fontFamily": "Manrope",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "SeP9F",
+                      "name": "sáb., 21 de nov.",
+                      "context": "Text - div",
+                      "fill": "#5d5d5a",
+                      "content": "sáb., 21 de nov.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Manrope",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "A1BiNn",
+                  "x": 295.67,
+                  "y": 0,
+                  "name": "div",
+                  "context": "div",
+                  "height": 26,
+                  "fill": "#f0eeff",
+                  "cornerRadius": 99,
+                  "padding": [
+                    0,
+                    9
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "qCwZR",
+                      "name": "Nota 4,2",
+                      "context": "Text - div",
+                      "fill": "#5947c4",
+                      "content": "Nota 4,2",
+                      "lineHeight": 1.4,
+                      "fontFamily": "Manrope",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "RHIvU",
+      "x": 500,
+      "y": 30758,
+      "name": "Proposta · Métricas de torneios · sem dados",
+      "clip": true,
+      "width": 390,
+      "height": 617,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "xkLkz",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho",
+          "width": "fill_container",
+          "descendants": {
+            "hqbpM": {
+              "content": "huddle+"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "id": "S3Wix",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Métricas de desempenho",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 27,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "zgcKM",
+          "name": "Subtítulo",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Seu jogo em números.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "type": "frame",
+          "id": "gxPUU",
+          "name": "Abas de métricas",
+          "width": "fill_container",
+          "fill": "#E1E1E5",
+          "cornerRadius": 16,
+          "gap": 4,
+          "padding": 4,
+          "children": [
+            {
+              "type": "frame",
+              "id": "Ni5JR",
+              "name": "Partidas",
+              "width": "fill_container",
+              "height": 42,
+              "fill": "#E1E1E5",
+              "cornerRadius": 12,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "TEdwz",
+                  "name": "Rótulo",
+                  "fill": "$huddle.text-muted",
+                  "content": "Partidas",
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "c8SePZ",
+              "name": "Torneios",
+              "width": "fill_container",
+              "height": 42,
+              "fill": "$huddle.surface",
+              "cornerRadius": 12,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "tGmPd",
+                  "name": "Rótulo",
+                  "fill": "$huddle.primary",
+                  "content": "Torneios",
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "u6G1vd",
+          "name": "Estado",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-card",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "zY9tA",
+              "name": "Ícone do estado",
+              "width": 48,
+              "height": 48,
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 24,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "VUi37",
+                  "name": "Símbolo",
+                  "width": 22,
+                  "height": 22,
+                  "icon": "trophy",
+                  "library": "lucide",
+                  "fill": "$huddle.primary"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "uAY73",
+              "name": "Título do estado",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Você ainda não jogou torneios",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "ZT8vX",
+              "name": "Explicação",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Encontre partidas marcadas como Torneio · Huddle+ ou crie a sua. Seu ranking aparecerá aqui.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "id": "L3CCz6",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Buscar torneios",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Buscar partidas"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "m3vGB",
+      "x": 950,
+      "y": 30758,
+      "name": "Proposta · Métricas de torneios · erro",
+      "clip": true,
+      "width": 390,
+      "height": 597,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": [
+        20,
+        20,
+        28,
+        20
+      ],
+      "children": [
+        {
+          "id": "QPZnq",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho",
+          "width": "fill_container",
+          "descendants": {
+            "hqbpM": {
+              "content": "huddle+"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "id": "Olzqw",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Métricas de desempenho",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 27,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "bojIi",
+          "name": "Subtítulo",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Seu jogo em números.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14
+        },
+        {
+          "type": "frame",
+          "id": "C118nB",
+          "name": "Abas de métricas",
+          "width": "fill_container",
+          "fill": "#E1E1E5",
+          "cornerRadius": 16,
+          "gap": 4,
+          "padding": 4,
+          "children": [
+            {
+              "type": "frame",
+              "id": "GhaO2",
+              "name": "Partidas",
+              "width": "fill_container",
+              "height": 42,
+              "fill": "#E1E1E5",
+              "cornerRadius": 12,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "jO5um",
+                  "name": "Rótulo",
+                  "fill": "$huddle.text-muted",
+                  "content": "Partidas",
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "f4XMx",
+              "name": "Torneios",
+              "width": "fill_container",
+              "height": 42,
+              "fill": "$huddle.surface",
+              "cornerRadius": 12,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mRMdi",
+                  "name": "Rótulo",
+                  "fill": "$huddle.primary",
+                  "content": "Torneios",
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ef565",
+          "name": "Estado",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-card",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "Snlwh",
+              "name": "Ícone do estado",
+              "width": 48,
+              "height": 48,
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 24,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "Z21sk",
+                  "name": "Símbolo",
+                  "width": 22,
+                  "height": 22,
+                  "icon": "refresh-cw",
+                  "library": "lucide",
+                  "fill": "$huddle.primary"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "GYqAR",
+              "name": "Título do estado",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Não foi possível carregar",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "G1QfZZ",
+              "name": "Explicação",
+              "fill": "$huddle.text-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Confira sua conexão e tente novamente para ver seus torneios e ranking.",
+              "lineHeight": 1.4,
+              "fontFamily": "$huddle.font",
+              "fontSize": 14
+            }
+          ]
+        },
+        {
+          "id": "LF5mP",
+          "type": "ref",
+          "ref": "s1vUq",
+          "name": "Tentar novamente",
+          "width": "fill_container",
+          "descendants": {
+            "IjchX": {
+              "enabled": false
+            },
+            "M1RZc": {
+              "content": "Tentar novamente"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "YEANl",
+      "x": 1450,
+      "y": 30758,
+      "name": "Painel · Relatório técnico × Huddle atual",
+      "width": 1180,
+      "height": 1089,
+      "fill": "$huddle.surface",
+      "cornerRadius": 24,
+      "layout": "vertical",
+      "gap": 16,
+      "padding": 32,
+      "children": [
+        {
+          "type": "text",
+          "id": "IaZox",
+          "name": "Marcador",
+          "fill": "$huddle.primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "MAPEAMENTO  /  RELATÓRIO TÉCNICO",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 14,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "S9onhS",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "O que precisa ser alinhado",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 32,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "r9f5Z",
+          "name": "Introdução",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Comparação do relatório enviado com o código do Huddle. Itens marcados para revisão; não representam validação jurídica.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 16
+        },
+        {
+          "type": "frame",
+          "id": "q3wiGq",
+          "name": "Divergências",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "frame",
+              "id": "z0shsj",
+              "name": "01 · Limite de vagas",
+              "width": "fill_container",
+              "fill": "$huddle.canvas",
+              "cornerRadius": 16,
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yHrXk",
+                  "name": "Número",
+                  "width": 44,
+                  "height": 36,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "pSM9q",
+                      "name": "Identificador",
+                      "fill": "$huddle.primary",
+                      "content": "01",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "bd7vd",
+                  "name": "Detalhes",
+                  "width": 920,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Z5kUSi",
+                      "name": "Assunto",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Limite de vagas",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "K7sP0N",
+                      "name": "Relatório",
+                      "fill": "$huddle.text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Relatório: 2 a 40 vagas.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "b4c1NX",
+                      "name": "Evidência",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "App: 2 a 30; API aceita até 40.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "UIWia",
+                  "name": "Situação · revisar",
+                  "fill": "$huddle.warning-bg",
+                  "cornerRadius": 999,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MW6Qe",
+                      "name": "Situação",
+                      "fill": "$huddle.warning",
+                      "content": "Revisar",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 12,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "H6MtVg",
+              "name": "02 · Aceite no cadastro",
+              "width": "fill_container",
+              "fill": "$huddle.canvas",
+              "cornerRadius": 16,
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "BA1cs",
+                  "name": "Número",
+                  "width": 44,
+                  "height": 36,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "qjc2g",
+                      "name": "Identificador",
+                      "fill": "$huddle.primary",
+                      "content": "02",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "j6xOcK",
+                  "name": "Detalhes",
+                  "width": 920,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "S5nm3",
+                      "name": "Assunto",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Aceite no cadastro",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "TLxeF",
+                      "name": "Relatório",
+                      "fill": "$huddle.text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Relatório: tela apresenta aceite; RF26 está previsto.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "ygUdl",
+                      "name": "Evidência",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "App: aceite ainda não implementado.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "wjNOH",
+                  "name": "Situação · revisar",
+                  "fill": "$huddle.warning-bg",
+                  "cornerRadius": 999,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "l0Ngi",
+                      "name": "Situação",
+                      "fill": "$huddle.warning",
+                      "content": "Revisar",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 12,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yqc7V",
+              "name": "03 · Assinatura e cancelamento",
+              "width": "fill_container",
+              "fill": "$huddle.canvas",
+              "cornerRadius": 16,
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "R4yauk",
+                  "name": "Número",
+                  "width": 44,
+                  "height": 36,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "iV7tQ",
+                      "name": "Identificador",
+                      "fill": "$huddle.primary",
+                      "content": "03",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "XIY1O",
+                  "name": "Detalhes",
+                  "width": 920,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "FKDdT",
+                      "name": "Assunto",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Assinatura e cancelamento",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OzmVe",
+                      "name": "Relatório",
+                      "fill": "$huddle.text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Apêndices descrevem cobrança, renovação e período pago.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "K1GIZ",
+                      "name": "Evidência",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Código: pagamento simulado e retorno imediato ao plano grátis.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "m5J31t",
+                  "name": "Situação · revisar",
+                  "fill": "$huddle.warning-bg",
+                  "cornerRadius": 999,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "eriBl",
+                      "name": "Situação",
+                      "fill": "$huddle.warning",
+                      "content": "Revisar",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 12,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ts3w1",
+              "name": "04 · Registros de acesso",
+              "width": "fill_container",
+              "fill": "$huddle.canvas",
+              "cornerRadius": 16,
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "lDnaq",
+                  "name": "Número",
+                  "width": 44,
+                  "height": 36,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "UK8JI",
+                      "name": "Identificador",
+                      "fill": "$huddle.primary",
+                      "content": "04",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "B89dH",
+                  "name": "Detalhes",
+                  "width": 920,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "x4IVnt",
+                      "name": "Assunto",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Registros de acesso",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ICYOW",
+                      "name": "Relatório",
+                      "fill": "$huddle.text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Política afirma retenção por seis meses.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "AAYiM",
+                      "name": "Evidência",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "RNF14 está previsto; retenção não comprovada na API.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xbSms",
+                  "name": "Situação · revisar",
+                  "fill": "$huddle.warning-bg",
+                  "cornerRadius": 999,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Z9r92p",
+                      "name": "Situação",
+                      "fill": "$huddle.warning",
+                      "content": "Revisar",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 12,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ZO4nj",
+              "name": "05 · Hospedagem e versões",
+              "width": "fill_container",
+              "fill": "$huddle.canvas",
+              "cornerRadius": 16,
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "V93qFH",
+                  "name": "Número",
+                  "width": 44,
+                  "height": 36,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "vLarl",
+                      "name": "Identificador",
+                      "fill": "$huddle.primary",
+                      "content": "05",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "E0yeC",
+                  "name": "Detalhes",
+                  "width": 920,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NpuKH",
+                      "name": "Assunto",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Hospedagem e versões",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "yppxt",
+                      "name": "Relatório",
+                      "fill": "$huddle.text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Relatório apresenta hospedagem como futura e cita Node 22.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "dMHV4",
+                      "name": "Evidência",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "API de teste hospedada; Dockerfile usa Node 26.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "HUxCA",
+                  "name": "Situação · revisar",
+                  "fill": "$huddle.warning-bg",
+                  "cornerRadius": 999,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "FlTpy",
+                      "name": "Situação",
+                      "fill": "$huddle.warning",
+                      "content": "Revisar",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 12,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "N3xuj4",
+              "name": "06 · Reputação e nível",
+              "width": "fill_container",
+              "fill": "$huddle.canvas",
+              "cornerRadius": 16,
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "TpZec",
+                  "name": "Número",
+                  "width": 44,
+                  "height": 36,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "r3gJBu",
+                      "name": "Identificador",
+                      "fill": "$huddle.primary",
+                      "content": "06",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "M4upE",
+                      "name": "Situação · revisar",
+                      "fill": "$huddle.warning-bg",
+                      "cornerRadius": 999,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "GaqrB",
+                          "name": "Situação",
+                          "fill": "$huddle.warning",
+                          "content": "Revisar",
+                          "fontFamily": "$huddle.font",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "SSCQB",
+                  "name": "Detalhes",
+                  "width": 920,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "VEh4V",
+                      "name": "Assunto",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Reputação e nível",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "hTLJN",
+                      "name": "Relatório",
+                      "fill": "$huddle.text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Texto associa reputação alta a jogar bem.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "p4lkZ",
+                      "name": "Evidência",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Reputação mede concordância com o nível declarado.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "h3XDI1",
+              "name": "07 · Localização e protótipos",
+              "width": "fill_container",
+              "fill": "$huddle.canvas",
+              "cornerRadius": 16,
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yFpKa",
+                  "name": "Número",
+                  "width": 44,
+                  "height": 36,
+                  "fill": "$huddle.accent-soft",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PzvJL",
+                      "name": "Identificador",
+                      "fill": "$huddle.primary",
+                      "content": "07",
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "c1HIz8",
+                      "name": "Situação · revisar",
+                      "fill": "$huddle.warning-bg",
+                      "cornerRadius": 999,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "V46G0f",
+                          "name": "Situação",
+                          "fill": "$huddle.warning",
+                          "content": "Revisar",
+                          "fontFamily": "$huddle.font",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BUwVS",
+                  "name": "Detalhes",
+                  "width": 920,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "x7boJ0",
+                      "name": "Assunto",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Localização e protótipos",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "NiTCl",
+                      "name": "Relatório",
+                      "fill": "$huddle.text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Relatório afirma partidas da região e correspondência integral.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "T5gpE",
+                      "name": "Evidência",
+                      "fill": "$huddle.text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Busca por proximidade é futura; confirmar imagens com o app.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$huddle.font",
+                      "fontSize": 14
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "CZcx4",
+          "name": "Fontes",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Fontes: Relatorio_Tecnico_Huddle.docx, telas e código atual do aplicativo e da API. Conferência técnica; detalhes legais e infraestrutura exigem validação.",
+          "lineHeight": 1.4,
+          "fontFamily": "$huddle.font",
+          "fontSize": 13
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "I61Xo",
+      "x": 18360,
+      "y": 10000,
+      "name": "Proposta · Busca · texto sem geolocalização",
+      "clip": true,
+      "width": 430,
+      "height": 900,
+      "fill": {
+        "type": "image",
+        "enabled": true,
+        "url": "preview-busca.png",
+        "mode": "contain"
+      },
+      "layout": "none",
+      "children": [
+        {
+          "type": "rectangle",
+          "id": "opQJ4",
+          "x": 20,
+          "y": 107,
+          "name": "Fundo do subtítulo",
+          "fill": "$huddle.canvas",
+          "width": 390,
+          "height": 30
+        },
+        {
+          "type": "text",
+          "id": "n1jiNA",
+          "x": 20,
+          "y": 112,
+          "name": "Subtítulo",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": 390,
+          "content": "Encontre partidas em cinco esportes coletivos.",
+          "fontFamily": "$huddle.font",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "YGkG7",
+      "x": 1820,
+      "y": 29468,
+      "name": "Proposta · Perfil · acesso aos documentos",
+      "clip": true,
+      "width": 430,
+      "height": 620,
+      "fill": "$huddle.canvas",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": 20,
+      "children": [
+        {
+          "id": "oMIXk",
+          "type": "ref",
+          "ref": "a3qm8",
+          "name": "Cabeçalho",
+          "width": "fill_container"
+        },
+        {
+          "type": "text",
+          "id": "TxVGl",
+          "name": "Título",
+          "fill": "$huddle.text",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Meu perfil",
+          "fontFamily": "$huddle.font",
+          "fontSize": 27,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "urpr3",
+          "name": "Contexto",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Acesso aos documentos na parte inferior do perfil.",
+          "fontFamily": "$huddle.font",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "rlRhv",
+          "name": "Documentos",
+          "width": "fill_container",
+          "fill": "$huddle.surface",
+          "cornerRadius": "$huddle.radius-card",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 18,
+          "children": [
+            {
+              "type": "text",
+              "id": "VJ6fm",
+              "name": "Título",
+              "fill": "$huddle.text",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Documentos",
+              "fontFamily": "$huddle.font",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "Apj2U",
+              "name": "Termos de Uso",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 16,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "FUB9G",
+                  "name": "Link",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Termos de Uso  →",
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "n65woG",
+              "name": "Política de Privacidade",
+              "width": "fill_container",
+              "fill": "$huddle.accent-soft",
+              "cornerRadius": 16,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "m3ToY5",
+                  "name": "Link",
+                  "fill": "$huddle.primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Política de Privacidade  →",
+                  "fontFamily": "$huddle.font",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "tQdqj",
+          "name": "Estado",
+          "fill": "$huddle.text-muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Conteúdo provisório para testes; revisão jurídica pendente.",
+          "fontFamily": "$huddle.font",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        }
+      ]
     }
   ],
   "variables": {

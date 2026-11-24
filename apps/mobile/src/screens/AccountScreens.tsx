@@ -470,6 +470,7 @@ export function ProfileScreen({
   onPublicProfile,
   onCancelPlan,
   onDeleteAccount,
+  onOpenLegal,
   onSkillChange,
   onLogout,
 }: {
@@ -483,6 +484,7 @@ export function ProfileScreen({
   onPublicProfile: () => void;
   onCancelPlan: () => void;
   onDeleteAccount: () => void;
+  onOpenLegal: (document: 'terms' | 'privacy') => void;
   onSkillChange: (sport: SportId, key: SkillKey, value: number) => void;
   onLogout: () => void;
 }) {
@@ -591,6 +593,24 @@ export function ProfileScreen({
       {profile.plan === 'plus' ? (
         <ActionButton title="Métricas de desempenho" icon="star" tone="soft" onPress={onMetrics} />
       ) : null}
+      <AppCard>
+        <Text style={styles.cardTitle}>Documentos</Text>
+        <Text style={styles.hint}>
+          Rascunhos transcritos do relatório; revisão jurídica pendente.
+        </Text>
+        <ActionButton
+          title="Termos de Uso"
+          icon="arrow"
+          tone="soft"
+          onPress={() => onOpenLegal('terms')}
+        />
+        <ActionButton
+          title="Política de Privacidade"
+          icon="arrow"
+          tone="soft"
+          onPress={() => onOpenLegal('privacy')}
+        />
+      </AppCard>
       <ActionButton title="Sair da conta" icon="logout" onPress={onLogout} />
       <View style={styles.dangerZone}>
         {profile.plan === 'plus' ? (
