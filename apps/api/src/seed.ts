@@ -3,7 +3,7 @@
  * Uso: npm run seed --workspace @huddle/api   (ou, na raiz: npm run api:seed)
  * Só roda em banco vazio. Todas as contas usam a senha "huddle123".
  */
-import { randomUUID, scryptSync } from 'node:crypto';
+import { scryptSync } from 'node:crypto';
 import { databasePath, db, one, run, transaction } from './database.ts';
 import { type Skills, type SportId, skillKeysBySport, weekKey } from './domain.ts';
 
@@ -23,6 +23,8 @@ type SeedUser = {
    * Negativo = se superestima (os outros votam "Abaixo").
    */
   honesty: number;
+  /** Conta criada há menos tempo, para demonstrar perfis recém-cadastrados. */
+  createdDaysAgo?: number;
 };
 
 const users: SeedUser[] = [
@@ -92,7 +94,7 @@ const users: SeedUser[] = [
     name: 'Iago Lima',
     email: 'iago@exemplo.com',
     color: '#CBE6A4',
-    sports: { volleyball: 3, basketball: 3 },
+    sports: { volleyball: 3, basketball: 1 },
     honesty: 0,
   },
   {
@@ -109,14 +111,33 @@ const users: SeedUser[] = [
     email: 'gio@exemplo.com',
     color: '#E2CBD4',
     plan: 'plus',
-    sports: { football: 3.5, handball: 4 },
+    sports: { football: 5, handball: 4 },
     honesty: 0,
+  },
+  {
+    id: 'nina',
+    name: 'Nina Alves',
+    email: 'nina@exemplo.com',
+    color: '#F4C5A6',
+    plan: 'plus',
+    sports: { volleyball: 3.5 },
+    honesty: 0,
+    createdDaysAgo: 2,
+  },
+  {
+    id: 'leo',
+    name: 'Leo Ribeiro',
+    email: 'leo@exemplo.com',
+    color: '#BDE1DC',
+    sports: {},
+    honesty: 0,
+    createdDaysAgo: 1,
   },
 ];
 
 const byId = new Map(users.map((user) => [user.id, user]));
 
-/** Ruído determinístico entre -0,5 e 0,5 (o seed gera sempre os mesmos dados). */
+/** Ruído determinístico para notas consistentes entre as execuções do seed. */
 function noise(...parts: string[]) {
   let hash = 0;
   for (const char of parts.join('|')) hash = (hash * 31 + char.charCodeAt(0)) | 0;
@@ -163,22 +184,59 @@ type SeedMatch = {
   joinPolicy?: 'instant' | 'approval';
   autoFill?: boolean;
   finished?: boolean;
+  cancelled?: boolean;
+  cancelledAt?: string;
   highlighted?: boolean;
   confirmed: string[];
   pending?: string[];
   waitlist?: string[];
   /** Quem já enviou avaliação (partidas finalizadas). Padrão: todos. */
   reviewers?: string[];
+  /** Pares que receberam nota de habilidade, mas não voto de nível. */
+  noOverallVotePairs?: string[];
+  /** Votos fixos para garantir a cobertura das três opções. */
+  voteOverrides?: { reviewerId: string; targetId: string; vote: -1 | 0 | 1 }[];
+  /** Oferta ativa ou expirada para alguém que já está na lista de espera. */
+  waitlistOffer?: { userId: string; expiresAt: string };
 };
 
 function addMatch(match: SeedMatch) {
   const now = new Date().toISOString();
   const access = match.access ?? 'free';
+  const memberIds = [
+    ...match.confirmed,
+    ...(match.pending ?? []),
+    ...(match.waitlist ?? []),
+  ];
+  if (match.finished && match.cancelled)
+    throw new Error(`Partida não pode estar finalizada e cancelada: ${match.id}`);
+  if (match.confirmed.length > match.maxPlayers)
+    throw new Error(`Partida excede a lotação: ${match.id}`);
+  if (new Set(memberIds).size !== memberIds.length)
+    throw new Error(`Participante duplicado na partida: ${match.id}`);
+  if (!match.confirmed.includes(match.hostId))
+    throw new Error(`Organizador precisa estar confirmado: ${match.id}`);
+  if (
+    match.waitlistOffer &&
+    !(match.waitlist ?? []).includes(match.waitlistOffer.userId)
+  )
+    throw new Error(`Oferta precisa apontar para alguém da fila: ${match.id}`);
+
+  for (const userId of memberIds) {
+    const user = byId.get(userId);
+    if (!user) throw new Error(`Usuário de seed desconhecido: ${userId}`);
+    if (user.sports[match.sport] === undefined)
+      throw new Error(`${userId} não tem perfil de ${match.sport} em ${match.id}`);
+    if (match.mode === 'tournament' && user.plan !== 'plus')
+      throw new Error(`${userId} precisa do Huddle+ para ${match.id}`);
+  }
+
   run(
     `INSERT INTO matches (id,mode,title,sport,format,venue,neighborhood,starts_at,access,min_level,max_level,
        max_players,host_id,description,join_policy,auto_fill_waitlist,status,created_at,
-       highlighted_until,highlighted_by_id,highlight_week_key,finished_at)
-     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+       highlighted_until,highlighted_by_id,highlight_week_key,finished_at,cancelled_at,
+       waitlist_offer_user_id,waitlist_offer_expires_at)
+     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
     match.id,
     match.mode ?? 'casual',
     match.title,
@@ -195,14 +253,21 @@ function addMatch(match: SeedMatch) {
     match.description,
     match.joinPolicy ?? 'instant',
     match.autoFill ? 1 : 0,
-    match.finished ? 'finished' : 'open',
-    now,
+    match.finished ? 'finished' : match.cancelled ? 'cancelled' : 'open',
+    match.finished
+      ? new Date(new Date(match.startsAt).getTime() - 7 * DAY).toISOString()
+      : match.cancelled
+        ? new Date(new Date(match.cancelledAt ?? now).getTime() - 2 * DAY).toISOString()
+        : now,
     match.highlighted ? new Date(Date.now() + DAY).toISOString() : null,
     match.highlighted ? match.hostId : null,
     match.highlighted ? weekKey(new Date()) : null,
     match.finished
       ? new Date(new Date(match.startsAt).getTime() + 2 * 3600 * 1000).toISOString()
       : null,
+    match.cancelled ? (match.cancelledAt ?? now) : null,
+    match.waitlistOffer?.userId ?? null,
+    match.waitlistOffer?.expiresAt ?? null,
   );
   const members: [string, 'confirmed' | 'pending' | 'waitlist'][] = [
     ...match.confirmed.map((id) => [id, 'confirmed'] as [string, 'confirmed']),
@@ -210,8 +275,7 @@ function addMatch(match: SeedMatch) {
     ...(match.waitlist ?? []).map((id) => [id, 'waitlist'] as [string, 'waitlist']),
   ];
   members.forEach(([userId, status], index) => {
-    const user = byId.get(userId);
-    if (!user) throw new Error(`Usuário de seed desconhecido: ${userId}`);
+    const user = byId.get(userId)!;
     const skills = declaredSkills(user, match.sport);
     const keys = skillKeysBySport[match.sport];
     const level = keys.reduce((total, key) => total + (skills[key] ?? 3), 0) / keys.length;
@@ -224,7 +288,11 @@ function addMatch(match: SeedMatch) {
       Math.round(level * 10) / 10,
       user.color,
       status === 'waitlist' ? index + 1 : null,
-      now,
+      match.finished
+        ? new Date(new Date(match.startsAt).getTime() - 2 * DAY).toISOString()
+        : match.cancelled
+          ? new Date(new Date(match.cancelledAt ?? now).getTime() - DAY).toISOString()
+          : now,
       match.finished && index % 3 !== 2 ? match.startsAt : null,
       JSON.stringify(skills),
     );
@@ -248,15 +316,24 @@ function addReviews(match: SeedMatch) {
       const skills = declaredSkills(target, match.sport);
       const offset = target.honesty + noise(match.id, reviewerId, targetId) * 0.6;
       const vote = offset <= -0.5 ? -1 : offset >= 0.5 ? 1 : 0;
-      const reviewId = randomUUID();
+      const reviewId = `review-${match.id}-${reviewerId}-${targetId}`;
+      const noOverallVote = match.noOverallVotePairs?.includes(`${reviewerId}:${targetId}`);
+      const voteOverride = match.voteOverrides?.find(
+        (item) => item.reviewerId === reviewerId && item.targetId === targetId,
+      );
+      const finalVote = noOverallVote ? null : (voteOverride?.vote ?? vote);
       run(
         'INSERT INTO reviews (id,match_id,reviewer_id,target_id,overall_vote,comment,created_at) VALUES (?,?,?,?,?,?,?)',
         reviewId,
         match.id,
         reviewerId,
         targetId,
-        vote,
-        vote === 0 ? 'Jogou no nível que declarou.' : '',
+        finalVote,
+        finalVote === null
+          ? 'Habilidades avaliadas; voto de nível não informado.'
+          : finalVote === 0
+            ? 'Jogou no nível que declarou.'
+            : '',
         match.startsAt,
       );
       for (const key of skillKeysBySport[match.sport]) {
@@ -286,6 +363,9 @@ function seed() {
   transaction(() => {
     for (const user of users) {
       const sports = Object.keys(user.sports) as SportId[];
+      const createdAt = new Date(
+        Date.now() - (user.createdDaysAgo ?? 60) * DAY,
+      ).toISOString();
       run(
         `INSERT INTO users (id,name,email,city,timezone,plan,password_hash,color,sports_json,created_at)
          VALUES (?,?,?,?,?,?,?,?,?,?)`,
@@ -298,7 +378,14 @@ function seed() {
         hash(PASSWORD, `seed-${user.id}`),
         user.color,
         JSON.stringify(sports),
-        new Date(Date.now() - 60 * DAY).toISOString(),
+        createdAt,
+      );
+      run(
+        'INSERT INTO legal_acceptances (user_id,terms_version,privacy_version,accepted_at) VALUES (?,?,?,?)',
+        user.id,
+        'relatorio-v1',
+        'relatorio-v1',
+        createdAt,
       );
       for (const sport of sports)
         run(
@@ -323,6 +410,11 @@ function seed() {
       description: 'Racha de domingo de manhã.',
       finished: true,
       confirmed: ['ana', 'bruno', 'caio', 'demo-user', 'pedro', 'gio'],
+      voteOverrides: [
+        { reviewerId: 'ana', targetId: 'demo-user', vote: -1 },
+        { reviewerId: 'bruno', targetId: 'caio', vote: 0 },
+        { reviewerId: 'caio', targetId: 'pedro', vote: 1 },
+      ],
     });
     addMatch({
       id: 'history-2',
@@ -352,6 +444,7 @@ function seed() {
       finished: true,
       confirmed: ['pedro', 'bruno', 'iago', 'demo-user'],
       reviewers: ['pedro', 'bruno', 'iago'],
+      noOverallVotePairs: ['iago:demo-user'],
     });
 
     // Torneios finalizados (ranking separado, só Huddle+).
@@ -406,6 +499,24 @@ function seed() {
       finished: true,
       confirmed: ['dani', 'ana', 'caio'],
     });
+    addMatch({
+      id: 'tournament-basketball',
+      mode: 'tournament',
+      title: 'Desafio 3×3 · etapa aberta',
+      sport: 'basketball',
+      format: '3×3',
+      venue: 'Quadra do Parque',
+      neighborhood: 'Vila Mariana, São Paulo',
+      startsAt: at(-4, 19),
+      access: 'level',
+      minLevel: 3,
+      maxLevel: 5,
+      maxPlayers: 6,
+      hostId: 'pedro',
+      description: 'Torneio finalizado para alimentar o ranking de basquete.',
+      finished: true,
+      confirmed: ['pedro', 'bruno'],
+    });
 
     // Próximas partidas.
     addMatch({
@@ -424,6 +535,20 @@ function seed() {
       description: 'Jogo amistoso para fechar o dia. Vamos rodar os times e todo mundo joga.',
       highlighted: true,
       confirmed: ['ana', 'bruno', 'caio'],
+    });
+    addMatch({
+      id: 'match-highlight-limit',
+      title: 'Racha de quinta com destaque',
+      sport: 'football',
+      format: 'Society',
+      venue: 'Arena Central',
+      neighborhood: 'Pinheiros, São Paulo',
+      startsAt: at(5, 19),
+      maxPlayers: 10,
+      hostId: 'ana',
+      description: 'Terceiro destaque da semana da conta Huddle+ de demonstração.',
+      highlighted: true,
+      confirmed: ['ana', 'bruno'],
     });
     addMatch({
       id: 'match-2',
@@ -465,10 +590,26 @@ function seed() {
       startsAt: at(2, 18),
       maxPlayers: 4,
       hostId: 'luiza',
-      description: 'Partida completa com lista de espera aberta.',
+      description: 'Partida lotada com lista de espera aberta.',
       autoFill: true,
       confirmed: ['luiza', 'ana', 'caio', 'iago'],
       waitlist: ['eva'],
+    });
+    addMatch({
+      id: 'match-active-offer',
+      title: 'Vôlei com convite de vaga ativo',
+      sport: 'volleyball',
+      format: 'Quadra',
+      venue: 'Arena Pinheiros',
+      neighborhood: 'Pinheiros, São Paulo',
+      startsAt: at(3, 18),
+      maxPlayers: 4,
+      hostId: 'luiza',
+      description: 'Uma vaga abriu e Eva recebeu um convite dentro do prazo.',
+      autoFill: true,
+      confirmed: ['luiza', 'ana', 'caio'],
+      waitlist: ['eva'],
+      waitlistOffer: { userId: 'eva', expiresAt: at(2, 18) },
     });
     addMatch({
       id: 'match-handball',
@@ -482,6 +623,7 @@ function seed() {
       hostId: 'gio',
       description: 'Partida leve. Times definidos no local.',
       confirmed: ['gio', 'luiza'],
+      highlighted: true,
     });
     addMatch({
       id: 'match-dodgeball',
@@ -528,12 +670,58 @@ function seed() {
       description: 'Torneio exclusivo Huddle+. Seja bem avaliado para subir no ranking.',
       highlighted: true,
       confirmed: ['ana', 'caio', 'pedro'],
+      pending: ['dani'],
+    });
+    addMatch({
+      id: 'match-expired-offer',
+      title: 'Basquete com convite expirado',
+      sport: 'basketball',
+      format: '3×3',
+      venue: 'Quadra do Parque',
+      neighborhood: 'Vila Mariana, São Paulo',
+      startsAt: at(7, 20),
+      maxPlayers: 3,
+      hostId: 'demo-user',
+      description: 'Convite de vaga expirado; a organização pode chamar a próxima pessoa.',
+      autoFill: false,
+      confirmed: ['demo-user', 'bruno'],
+      waitlist: ['pedro'],
+      waitlistOffer: { userId: 'pedro', expiresAt: at(-1, 12) },
+    });
+    addMatch({
+      id: 'match-full-no-waitlist',
+      title: 'Handebol com vagas encerradas',
+      sport: 'handball',
+      format: 'Quadra',
+      venue: 'Ginásio Central',
+      neighborhood: 'Centro, São Paulo',
+      startsAt: at(2, 20),
+      maxPlayers: 2,
+      hostId: 'gio',
+      description: 'Partida lotada sem lista de espera.',
+      confirmed: ['gio', 'luiza'],
+    });
+    addMatch({
+      id: 'match-cancelled',
+      title: 'Basquete cancelado pelo organizador',
+      sport: 'basketball',
+      format: '3×3',
+      venue: 'Quadra do Parque',
+      neighborhood: 'Vila Mariana, São Paulo',
+      startsAt: at(8, 19),
+      maxPlayers: 6,
+      hostId: 'demo-user',
+      description: 'Partida cancelada; aparece no histórico da conta de demonstração.',
+      cancelled: true,
+      confirmed: ['demo-user', 'bruno', 'iago'],
     });
   });
   console.log(`Seed concluído em ${databasePath}.`);
-  console.log(
-    `Contas: marina@exemplo.com (grátis) e ana@exemplo.com (Huddle+) · senha "${PASSWORD}".`,
-  );
+  console.log(`Contas (${users.length}; senha "${PASSWORD}"):`);
+  for (const user of users)
+    console.log(
+      `- ${user.email} (${user.plan ?? 'free'})${!Object.keys(user.sports).length ? ' · sem esporte cadastrado' : ''}`,
+    );
 }
 
 seed();

@@ -97,7 +97,33 @@ npm run api:seed
 
 No Docker: `docker compose exec api npm run seed --workspace=@huddle/api`.
 
-Contas criadas (senha `huddle123`): `marina@exemplo.com` (plano grátis) e `ana@exemplo.com` (Huddle+), além de outros jogadores `@exemplo.com`.
+Todas as 12 contas usam a senha `huddle123`:
+
+| Conta | Plano | Perfil para demonstração |
+| --- | --- | --- |
+| `marina@exemplo.com` | Grátis | Conta principal, histórico, partidas próprias e cancelamento |
+| `ana@exemplo.com` | Huddle+ | Métricas, torneios, ranking e limite semanal de destaques |
+| `nina@exemplo.com` | Huddle+ | Perfil recente sem partidas, para métricas vazias |
+| `leo@exemplo.com` | Grátis | Cadastro recente sem esporte, para concluir o perfil |
+| `bruno@exemplo.com` | Huddle+ | Participante e avaliador |
+| `caio@exemplo.com` | Huddle+ | Vários esportes e torneios |
+| `luiza@exemplo.com` | Grátis | Organização e lista de espera |
+| `pedro@exemplo.com` | Huddle+ | Basquete, torneio e avaliações |
+| `dani@exemplo.com` | Huddle+ | Vôlei, aprovação e torneios |
+| `iago@exemplo.com` | Grátis | Habilidades de nível inicial |
+| `eva@exemplo.com` | Grátis | Fila de espera e convite de vaga |
+| `gio@exemplo.com` | Huddle+ | Handebol, pedidos e habilidades de nível alto |
+
+A seed cobre os cinco esportes, partidas casuais e torneios, acesso livre e por nível, pedidos pendentes, lotação com e sem fila, convites ativos e expirados, cota semanal de destaques esgotada, partidas finalizadas e canceladas. O histórico inclui avaliações completas e parciais, votos Abaixo/Certo/Acima e habilidades de 1 a 5 para alimentar níveis, reputação, métricas e rankings em futebol, vôlei e basquete.
+
+O comando não altera bancos que já tenham contas. Para repopular, use um banco vazio ou um arquivo SQLite novo em `DATABASE_PATH`.
+
+O banco padrão desta cópia já pode conter dados locais. Para usar uma cópia isolada de demonstração, crie e inicie a API com o mesmo caminho:
+
+```sh
+DATABASE_PATH=./data/huddle-demo.sqlite npm run api:seed
+DATABASE_PATH=./data/huddle-demo.sqlite npm run api:start
+```
 
 ### Regras principais
 
